@@ -218,12 +218,11 @@ export const Users = () => {
               />
             </div>
 
-            <Select value={roleFilter} onValueChange={setRoleFilter}>
+            <Select value={roleFilter || undefined} onValueChange={(value) => setRoleFilter(value || '')}>
               <SelectTrigger>
                 <SelectValue placeholder="Todos os papéis" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todos os papéis</SelectItem>
                 <SelectItem value="funcionario">Funcionário</SelectItem>
                 <SelectItem value="gerente">Gerente</SelectItem>
                 <SelectItem value="admin">Administrador</SelectItem>

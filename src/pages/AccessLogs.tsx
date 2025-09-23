@@ -204,12 +204,11 @@ export const AccessLogs = () => {
               />
             </div>
 
-            <Select value={filters.action} onValueChange={(value) => handleFilterChange('action', value)}>
+            <Select value={filters.action || undefined} onValueChange={(value) => handleFilterChange('action', value || '')}>
               <SelectTrigger>
                 <SelectValue placeholder="Todas as ações" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todas as ações</SelectItem>
                 <SelectItem value="checkout">Retirada</SelectItem>
                 <SelectItem value="checkin">Devolução</SelectItem>
                 <SelectItem value="maintenance">Manutenção</SelectItem>
