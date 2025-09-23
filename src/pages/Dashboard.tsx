@@ -3,7 +3,12 @@ import { useAuth } from '@/context/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Package, Users, Activity, AlertTriangle } from 'lucide-react';
+import { Package, Users, Activity, AlertTriangle, FileText, UserPlus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { AccessChart } from '@/components/dashboard/AccessChart';
+import { ResourceStatusChart } from '@/components/dashboard/ResourceStatusChart';
+import { VehicleMovementChart } from '@/components/dashboard/VehicleMovementChart';
+import { ActivityTimeline } from '@/components/dashboard/ActivityTimeline';
 
 interface DashboardStats {
   totalResources: number;
@@ -16,6 +21,7 @@ interface DashboardStats {
 
 export const Dashboard = () => {
   const { profile } = useAuth();
+  const navigate = useNavigate();
   const [stats, setStats] = useState<DashboardStats>({
     totalResources: 0,
     availableResources: 0,
@@ -113,10 +119,10 @@ export const Dashboard = () => {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
+        <Card className="card-hover">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total de Recursos</CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
+            <Package className="h-4 w-4 text-muted-foreground icon-glow" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{loading ? '...' : stats.totalResources}</div>
@@ -126,10 +132,10 @@ export const Dashboard = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="card-hover">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Recursos Disponíveis</CardTitle>
-            <Package className="h-4 w-4 text-success" />
+            <Package className="h-4 w-4 text-success icon-glow" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-success">
@@ -141,10 +147,10 @@ export const Dashboard = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="card-hover">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Em Uso</CardTitle>
-            <Activity className="h-4 w-4 text-primary" />
+            <Activity className="h-4 w-4 text-primary icon-glow" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-primary">
@@ -156,10 +162,10 @@ export const Dashboard = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="card-hover">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Manutenção</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-warning" />
+            <AlertTriangle className="h-4 w-4 text-warning icon-glow" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-warning">
@@ -175,10 +181,10 @@ export const Dashboard = () => {
       {/* Additional Stats for Managers and Admins */}
       {(profile?.role === 'admin' || profile?.role === 'gerente') && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
+          <Card className="card-hover">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Usuários do Sistema</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <Users className="h-4 w-4 text-muted-foreground icon-glow" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{loading ? '...' : stats.totalUsers}</div>
@@ -188,10 +194,10 @@ export const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="card-hover">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Atividades Recentes</CardTitle>
-              <Activity className="h-4 w-4 text-muted-foreground" />
+              <Activity className="h-4 w-4 text-muted-foreground icon-glow" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{loading ? '...' : stats.recentActivities}</div>
@@ -203,41 +209,81 @@ export const Dashboard = () => {
         </div>
       )}
 
-      {/* Quick Access Section */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Acesso Rápido</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 border border-border rounded-lg hover:bg-accent cursor-pointer transition-colors">
-              <Package className="h-8 w-8 text-primary mb-2" />
-              <h3 className="font-medium">Recursos</h3>
-              <p className="text-sm text-muted-foreground">
-                Gerenciar equipamentos e dispositivos
-              </p>
-            </div>
-            
-            <div className="p-4 border border-border rounded-lg hover:bg-accent cursor-pointer transition-colors">
-              <Activity className="h-8 w-8 text-primary mb-2" />
-              <h3 className="font-medium">Logs de Acesso</h3>
-              <p className="text-sm text-muted-foreground">
-                Histórico de uso dos recursos
-              </p>
-            </div>
-            
-            {(profile?.role === 'admin' || profile?.role === 'gerente') && (
-              <div className="p-4 border border-border rounded-lg hover:bg-accent cursor-pointer transition-colors">
-                <Users className="h-8 w-8 text-primary mb-2" />
-                <h3 className="font-medium">Usuários</h3>
-                <p className="text-sm text-muted-foreground">
-                  Gerenciar perfis e permissões
-                </p>
+      {/* Analytics Charts */}
+      <div className="space-y-6">
+        <h3 className="text-lg font-semibold">Analytics</h3>
+        
+        {/* First Row - Main Charts */}
+        <div className="grid gap-6 md:grid-cols-2">
+          <AccessChart />
+          <ResourceStatusChart />
+        </div>
+        
+        {/* Second Row - Vehicle Movement and Activity Timeline */}
+        <div className="grid gap-6 md:grid-cols-2">
+          <VehicleMovementChart />
+          <ActivityTimeline />
+        </div>
+      </div>
+
+      {/* Quick Access */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Acesso Rápido</h3>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <Card 
+            className="cursor-pointer hover:shadow-md transition-shadow card-hover"
+            onClick={() => navigate('/resources')}
+          >
+            <CardContent className="p-6">
+              <div className="flex items-center space-x-4">
+                <Package className="h-8 w-8 text-primary icon-glow" />
+                <div>
+                  <h4 className="font-semibold">Recursos</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Gerenciar equipamentos e veículos
+                  </p>
+                </div>
               </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+            </CardContent>
+          </Card>
+
+          <Card 
+            className="cursor-pointer hover:shadow-md transition-shadow card-hover"
+            onClick={() => navigate('/access-logs')}
+          >
+            <CardContent className="p-6">
+              <div className="flex items-center space-x-4">
+                <FileText className="h-8 w-8 text-primary icon-glow" />
+                <div>
+                  <h4 className="font-semibold">Logs de Acesso</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Histórico de movimentações
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {(profile?.role === 'admin' || profile?.role === 'gerente') && (
+            <Card 
+              className="cursor-pointer hover:shadow-md transition-shadow card-hover"
+              onClick={() => navigate('/users')}
+            >
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-4">
+                  <UserPlus className="h-8 w-8 text-primary icon-glow" />
+                  <div>
+                    <h4 className="font-semibold">Usuários</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Gerenciar usuários do sistema
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

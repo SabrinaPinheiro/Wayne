@@ -9,6 +9,9 @@ import { Layout } from "@/components/layout/Layout";
 import { Login } from "@/pages/Login";
 import { Dashboard } from "@/pages/Dashboard";
 import { Resources } from "@/pages/Resources";
+import { AccessLogs } from "@/pages/AccessLogs";
+import { Alerts } from "@/pages/Alerts";
+import { Users } from "@/pages/Users";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,10 +49,21 @@ const App = () => (
             <Route path="/access-logs" element={
               <ProtectedRoute>
                 <Layout>
-                  <div className="text-center py-8">
-                    <h1 className="text-2xl font-bold">Logs de Acesso</h1>
-                    <p className="text-muted-foreground mt-2">Em desenvolvimento...</p>
-                  </div>
+                  <AccessLogs />
+                </Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/alerts" element={
+              <ProtectedRoute>
+                <Layout>
+                  <Alerts />
+                </Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/users" element={
+              <ProtectedRoute>
+                <Layout>
+                  <Users />
                 </Layout>
               </ProtectedRoute>
             } />
