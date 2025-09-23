@@ -41,13 +41,25 @@ const menuItems = [
   },
 ];
 
+const adminMenuItems = [
+  {
+    title: 'Usuário',
+    url: '/users',
+    icon: User,
+  },
+];
+
 export const AppSidebar = () => {
   const { state } = useSidebar();
-  const { signOut } = useAuth();
+  const { signOut, profile } = useAuth();
   const location = useLocation();
   const currentPath = location.pathname;
 
   const isActive = (path: string) => currentPath === path;
+
+  // Show admin items only for admins and managers
+  const canViewAdminItems = profile?.role === 'admin' || profile?.role === 'gerente';
+  const allMenuItems = canViewAdminItems ? [...menuItems, ...adminMenuItems] : menuItems;
 
   const getNavClassName = ({ isActive }: { isActive: boolean }) => {
     if (isActive) {
@@ -70,7 +82,7 @@ export const AppSidebar = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {menuItems.map((item) => (
+              {allMenuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink
