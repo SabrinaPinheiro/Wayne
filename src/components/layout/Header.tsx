@@ -17,7 +17,7 @@ export const Header = () => {
     <header className="h-16 border-b border-border bg-card shadow-sm">
       <div className="flex h-full items-center justify-between px-6">
         <div className="flex items-center gap-4">
-          <SidebarTrigger />
+          <SidebarTrigger className="text-foreground hover:bg-accent" />
           <div className="flex items-center gap-3">
             <img 
               src="/src/assets/wayne-logo.png" 
@@ -32,7 +32,7 @@ export const Header = () => {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="flex items-center gap-2">
+            <Button variant="ghost" className="flex items-center gap-2 text-foreground hover:bg-accent hover:text-accent-foreground">
               <User className="h-4 w-4" />
               <span className="hidden sm:inline">
                 {profile?.full_name || 'Usuário'}
@@ -41,7 +41,7 @@ export const Header = () => {
           </DropdownMenuTrigger>
           
           <DropdownMenuContent align="end" className="w-56">
-            <div className="px-2 py-1.5 text-sm font-medium text-foreground">
+            <div className="px-2 py-1.5 text-sm font-medium text-popover-foreground">
               {profile?.full_name || 'Usuário'}
             </div>
             <div className="px-2 py-1.5 text-xs text-muted-foreground">

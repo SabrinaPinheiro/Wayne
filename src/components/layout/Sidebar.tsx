@@ -42,16 +42,28 @@ export const AppSidebar = () => {
 
   const isActive = (path: string) => currentPath === path;
 
-  const getNavClassName = ({ isActive }: { isActive: boolean }) =>
-    isActive
-      ? 'bg-primary text-primary-foreground font-medium'
-      : 'hover:bg-accent hover:text-accent-foreground';
+  const getNavClassName = ({ isActive }: { isActive: boolean }) => {
+    if (isActive) {
+      return 'bg-primary text-primary-foreground font-medium shadow-sm sidebar-link active';
+    }
+    return 'text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground sidebar-link';
+  };
 
   return (
     <Sidebar className={state === 'collapsed' ? 'w-14' : 'w-64'} collapsible="icon">
-      <SidebarContent>
+      <SidebarContent className="bg-sidebar border-r border-sidebar-border">
+        <div className="p-4">
+          <img 
+            src="/src/assets/wayne-logo.png" 
+            alt="Wayne Industries" 
+            className="h-8 w-auto mx-auto"
+          />
+        </div>
+        
         <SidebarGroup>
-          <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-sidebar-foreground/70 font-semibold">
+            Menu Principal
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
