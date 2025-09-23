@@ -60,6 +60,35 @@ export const Login = () => {
     setIsLoading(false);
   };
 
+  const handleDemoLogin = async () => {
+    setLoginForm({
+      email: 'demo@wayne.app.br',
+      password: '123456',
+    });
+
+    setIsLoading(true);
+
+    // Aguarda um pequeno delay para o usuário ver as credenciais sendo preenchidas
+    setTimeout(async () => {
+      const { error } = await signIn('demo@wayne.app.br', '123456');
+
+      if (error) {
+        toast({
+          variant: 'destructive',
+          title: 'Erro no login demo',
+          description: 'Não foi possível fazer login com a conta demo. Tente novamente.',
+        });
+      } else {
+        toast({
+          title: 'Login demo realizado',
+          description: 'Bem-vindo ao sistema Wayne Industries!',
+        });
+      }
+
+      setIsLoading(false);
+    }, 500);
+  };
+
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -149,14 +178,36 @@ export const Login = () => {
                       required
                     />
                   </div>
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    disabled={isLoading}
-                  >
-                    {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Entrar
-                  </Button>
+                  
+                  <div className="space-y-2">
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      disabled={isLoading}
+                    >
+                      {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Entrar
+                    </Button>
+
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t border-border" />
+                      </div>
+                      <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-card px-2 text-muted-foreground">ou</span>
+                      </div>
+                    </div>
+
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                      onClick={handleDemoLogin}
+                      disabled={isLoading}
+                    >
+                      🦇 Acessar como Demo
+                    </Button>
+                  </div>
                 </form>
               </TabsContent>
 
