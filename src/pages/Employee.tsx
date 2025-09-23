@@ -66,7 +66,7 @@ export const Employee = () => {
         .from('access_logs')
         .select(`
           *,
-          resources(name)
+          resources!access_logs_resource_id_fkey(name)
         `)
         .eq('user_id', profile?.user_id)
         .order('timestamp', { ascending: false })

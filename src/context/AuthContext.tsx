@@ -141,6 +141,26 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  // Create demo users automatically on first load if needed
+  useEffect(() => {
+    const createDemoUsersIfNeeded = async () => {
+      // Only try to create demo users if we have a session but no profile
+      if (session?.user && !profile && !loading) {
+        const isDemoUser = session.user.email?.endsWith('@wayne.app.br');
+        if (isDemoUser) {
+          console.log('Demo user detected without profile, creating demo users...');
+          await createDemoUsers();
+          // Refresh the page to reload the profile
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
+      }
+    };
+
+    createDemoUsersIfNeeded();
+  }, [session, profile, loading]);
+
   const value = {
     user,
     session,
