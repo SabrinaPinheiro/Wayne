@@ -154,7 +154,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      create_demo_user: {
+      create_three_demo_users: {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }

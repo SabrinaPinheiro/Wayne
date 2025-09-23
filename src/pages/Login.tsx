@@ -10,7 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 
 export const Login = () => {
-  const { user, signIn, signUp, loading } = useAuth();
+  const { user, signIn, signUp, loading, createDemoUsers } = useAuth();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -60,33 +60,77 @@ export const Login = () => {
     setIsLoading(false);
   };
 
-  const handleDemoLogin = async () => {
+  const handleDemoLogin = async (userType: 'funcionario' | 'gerente' | 'admin') => {
+    const demoCredentials = {
+      funcionario: { email: 'funcionario@wayne.app.br', name: 'Funcionário' },
+      gerente: { email: 'gerente@wayne.app.br', name: 'Gerente' },
+      admin: { email: 'admin@wayne.app.br', name: 'Administrador' }
+    };
+
+    const { email, name } = demoCredentials[userType];
+    
     setLoginForm({
-      email: 'demo@wayne.app.br',
+      email,
       password: '123456',
     });
 
     setIsLoading(true);
 
-    // Aguarda um pequeno delay para o usuário ver as credenciais sendo preenchidas
-    setTimeout(async () => {
-      const { error } = await signIn('demo@wayne.app.br', '123456');
+    // First try to sign in
+    let { error } = await signIn(email, '123456');
 
-      if (error) {
+    // If user doesn't exist, create demo users and try again
+    if (error && error.message?.includes('Invalid login credentials')) {
+      toast({
+        title: 'Criando usuários demo...',
+        description: 'Aguarde enquanto configuramos os usuários de demonstração.',
+      });
+
+      // Create demo users
+      const { error: createError } = await createDemoUsers();
+      
+      if (createError) {
         toast({
           variant: 'destructive',
-          title: 'Erro no login demo',
-          description: 'Não foi possível fazer login com a conta demo. Tente novamente.',
+          title: 'Erro ao criar usuários demo',
+          description: 'Não foi possível criar os usuários de demonstração.',
         });
-      } else {
-        toast({
-          title: 'Login demo realizado',
-          description: 'Bem-vindo ao sistema Wayne Industries!',
-        });
+        setIsLoading(false);
+        return;
       }
 
+      // Try to sign in again after creating users
+      setTimeout(async () => {
+        const { error: retryError } = await signIn(email, '123456');
+        
+        if (retryError) {
+          toast({
+            variant: 'destructive',
+            title: 'Erro no login demo',
+            description: `Não foi possível fazer login como ${name} Demo.`,
+          });
+        } else {
+          toast({
+            title: 'Login demo realizado',
+            description: `Bem-vindo ao sistema Wayne Industries como ${name}!`,
+          });
+        }
+        setIsLoading(false);
+      }, 2000);
+    } else if (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro no login demo',
+        description: `Não foi possível fazer login como ${name} Demo.`,
+      });
       setIsLoading(false);
-    }, 500);
+    } else {
+      toast({
+        title: 'Login demo realizado',
+        description: `Bem-vindo ao sistema Wayne Industries como ${name}!`,
+      });
+      setIsLoading(false);
+    }
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -179,35 +223,57 @@ export const Login = () => {
                     />
                   </div>
                   
-                  <div className="space-y-2">
-                    <Button
-                      type="submit"
-                      className="w-full"
-                      disabled={isLoading}
-                    >
-                      {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      Entrar
-                    </Button>
+                   <div className="space-y-2">
+                     <Button
+                       type="submit"
+                       className="w-full"
+                       disabled={isLoading}
+                     >
+                       {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                       Entrar
+                     </Button>
 
-                    <div className="relative">
-                      <div className="absolute inset-0 flex items-center">
-                        <span className="w-full border-t border-border" />
-                      </div>
-                      <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-card px-2 text-muted-foreground">ou</span>
-                      </div>
-                    </div>
+                     <div className="relative">
+                       <div className="absolute inset-0 flex items-center">
+                         <span className="w-full border-t border-border" />
+                       </div>
+                       <div className="relative flex justify-center text-xs uppercase">
+                         <span className="bg-card px-2 text-muted-foreground">ou acesse como</span>
+                       </div>
+                     </div>
 
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                      onClick={handleDemoLogin}
-                      disabled={isLoading}
-                    >
-                      🦇 Acessar como Demo
-                    </Button>
-                  </div>
+                     <div className="grid grid-cols-1 gap-2">
+                       <Button
+                         type="button"
+                         variant="outline"
+                         className="w-full border-green-500/30 text-green-600 hover:bg-green-50 hover:text-green-700 dark:border-green-500/30 dark:text-green-400 dark:hover:bg-green-950 dark:hover:text-green-300"
+                         onClick={() => handleDemoLogin('funcionario')}
+                         disabled={isLoading}
+                       >
+                         👨‍💼 Demo Funcionário
+                       </Button>
+
+                       <Button
+                         type="button"
+                         variant="outline"
+                         className="w-full border-yellow-500/30 text-yellow-600 hover:bg-yellow-50 hover:text-yellow-700 dark:border-yellow-500/30 dark:text-yellow-400 dark:hover:bg-yellow-950 dark:hover:text-yellow-300"
+                         onClick={() => handleDemoLogin('gerente')}
+                         disabled={isLoading}
+                       >
+                         👨‍💼 Demo Gerente
+                       </Button>
+
+                       <Button
+                         type="button"
+                         variant="outline"
+                         className="w-full border-red-500/30 text-red-600 hover:bg-red-50 hover:text-red-700 dark:border-red-500/30 dark:text-red-400 dark:hover:bg-red-950 dark:hover:text-red-300"
+                         onClick={() => handleDemoLogin('admin')}
+                         disabled={isLoading}
+                       >
+                         🔐 Demo Administrador
+                       </Button>
+                     </div>
+                   </div>
                 </form>
               </TabsContent>
 

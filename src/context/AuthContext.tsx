@@ -19,6 +19,7 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signUp: (email: string, password: string, fullName: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
+  createDemoUsers: () => Promise<{ error?: any; data?: any }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -121,6 +122,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     await supabase.auth.signOut();
   };
 
+  const createDemoUsers = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke('create-demo-users', {
+        body: {}
+      });
+
+      if (error) {
+        console.error('Error creating demo users:', error);
+        return { error };
+      }
+
+      console.log('Demo users created:', data);
+      return { data };
+    } catch (error) {
+      console.error('Error calling create-demo-users function:', error);
+      return { error };
+    }
+  };
+
   const value = {
     user,
     session,
@@ -129,6 +149,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     signIn,
     signUp,
     signOut,
+    createDemoUsers,
   };
 
   return (
