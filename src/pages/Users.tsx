@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Users as UsersIcon, Search, UserPlus, Edit, Shield, Clock } from 'lucide-react';
+import { Users as UsersIcon, Search, Shield, Clock, UserCheck, UserX } from 'lucide-react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { toast } from '@/components/ui/use-toast';
@@ -23,9 +23,9 @@ interface UserProfile {
 }
 
 const ROLE_LABELS = {
-  funcionario: { label: 'Funcionário', variant: 'secondary' as const, color: 'text-blue-600' },
-  gerente: { label: 'Gerente', variant: 'default' as const, color: 'text-purple-600' },
-  admin: { label: 'Administrador', variant: 'destructive' as const, color: 'text-red-600' },
+  funcionario: { label: 'Funcionário', variant: 'secondary' as const, color: 'bg-blue-500' },
+  gerente: { label: 'Gerente', variant: 'default' as const, color: 'bg-purple-500' },
+  admin: { label: 'Administrador', variant: 'destructive' as const, color: 'bg-red-500' },
 };
 
 export const Users = () => {
@@ -269,7 +269,7 @@ export const Users = () => {
                       <div className="flex items-center gap-2">
                         <div className={cn(
                           'h-8 w-8 rounded-full flex items-center justify-center text-white text-sm font-bold',
-                          ROLE_LABELS[user.role].color.replace('text-', 'bg-').replace('-600', '-500')
+                          ROLE_LABELS[user.role].color
                         )}>
                           {user.full_name?.charAt(0).toUpperCase() || 'U'}
                         </div>

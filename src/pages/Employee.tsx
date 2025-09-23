@@ -48,15 +48,20 @@ export const Employee = () => {
 
   const loadEmployeeData = async () => {
     try {
+      setLoading(true);
+      
       // Load available resources
       const { data: resourcesData, error: resourcesError } = await supabase
         .from('resources')
         .select('*')
         .order('name');
 
-      if (resourcesError) throw resourcesError;
+      if (resourcesError) {
+        console.error('Resources error:', resourcesError);
+        throw resourcesError;
+      }
 
-      // Load my access logs
+      // Load my access logs - fix the query for user_id
       const { data: logsData, error: logsError } = await supabase
         .from('access_logs')
         .select(`
@@ -67,15 +72,20 @@ export const Employee = () => {
         .order('timestamp', { ascending: false })
         .limit(10);
 
-      if (logsError) throw logsError;
+      if (logsError) {
+        console.error('Logs error:', logsError);
+        // Don't throw for logs error, just set empty array
+        setMyLogs([]);
+      } else {
+        setMyLogs(logsData || []);
+      }
 
       setResources(resourcesData || []);
-      setMyLogs(logsData || []);
     } catch (error) {
       console.error('Error loading employee data:', error);
       toast({
         title: "Erro ao carregar dados",
-        description: "Não foi possível carregar as informações.",
+        description: "Não foi possível carregar as informações dos recursos.",
         variant: "destructive",
       });
     } finally {
@@ -83,11 +93,35 @@ export const Employee = () => {
     }
   };
 
-  const requestResource = (resourceId: string, resourceName: string) => {
-    toast({
-      title: "Solicitação enviada",
-      description: `Sua solicitação para ${resourceName} foi enviada aos gestores.`,
-    });
+  const requestResource = async (resourceId: string, resourceName: string) => {
+    try {
+      // Create an access log entry for the resource request
+      const { error } = await supabase
+        .from('access_logs')
+        .insert({
+          user_id: profile?.user_id,
+          resource_id: resourceId,
+          action: 'solicitacao',
+          notes: `Solicitação de acesso ao recurso: ${resourceName}`
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Solicitação enviada",
+        description: `Sua solicitação para ${resourceName} foi enviada aos gestores.`,
+      });
+
+      // Reload data to show the new log
+      loadEmployeeData();
+    } catch (error) {
+      console.error('Error requesting resource:', error);
+      toast({
+        title: "Erro ao solicitar recurso",
+        description: "Não foi possível enviar a solicitação.",
+        variant: "destructive",
+      });
+    }
   };
 
   if (loading) {
@@ -217,7 +251,8 @@ export const Employee = () => {
                         <h4 className="font-medium text-sm">{log.resources?.name}</h4>
                         <Badge variant="outline" className="text-xs">
                           {log.action === 'checkout' ? 'Retirada' : 
-                           log.action === 'checkin' ? 'Devolução' : 'Manutenção'}
+                           log.action === 'checkin' ? 'Devolução' : 
+                           log.action === 'solicitacao' ? 'Solicitação' : 'Manutenção'}
                         </Badge>
                       </div>
                       {log.notes && (
