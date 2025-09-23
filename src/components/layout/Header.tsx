@@ -44,6 +44,11 @@ export const Header = () => {
                 {profile?.role === 'admin' ? 'Administrador' : 
                  profile?.role === 'gerente' ? 'Gerente' : 'Funcionário'}
               </div>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={signOut} className="text-destructive hover:text-destructive cursor-pointer">
+                <LogOut className="mr-2 h-4 w-4" />
+                Sair
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
