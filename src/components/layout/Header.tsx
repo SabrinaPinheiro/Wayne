@@ -14,6 +14,20 @@ import { NotificationBell } from './NotificationBell';
 export const Header = () => {
   const { profile, signOut } = useAuth();
 
+  // Function to get role display name
+  const getRoleDisplayName = (role?: string) => {
+    switch (role) {
+      case 'admin':
+        return 'Administrador';
+      case 'gerente':
+        return 'Gerente';
+      case 'funcionario':
+        return 'Funcionário';
+      default:
+        return 'Funcionário';
+    }
+  };
+
   return (
     <header className="h-16 border-b border-border bg-card shadow-sm">
       <div className="flex h-full items-center justify-between px-6">
@@ -41,8 +55,7 @@ export const Header = () => {
                 {profile?.full_name || 'Usuário'}
               </div>
               <div className="px-2 py-1.5 text-xs text-muted-foreground">
-                {profile?.role === 'admin' ? 'Administrador' : 
-                 profile?.role === 'gerente' ? 'Gerente' : 'Funcionário'}
+                {getRoleDisplayName(profile?.role)}
               </div>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={signOut} className="text-destructive hover:text-destructive cursor-pointer">

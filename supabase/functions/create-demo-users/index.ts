@@ -52,8 +52,25 @@ serve(async (req) => {
       const { data: existingUser } = await supabaseAdmin.auth.admin.getUserByEmail(userData.email)
       
       if (existingUser.user) {
-        console.log(`User ${userData.email} already exists, skipping...`)
-        results.push({ email: userData.email, status: 'already_exists' })
+        console.log(`User ${userData.email} already exists, updating profile...`)
+        
+        // Update profile for existing user
+        const { error: profileError } = await supabaseAdmin
+          .from('profiles')
+          .upsert({
+            user_id: existingUser.user.id,
+            full_name: userData.full_name,
+            role: userData.role
+          }, {
+            onConflict: 'user_id'
+          })
+
+        if (profileError) {
+          console.error(`Error updating profile for ${userData.email}:`, profileError)
+          results.push({ email: userData.email, status: 'profile_update_error', error: profileError.message })
+        } else {
+          results.push({ email: userData.email, status: 'profile_updated' })
+        }
         continue
       }
 
@@ -82,6 +99,8 @@ serve(async (req) => {
           user_id: newUser.user!.id,
           full_name: userData.full_name,
           role: userData.role
+        }, {
+          onConflict: 'user_id'
         })
 
       if (profileError) {

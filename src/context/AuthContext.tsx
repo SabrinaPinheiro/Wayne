@@ -133,8 +133,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         return { error };
       }
 
-      console.log('Demo users created:', data);
-      return { data };
+      console.log('Demo users created successfully:', data);
+      return { data, error: null };
     } catch (error) {
       console.error('Error calling create-demo-users function:', error);
       return { error };
