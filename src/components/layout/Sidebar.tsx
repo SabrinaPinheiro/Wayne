@@ -1,5 +1,6 @@
-import { LayoutDashboard, Package, History, Settings } from 'lucide-react';
+import { LayoutDashboard, Package, History, Settings, LogOut, User } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useAuth } from '@/context/AuthContext';
 import {
   Sidebar,
   SidebarContent,
@@ -24,6 +25,11 @@ const menuItems = [
     icon: Package,
   },
   {
+    title: 'Funcionário',
+    url: '/employee',
+    icon: User,
+  },
+  {
     title: 'Logs de Acesso',
     url: '/access-logs',
     icon: History,
@@ -37,6 +43,7 @@ const menuItems = [
 
 export const AppSidebar = () => {
   const { state } = useSidebar();
+  const { signOut } = useAuth();
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -52,18 +59,15 @@ export const AppSidebar = () => {
   return (
     <Sidebar className={state === 'collapsed' ? 'w-14' : 'w-64'} collapsible="icon">
       <SidebarContent className="bg-sidebar border-r border-sidebar-border">
-        <div className="p-4">
-          <img 
-            src="/src/assets/wayne-logo.png" 
-            alt="Wayne Industries" 
-            className="h-8 w-auto mx-auto"
-          />
-        </div>
+      <div className="p-4">
+        <img 
+          src="/src/assets/wayne-logo.png" 
+          alt="Wayne Industries" 
+          className="h-16 w-auto mx-auto"
+        />
+      </div>
         
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/70 font-semibold">
-            Menu Principal
-          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
@@ -83,6 +87,19 @@ export const AppSidebar = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        
+        {/* Logout Button at Bottom */}
+        <div className="mt-auto p-4">
+          <SidebarMenuButton asChild className="w-full">
+            <button
+              onClick={signOut}
+              className="flex items-center gap-2 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground w-full p-2 rounded-md"
+            >
+              <LogOut className="h-4 w-4" />
+              {state !== 'collapsed' && <span>Sair</span>}
+            </button>
+          </SidebarMenuButton>
+        </div>
       </SidebarContent>
     </Sidebar>
   );

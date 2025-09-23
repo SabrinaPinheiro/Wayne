@@ -12,6 +12,8 @@ import { Resources } from "@/pages/Resources";
 import { AccessLogs } from "@/pages/AccessLogs";
 import { Alerts } from "@/pages/Alerts";
 import { Users } from "@/pages/Users";
+import { Employee } from "@/pages/Employee";
+import { Settings } from "@/pages/Settings";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -67,13 +69,17 @@ const App = () => (
                 </Layout>
               </ProtectedRoute>
             } />
+            <Route path="/employee" element={
+              <ProtectedRoute>
+                <Layout>
+                  <Employee />
+                </Layout>
+              </ProtectedRoute>
+            } />
             <Route path="/settings" element={
               <ProtectedRoute>
                 <Layout>
-                  <div className="text-center py-8">
-                    <h1 className="text-2xl font-bold">Configurações</h1>
-                    <p className="text-muted-foreground mt-2">Em desenvolvimento...</p>
-                  </div>
+                  <Settings />
                 </Layout>
               </ProtectedRoute>
             } />

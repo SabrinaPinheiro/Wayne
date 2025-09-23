@@ -65,8 +65,8 @@ export const AccessLogs = () => {
           action,
           timestamp,
           notes,
-          profiles!access_logs_user_id_fkey (full_name),
-          resources!access_logs_resource_id_fkey (name, type)
+          profiles(full_name),
+          resources(name, type)
         `, { count: 'exact' });
 
       // Apply filters

@@ -19,16 +19,9 @@ export const Header = () => {
       <div className="flex h-full items-center justify-between px-6">
         <div className="flex items-center gap-4">
           <SidebarTrigger className="text-foreground hover:bg-accent" />
-          <div className="flex items-center gap-3">
-            <img 
-              src="/src/assets/wayne-logo.png" 
-              alt="Wayne Industries" 
-              className="h-8 w-auto"
-            />
-            <span className="text-lg font-semibold text-foreground">
-              Wayne Industries
-            </span>
-          </div>
+          <span className="text-lg font-semibold text-foreground">
+            Wayne Industries
+          </span>
         </div>
 
         <div className="flex items-center gap-4">
@@ -51,11 +44,6 @@ export const Header = () => {
                 {profile?.role === 'admin' ? 'Administrador' : 
                  profile?.role === 'gerente' ? 'Gerente' : 'Funcionário'}
               </div>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={signOut} className="cursor-pointer">
-                <LogOut className="mr-2 h-4 w-4" />
-                Sair
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
