@@ -48,17 +48,18 @@ serve(async (req) => {
     for (const userData of demoUsers) {
       console.log(`Creating user: ${userData.email}`)
       
-      // Check if user already exists
-      const { data: existingUser } = await supabaseAdmin.auth.admin.getUserByEmail(userData.email)
+    // Check if user already exists by listing users and filtering by email
+    const { data: { users } } = await supabaseAdmin.auth.admin.listUsers()
+    const existingUser = users.find(user => user.email === userData.email)
       
-      if (existingUser.user) {
+      if (existingUser) {
         console.log(`User ${userData.email} already exists, updating profile...`)
         
         // Update profile for existing user
         const { error: profileError } = await supabaseAdmin
           .from('profiles')
           .upsert({
-            user_id: existingUser.user.id,
+            user_id: existingUser.id,
             full_name: userData.full_name,
             role: userData.role
           }, {
