@@ -14,6 +14,7 @@ import { Alerts } from "@/pages/Alerts";
 import { Users } from "@/pages/Users";
 import { Employee } from "@/pages/Employee";
 import { Settings } from "@/pages/Settings";
+import { Profile } from "@/pages/Profile";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -80,6 +81,13 @@ const App = () => (
               <ProtectedRoute>
                 <Layout>
                   <Settings />
+                </Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <Layout>
+                  <Profile />
                 </Layout>
               </ProtectedRoute>
             } />

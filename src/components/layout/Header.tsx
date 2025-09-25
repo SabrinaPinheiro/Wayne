@@ -1,6 +1,7 @@
 import { User } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +13,11 @@ import { NotificationBell } from './NotificationBell';
 
 export const Header = () => {
   const { profile } = useAuth();
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    navigate('/profile');
+  };
 
   return (
     <header className="h-16 border-b border-border bg-card shadow-sm">
@@ -36,7 +42,7 @@ export const Header = () => {
             </DropdownMenuTrigger>
             
             <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem onClick={handleProfileClick} className="cursor-pointer">
                 <User className="mr-2 h-4 w-4" />
                 Perfil
               </DropdownMenuItem>
