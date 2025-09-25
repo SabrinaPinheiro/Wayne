@@ -58,6 +58,11 @@ export const Header = () => {
                 {getRoleDisplayName(profile?.role)}
               </div>
               <DropdownMenuSeparator />
+              <DropdownMenuItem className="cursor-pointer">
+                <User className="mr-2 h-4 w-4" />
+                Perfil
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem onClick={signOut} className="text-destructive hover:text-destructive cursor-pointer">
                 <LogOut className="mr-2 h-4 w-4" />
                 Sair
