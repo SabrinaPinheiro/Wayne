@@ -1,4 +1,4 @@
-import { LayoutDashboard, Package, History, Settings, LogOut, User } from 'lucide-react';
+import { LayoutDashboard, Package, History, Settings, User } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -51,7 +51,7 @@ const adminMenuItems = [
 
 export const AppSidebar = () => {
   const { state } = useSidebar();
-  const { signOut, profile } = useAuth();
+  const { profile } = useAuth();
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -100,18 +100,6 @@ export const AppSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
         
-        {/* Logout Button at Bottom */}
-        <div className="mt-auto p-4">
-          <SidebarMenuButton asChild className="w-full">
-            <button
-              onClick={signOut}
-              className="flex items-center gap-2 text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground w-full p-2 rounded-md"
-            >
-              <LogOut className="h-4 w-4" />
-              {state !== 'collapsed' && <span>Sair</span>}
-            </button>
-          </SidebarMenuButton>
-        </div>
       </SidebarContent>
     </Sidebar>
   );

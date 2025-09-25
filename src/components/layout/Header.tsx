@@ -1,4 +1,4 @@
-import { User } from 'lucide-react';
+import { User, LogOut } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -6,13 +6,14 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { NotificationBell } from './NotificationBell';
 
 export const Header = () => {
-  const { profile } = useAuth();
+  const { profile, signOut } = useAuth();
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
@@ -45,6 +46,11 @@ export const Header = () => {
               <DropdownMenuItem onClick={handleProfileClick} className="cursor-pointer">
                 <User className="mr-2 h-4 w-4" />
                 Perfil
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={signOut} className="cursor-pointer text-destructive">
+                <LogOut className="mr-2 h-4 w-4" />
+                Sair
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

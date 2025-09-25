@@ -38,8 +38,8 @@ export const ActivityTimeline = () => {
           action,
           timestamp,
           notes,
-          profiles!access_logs_user_id_fkey (full_name),
-          resources!access_logs_resource_id_fkey (name)
+          user_id,
+          resource_id
         `)
         .order('timestamp', { ascending: false })
         .limit(10);
@@ -49,10 +49,35 @@ export const ActivityTimeline = () => {
         return;
       }
 
+      // Get user and resource names separately
+      const userIds = data?.map(item => item.user_id).filter(Boolean) || [];
+      const resourceIds = data?.map(item => item.resource_id).filter(Boolean) || [];
+      
+      const [usersData, resourcesData] = await Promise.all([
+        userIds.length > 0 ? supabase.from('profiles').select('id, full_name').in('id', userIds) : { data: [] },
+        resourceIds.length > 0 ? supabase.from('resources').select('id, name').in('id', resourceIds) : { data: [] }
+      ]);
+
+      const usersMap = new Map<string, string>();
+      const resourcesMap = new Map<string, string>();
+      
+      // Populate maps safely
+      usersData.data?.forEach(u => {
+        if (u.id && u.full_name) {
+          usersMap.set(u.id, u.full_name);
+        }
+      });
+      
+      resourcesData.data?.forEach(r => {
+        if (r.id && r.name) {
+          resourcesMap.set(r.id, r.name);
+        }
+      });
+
       const formattedActivities = data?.map((item: any) => ({
         id: item.id,
-        user_name: item.profiles?.full_name || 'Usuário',
-        resource_name: item.resources?.name || 'Recurso',
+        user_name: usersMap.get(item.user_id) || 'Usuário',
+        resource_name: resourcesMap.get(item.resource_id) || 'Recurso',
         action: item.action,
         timestamp: item.timestamp,
         notes: item.notes,

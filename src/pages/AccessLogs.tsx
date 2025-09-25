@@ -65,8 +65,8 @@ export const AccessLogs = () => {
           action,
           timestamp,
           notes,
-          profiles(full_name),
-          resources(name, type)
+          user_id,
+          resource_id
         `, { count: 'exact' });
 
       // Apply filters
@@ -106,11 +106,36 @@ export const AccessLogs = () => {
         return;
       }
 
+      // Get user and resource names separately to avoid foreign key issues
+      const userIds = data?.map(item => item.user_id).filter(Boolean) || [];
+      const resourceIds = data?.map(item => item.resource_id).filter(Boolean) || [];
+      
+      const [usersData, resourcesData] = await Promise.all([
+        userIds.length > 0 ? supabase.from('profiles').select('id, full_name').in('id', userIds) : { data: [] },
+        resourceIds.length > 0 ? supabase.from('resources').select('id, name, type').in('id', resourceIds) : { data: [] }
+      ]);
+
+      const usersMap = new Map<string, string>();
+      const resourcesMap = new Map<string, {name: string, type: string}>();
+      
+      // Populate maps safely
+      usersData.data?.forEach(u => {
+        if (u.id && u.full_name) {
+          usersMap.set(u.id, u.full_name);
+        }
+      });
+      
+      resourcesData.data?.forEach(r => {
+        if (r.id && r.name && r.type) {
+          resourcesMap.set(r.id, { name: r.name, type: r.type });
+        }
+      });
+
       const formattedLogs = data?.map((item: any) => ({
         id: item.id,
-        user_name: item.profiles?.full_name || 'Usuário',
-        resource_name: item.resources?.name || 'Recurso',
-        resource_type: item.resources?.type || 'Tipo',
+        user_name: usersMap.get(item.user_id) || 'Usuário',
+        resource_name: resourcesMap.get(item.resource_id)?.name || 'Recurso',
+        resource_type: resourcesMap.get(item.resource_id)?.type || 'Tipo',
         action: item.action,
         notes: item.notes,
         timestamp: item.timestamp,
