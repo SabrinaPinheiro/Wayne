@@ -131,7 +131,7 @@ export const Login = () => {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <img 
-            src="/src/assets/wayne-logo.png" 
+            src="/src/assets/Logo Wayne.png" 
             alt="Wayne Industries" 
             className="h-16 w-auto mx-auto mb-4"
           />
