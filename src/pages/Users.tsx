@@ -150,7 +150,7 @@ export const Users = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card className="card-hover">
           <CardContent className="p-6">
             <div className="flex items-center space-x-4">
@@ -160,6 +160,22 @@ export const Users = () => {
               <div>
                 <p className="text-2xl font-bold">{users.length}</p>
                 <p className="text-sm text-muted-foreground">Total de Usuários</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="card-hover">
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-4">
+              <div className="p-2 bg-green-500/20 rounded-full">
+                <UserCheck className="h-6 w-6 text-green-500" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">
+                  {users.filter(u => u.role === 'funcionario').length}
+                </p>
+                <p className="text-sm text-muted-foreground">Funcionários</p>
               </div>
             </div>
           </CardContent>
