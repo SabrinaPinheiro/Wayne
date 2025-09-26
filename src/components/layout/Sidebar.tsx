@@ -45,7 +45,7 @@ const menuItems = [
 
 const adminMenuItems = [
   {
-    title: 'Usuário',
+    title: 'Usuários Cadastrados',
     url: '/users',
     icon: User,
   },
