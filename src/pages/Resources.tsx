@@ -312,9 +312,9 @@ export const Resources = () => {
       </div>
 
       {/* Filters */}
-      <Card>
-        <CardContent className="p-4">
-          <div className="flex flex-col md:flex-row gap-4">
+      <Card className="filter-card">
+        <CardContent className="p-6">
+          <div className="flex flex-col md:flex-row gap-6">
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -322,13 +322,13 @@ export const Resources = () => {
                   placeholder="Buscar recursos..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 h-12"
                 />
               </div>
             </div>
             
             <Select value={filterType} onValueChange={setFilterType}>
-              <SelectTrigger className="w-40">
+              <SelectTrigger className="w-48 h-12">
                 <SelectValue placeholder="Tipo" />
               </SelectTrigger>
               <SelectContent>
@@ -340,7 +340,7 @@ export const Resources = () => {
             </Select>
 
             <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger className="w-40">
+              <SelectTrigger className="w-48 h-12">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
@@ -357,20 +357,41 @@ export const Resources = () => {
 
       {/* Resources Grid */}
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="text-muted-foreground">Carregando recursos...</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <Card key={i} className="card-enhanced">
+              <CardHeader className="pb-4">
+                <div className="animate-pulse space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-center gap-3">
+                      <div className="h-6 w-6 bg-muted rounded" />
+                      <div className="h-5 bg-muted rounded w-32" />
+                    </div>
+                    <div className="h-6 bg-muted rounded w-20" />
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="animate-pulse space-y-3">
+                  <div className="h-4 bg-muted rounded w-3/4" />
+                  <div className="h-4 bg-muted rounded w-1/2" />
+                  <div className="h-8 bg-muted rounded w-full" />
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredResources.map((resource) => {
             const Icon = typeIcons[resource.type];
             return (
-              <Card key={resource.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader className="pb-3">
+              <Card key={resource.id} className="card-enhanced">
+                <CardHeader className="pb-4">
                   <div className="flex justify-between items-start">
-                    <div className="flex items-center gap-2">
-                      <Icon className="h-5 w-5 text-primary" />
-                      <CardTitle className="text-lg">{resource.name}</CardTitle>
+                    <div className="flex items-center gap-3">
+                      <Icon className="h-6 w-6 text-primary icon-glow" />
+                      <CardTitle className="text-xl">{resource.name}</CardTitle>
                     </div>
                     <Badge variant={statusVariants[resource.status]}>
                       {statusLabels[resource.status]}
@@ -378,39 +399,39 @@ export const Resources = () => {
                   </div>
                 </CardHeader>
                 
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-5">
                   <div>
                     <p className="text-sm text-muted-foreground">Tipo</p>
-                    <p className="font-medium">{typeLabels[resource.type]}</p>
+                    <p className="font-medium text-base">{typeLabels[resource.type]}</p>
                   </div>
                   
                   {resource.location && (
                     <div>
                       <p className="text-sm text-muted-foreground">Localização</p>
-                      <p className="font-medium">{resource.location}</p>
+                      <p className="font-medium text-base">{resource.location}</p>
                     </div>
                   )}
                   
                   {resource.description && (
                     <div>
                       <p className="text-sm text-muted-foreground">Descrição</p>
-                      <p className="text-sm">{resource.description}</p>
+                      <p className="text-sm leading-relaxed">{resource.description}</p>
                     </div>
                   )}
 
                   {canModifyResources && (
-                    <div className="flex gap-2 pt-2">
-                      <Button size="sm" variant="outline" onClick={() => handleEdit(resource)}>
-                        <Edit className="h-3 w-3 mr-1" />
+                    <div className="flex gap-3 pt-4">
+                      <Button size="default" variant="outline" onClick={() => handleEdit(resource)}>
+                        <Edit className="h-4 w-4 mr-2" />
                         Editar
                       </Button>
                       {profile?.role === 'admin' && (
                         <Button 
-                          size="sm" 
+                          size="default" 
                           variant="outline" 
                           onClick={() => handleDelete(resource.id)}
                         >
-                          <Trash2 className="h-3 w-3 mr-1" />
+                          <Trash2 className="h-4 w-4 mr-2" />
                           Excluir
                         </Button>
                       )}
@@ -424,13 +445,18 @@ export const Resources = () => {
       )}
 
       {filteredResources.length === 0 && !loading && (
-        <Card>
-          <CardContent className="text-center py-8">
-            <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+        <Card className="empty-state">
+          <CardContent className="text-center py-16">
+            <Package className="h-16 w-16 text-muted-foreground mx-auto mb-6 opacity-50" />
+            <h3 className="text-lg font-semibold mb-2">
+              {searchTerm || filterType !== 'all' || filterStatus !== 'all'
+                ? 'Nenhum recurso encontrado'
+                : 'Nenhum recurso cadastrado'}
+            </h3>
             <p className="text-muted-foreground">
               {searchTerm || filterType !== 'all' || filterStatus !== 'all'
-                ? 'Nenhum recurso encontrado com os filtros aplicados.'
-                : 'Nenhum recurso cadastrado ainda.'}
+                ? 'Tente ajustar seus filtros para encontrar recursos.'
+                : 'Comece adicionando o primeiro recurso ao sistema.'}
             </p>
           </CardContent>
         </Card>

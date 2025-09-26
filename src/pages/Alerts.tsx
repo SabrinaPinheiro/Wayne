@@ -202,18 +202,19 @@ export const Alerts = () => {
       </div>
 
       {/* Alerts List */}
-      <div className="space-y-4">
+      <div className="space-y-6">
         {loading ? (
-          <div className="space-y-4">
-            {[1, 2, 3].map((i) => (
-              <Card key={i} className="card-hover">
-                <CardContent className="p-6">
-                  <div className="animate-pulse space-y-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="h-8 w-8 bg-muted rounded-full" />
-                      <div className="space-y-2 flex-1">
-                        <div className="h-4 bg-muted rounded w-3/4" />
-                        <div className="h-3 bg-muted rounded w-1/2" />
+          <div className="space-y-6">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <Card key={i} className="card-enhanced">
+                <CardContent className="p-8">
+                  <div className="animate-pulse space-y-6">
+                    <div className="flex items-center space-x-6">
+                      <div className="h-12 w-12 bg-muted rounded-full" />
+                      <div className="space-y-3 flex-1">
+                        <div className="h-5 bg-muted rounded w-3/4" />
+                        <div className="h-4 bg-muted rounded w-1/2" />
+                        <div className="h-3 bg-muted rounded w-1/3" />
                       </div>
                     </div>
                   </div>
@@ -222,16 +223,16 @@ export const Alerts = () => {
             ))}
           </div>
         ) : filteredAlerts.length === 0 ? (
-          <Card className="card-hover">
-            <CardContent className="p-12 text-center">
-              <Bell className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p className="text-muted-foreground text-lg mb-2">
+          <Card className="empty-state">
+            <CardContent className="p-16 text-center">
+              <Bell className="h-16 w-16 mx-auto mb-6 opacity-50" />
+              <h3 className="text-xl font-semibold mb-3">
                 {filter === 'unread' ? 'Nenhum alerta não lido' : 'Nenhum alerta encontrado'}
-              </p>
-              <p className="text-muted-foreground text-sm">
+              </h3>
+              <p className="text-muted-foreground text-base">
                 {filter === 'unread' 
-                  ? 'Todos os alertas foram lidos!' 
-                  : 'Você não possui alertas no momento.'
+                  ? 'Todos os alertas foram lidos! Continue o bom trabalho.' 
+                  : 'Você não possui alertas no momento. Fique atento às notificações.'
                 }
               </p>
             </CardContent>
@@ -245,46 +246,46 @@ export const Alerts = () => {
               <Card 
                 key={alert.id} 
                 className={cn(
-                  'card-hover transition-all duration-200',
-                  isUnread && 'border-l-4 border-l-primary bg-muted/20'
+                  'card-enhanced transition-all duration-300',
+                  isUnread && 'border-l-4 border-l-primary bg-primary/5'
                 )}
               >
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
+                <CardContent className="p-8">
+                  <div className="flex items-start space-x-6">
                     <div className={cn(
-                      'flex-shrink-0 p-2 rounded-full',
-                      isUnread ? 'bg-primary/20' : 'bg-muted'
+                      'flex-shrink-0 p-3 rounded-full',
+                      isUnread ? 'bg-primary/20 glow-effect' : 'bg-muted'
                     )}>
                       <Icon className={cn(
-                        'h-5 w-5',
+                        'h-6 w-6',
                         isUnread ? ALERT_COLORS[alert.type] : 'text-muted-foreground'
                       )} />
                     </div>
                     
-                    <div className="flex-1 min-w-0 space-y-2">
+                    <div className="flex-1 min-w-0 space-y-4">
                       <div className="flex items-center justify-between">
-                        <Badge variant={ALERT_VARIANTS[alert.type]} className="text-xs">
+                        <Badge variant={ALERT_VARIANTS[alert.type]} className="text-sm px-3 py-1">
                           {alert.type === 'info' && 'Informação'}
                           {alert.type === 'warning' && 'Aviso'}
                           {alert.type === 'error' && 'Erro'}
                           {alert.type === 'success' && 'Sucesso'}
                         </Badge>
                         {isUnread && (
-                          <Badge variant="default" className="text-xs">
+                          <Badge variant="default" className="text-sm px-3 py-1 glow-effect">
                             Novo
                           </Badge>
                         )}
                       </div>
                       
                       <p className={cn(
-                        'text-sm leading-relaxed',
-                        isUnread ? 'font-medium' : 'text-muted-foreground'
+                        'text-base leading-relaxed',
+                        isUnread ? 'font-medium text-foreground' : 'text-muted-foreground'
                       )}>
                         {alert.message}
                       </p>
                       
                       <div className="flex items-center justify-between">
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-sm text-muted-foreground">
                           {formatDistanceToNow(new Date(alert.created_at), {
                             addSuffix: true,
                             locale: ptBR,
@@ -294,18 +295,18 @@ export const Alerts = () => {
                         {isUnread && (
                           <Button
                             variant="ghost"
-                            size="sm"
+                            size="default"
                             onClick={() => markAsRead(alert.id)}
-                            className="h-auto p-1 text-xs"
+                            className="h-10 px-4"
                           >
-                            <Check className="h-3 w-3 mr-1" />
+                            <Check className="h-4 w-4 mr-2" />
                             Marcar como lido
                           </Button>
                         )}
                       </div>
                       
                       {alert.read_at && (
-                        <p className="text-xs text-muted-foreground italic">
+                        <p className="text-sm text-muted-foreground italic">
                           Lido em {format(new Date(alert.read_at), 'dd/MM/yyyy HH:mm')}
                         </p>
                       )}

@@ -143,78 +143,83 @@ export const Employee = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <Card className="stats-card">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
             <CardTitle className="text-sm font-medium">Recursos Disponíveis</CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
+            <Package className="h-5 w-5 text-success icon-glow" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-success">{availableResources.length}</div>
-            <p className="text-xs text-muted-foreground">Para solicitação</p>
+            <div className="text-3xl font-bold text-success">{availableResources.length}</div>
+            <p className="text-xs text-muted-foreground mt-2">Para solicitação</p>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <Card className="stats-card">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
             <CardTitle className="text-sm font-medium">Em Meu Uso</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
+            <Clock className="h-5 w-5 text-warning icon-glow" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-warning">{myActiveResources.length}</div>
-            <p className="text-xs text-muted-foreground">Recursos ativos</p>
+            <div className="text-3xl font-bold text-warning">{myActiveResources.length}</div>
+            <p className="text-xs text-muted-foreground mt-2">Recursos ativos</p>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <Card className="stats-card">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
             <CardTitle className="text-sm font-medium">Meu Histórico</CardTitle>
-            <History className="h-4 w-4 text-muted-foreground" />
+            <History className="h-5 w-5 text-primary icon-glow" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">{myLogs.length}</div>
-            <p className="text-xs text-muted-foreground">Acessos recentes</p>
+            <div className="text-3xl font-bold text-primary">{myLogs.length}</div>
+            <p className="text-xs text-muted-foreground mt-2">Acessos recentes</p>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Available Resources */}
-        <Card>
+        <Card className="card-enhanced">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Package className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-3 text-lg">
+              <Package className="h-6 w-6 text-primary icon-glow" />
               Recursos Disponíveis
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-base">
               Recursos que você pode solicitar para uso
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-6">
               {availableResources.length === 0 ? (
-                <p className="text-muted-foreground text-center py-4">
-                  Nenhum recurso disponível no momento
-                </p>
+                <div className="empty-state p-8 text-center">
+                  <Package className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                  <h4 className="font-medium mb-2">Nenhum recurso disponível</h4>
+                  <p className="text-muted-foreground text-sm">
+                    Aguarde novos recursos serem liberados
+                  </p>
+                </div>
               ) : (
                 availableResources.map((resource) => {
                   const StatusIcon = STATUS_CONFIG[resource.status].icon;
                   return (
-                    <div key={resource.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div key={resource.id} className="flex items-center justify-between p-6 border rounded-lg card-hover">
                       <div className="flex-1">
-                        <h4 className="font-medium">{resource.name}</h4>
+                        <h4 className="font-semibold text-base">{resource.name}</h4>
                         <p className="text-sm text-muted-foreground">{resource.type}</p>
                         <p className="text-xs text-muted-foreground mt-1">{resource.location}</p>
-                        <div className="flex items-center gap-2 mt-2">
-                          <StatusIcon className="h-3 w-3" />
-                          <Badge variant={STATUS_CONFIG[resource.status].variant} className="text-xs">
+                        <div className="flex items-center gap-2 mt-3">
+                          <StatusIcon className="h-4 w-4" />
+                          <Badge variant={STATUS_CONFIG[resource.status].variant} className="text-sm">
                             {STATUS_CONFIG[resource.status].label}
                           </Badge>
                         </div>
                       </div>
                       <Button 
-                        size="sm" 
+                        size="default" 
                         onClick={() => requestResource(resource.id, resource.name)}
+                        className="ml-4"
                       >
                         Solicitar
                       </Button>
@@ -227,38 +232,42 @@ export const Employee = () => {
         </Card>
 
         {/* My Recent Access Logs */}
-        <Card>
+        <Card className="card-enhanced">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <History className="h-5 w-5" />
+            <CardTitle className="flex items-center gap-3 text-lg">
+              <History className="h-6 w-6 text-primary icon-glow" />
               Meu Histórico Recente
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-base">
               Seus últimos acessos aos recursos
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-6">
               {myLogs.length === 0 ? (
-                <p className="text-muted-foreground text-center py-4">
-                  Nenhum histórico de acesso
-                </p>
+                <div className="empty-state p-8 text-center">
+                  <History className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                  <h4 className="font-medium mb-2">Nenhum histórico de acesso</h4>
+                  <p className="text-muted-foreground text-sm">
+                    Seus acessos aos recursos aparecerão aqui
+                  </p>
+                </div>
               ) : (
                 myLogs.map((log) => (
-                  <div key={log.id} className="flex items-start justify-between p-3 border rounded-lg">
+                  <div key={log.id} className="flex items-start justify-between p-5 border rounded-lg card-hover">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-medium text-sm">{log.resources?.name}</h4>
-                        <Badge variant="outline" className="text-xs">
+                      <div className="flex items-center gap-3">
+                        <h4 className="font-medium text-base">{log.resources?.name}</h4>
+                        <Badge variant="outline" className="text-sm">
                           {log.action === 'checkout' ? 'Retirada' : 
                            log.action === 'checkin' ? 'Devolução' : 
                            log.action === 'solicitacao' ? 'Solicitação' : 'Manutenção'}
                         </Badge>
                       </div>
                       {log.notes && (
-                        <p className="text-xs text-muted-foreground mt-1">{log.notes}</p>
+                        <p className="text-sm text-muted-foreground mt-2">{log.notes}</p>
                       )}
-                      <p className="text-xs text-muted-foreground mt-1">
+                      <p className="text-xs text-muted-foreground mt-2">
                         {format(new Date(log.timestamp), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}
                       </p>
                     </div>

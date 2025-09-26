@@ -47,11 +47,15 @@
     --gradient-primary: linear-gradient(135deg, hsl(270 80% 70%), hsl(270 80% 60%));
     --gradient-dark: linear-gradient(135deg, hsl(220 13% 8%), hsl(220 13% 12%));
     --gradient-card: linear-gradient(145deg, hsl(220 13% 10%), hsl(220 13% 12%));
+    --gradient-subtle: linear-gradient(135deg, hsl(220 13% 12%), hsl(220 13% 14%));
+    --gradient-accent: linear-gradient(135deg, hsl(270 30% 25%), hsl(270 30% 30%));
     
     /* Wayne Industries Shadows */
     --shadow-glow: 0 0 20px hsl(270 80% 70% / 0.3);
     --shadow-card: 0 4px 12px hsl(220 13% 8% / 0.4);
+    --shadow-card-hover: 0 8px 25px hsl(220 13% 8% / 0.6);
     --shadow-header: 0 2px 8px hsl(220 13% 8% / 0.6);
+    --shadow-subtle: 0 2px 4px hsl(220 13% 8% / 0.2);
 
     /* Sidebar */
     --sidebar-background: 220 13% 10%;
@@ -100,8 +104,56 @@
   }
 
   .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .card-enhanced {
+    background: var(--gradient-subtle);
+    border: 1px solid hsl(var(--border));
+    transition: var(--transition-smooth);
+  }
+
+  .card-enhanced:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--shadow-card-hover);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  .stats-card {
+    background: var(--gradient-card);
+    border: 1px solid hsl(var(--border));
+    transition: var(--transition-smooth);
+  }
+
+  .stats-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
+    border-color: hsl(var(--primary) / 0.4);
+  }
+
+  .quick-action-card {
+    cursor: pointer;
+    background: var(--gradient-subtle);
+    border: 1px solid hsl(var(--border));
+    transition: var(--transition-smooth);
+  }
+
+  .quick-action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: hsl(var(--primary) / 0.3);
+    background: var(--gradient-accent);
+  }
+
+  .filter-card {
+    background: var(--gradient-card);
+    border: 1px solid hsl(var(--border));
+  }
+
+  .empty-state {
+    background: var(--gradient-subtle);
+    border: 2px dashed hsl(var(--border));
   }
 
   /* Force visibility for important UI elements */
