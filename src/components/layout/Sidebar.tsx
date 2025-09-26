@@ -25,7 +25,7 @@ const menuItems = [
     icon: Package,
   },
   {
-    title: 'Funcionário',
+    title: 'Portal Funcionário',
     url: '/employee',
     icon: User,
   },
