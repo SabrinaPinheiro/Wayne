@@ -15,6 +15,7 @@ import { Users } from "@/pages/Users";
 import { Employee } from "@/pages/Employee";
 import { Settings } from "@/pages/Settings";
 import { Profile } from "@/pages/Profile";
+import Reports from "@/pages/Reports";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -88,6 +89,13 @@ const App = () => (
               <ProtectedRoute>
                 <Layout>
                   <Profile />
+                </Layout>
+              </ProtectedRoute>
+            } />
+            <Route path="/reports" element={
+              <ProtectedRoute>
+                <Layout>
+                  <Reports />
                 </Layout>
               </ProtectedRoute>
             } />

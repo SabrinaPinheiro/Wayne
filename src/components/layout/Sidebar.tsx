@@ -1,4 +1,4 @@
-import { LayoutDashboard, Package, History, Settings, User } from 'lucide-react';
+import { LayoutDashboard, Package, History, Settings, User, FileText } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -46,6 +46,11 @@ const adminMenuItems = [
     title: 'Usuário',
     url: '/users',
     icon: User,
+  },
+  {
+    title: 'Relatórios',
+    url: '/reports',
+    icon: FileText,
   },
 ];
 
