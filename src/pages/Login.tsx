@@ -134,9 +134,8 @@ export const Login = () => {
           <img 
             src={logoWayne} 
             alt="Wayne Industries" 
-            className="h-16 w-auto mx-auto mb-4"
+            className="h-20 w-auto mx-auto mb-4"
           />
-          <h1 className="text-2xl font-bold text-foreground">Wayne Industries</h1>
           <p className="text-muted-foreground">Sistema de Gestão de Recursos</p>
         </div>
 
