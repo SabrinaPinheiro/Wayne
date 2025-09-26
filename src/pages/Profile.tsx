@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
+import { AvatarUpload } from '@/components/AvatarUpload';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { User, Save, Mail } from 'lucide-react';
@@ -16,6 +17,7 @@ export const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [fullName, setFullName] = useState(profile?.full_name || '');
+  const [avatarUrl, setAvatarUrl] = useState(profile?.avatar_url || null);
 
   const getRoleDisplayName = (role?: string) => {
     switch (role) {
@@ -81,6 +83,17 @@ export const Profile = () => {
     setIsEditing(false);
   };
 
+  const handleAvatarUpdate = (newAvatarUrl: string | null) => {
+    setAvatarUrl(newAvatarUrl);
+    // Refresh auth context to update profile
+    window.location.reload();
+  };
+
+  const getInitials = (name?: string | null) => {
+    if (!name) return 'U';
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  };
+
   return (
     <div className="container mx-auto py-8 px-4 max-w-2xl">
       <div className="mb-8">
@@ -99,6 +112,15 @@ export const Profile = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
+          <div className="space-y-4">
+            <Label>Foto do Perfil</Label>
+            <AvatarUpload
+              currentAvatarUrl={avatarUrl}
+              onAvatarUpdate={handleAvatarUpdate}
+              fallbackText={getInitials(profile?.full_name)}
+            />
+          </div>
+
           <div className="flex items-center justify-between">
             <div className="space-y-1">
               <Label className="text-sm font-medium">Função</Label>

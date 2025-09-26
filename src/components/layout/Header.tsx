@@ -1,6 +1,7 @@
 import { User, LogOut } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useNavigate } from 'react-router-dom';
 import {
   DropdownMenu,
@@ -20,6 +21,11 @@ export const Header = () => {
     navigate('/profile');
   };
 
+  const getInitials = (name?: string | null) => {
+    if (!name) return 'U';
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  };
+
   return (
     <header className="h-16 border-b border-border bg-card shadow-sm">
       <div className="flex h-full items-center justify-between px-6">
@@ -35,7 +41,12 @@ export const Header = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center gap-2 text-foreground hover:bg-accent hover:text-accent-foreground">
-                <User className="h-4 w-4" />
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src={profile?.avatar_url || ''} alt="Avatar" />
+                  <AvatarFallback className="text-xs">
+                    {getInitials(profile?.full_name)}
+                  </AvatarFallback>
+                </Avatar>
                 <span className="hidden sm:inline">
                   {profile?.full_name || 'Usuário'}
                 </span>

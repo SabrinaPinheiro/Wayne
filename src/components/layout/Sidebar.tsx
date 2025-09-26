@@ -76,7 +76,7 @@ export const AppSidebar = () => {
   };
 
   return (
-    <Sidebar className={state === 'collapsed' ? 'w-14' : 'w-64'} collapsible="icon">
+    <Sidebar className={state === 'collapsed' ? 'w-16' : 'w-64'} collapsible="icon">
       <SidebarContent className="bg-sidebar border-r border-sidebar-border">
       <div className="p-4">
         <NavLink to="/dashboard" className="block">
