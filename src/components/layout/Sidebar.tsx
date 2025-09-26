@@ -1,6 +1,8 @@
 import { LayoutDashboard, Package, History, Settings, User, FileText } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
+import logoWayne from '@/assets/logo-wayne.png';
+import symbolWayne from '@/assets/symbol-wayne.png';
 import {
   Sidebar,
   SidebarContent,
@@ -77,11 +79,13 @@ export const AppSidebar = () => {
     <Sidebar className={state === 'collapsed' ? 'w-14' : 'w-64'} collapsible="icon">
       <SidebarContent className="bg-sidebar border-r border-sidebar-border">
       <div className="p-4">
-        <img 
-          src="/src/assets/wayne-logo.png" 
-          alt="Wayne Industries" 
-          className="h-16 w-auto mx-auto"
-        />
+        <NavLink to="/dashboard" className="block">
+          <img 
+            src={state === 'collapsed' ? symbolWayne : logoWayne}
+            alt="Wayne Industries" 
+            className={state === 'collapsed' ? "h-8 w-auto mx-auto" : "h-16 w-auto mx-auto"}
+          />
+        </NavLink>
       </div>
         
         <SidebarGroup>
