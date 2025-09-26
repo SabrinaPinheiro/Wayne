@@ -21,6 +21,7 @@ import { Employee } from "@/pages/Employee";
 import { Settings } from "@/pages/Settings";
 import { Profile } from "@/pages/Profile";
 import Reports from "@/pages/Reports";
+import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,13 +40,7 @@ const App = () => (
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/confirm" element={<Confirm />} />
             <Route path="/auth/error" element={<AuthError />} />
-            <Route path="/" element={
-              <ProtectedRoute>
-                <Layout>
-                  <Dashboard />
-                </Layout>
-              </ProtectedRoute>
-            } />
+            <Route path="/" element={<Index />} />
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <Layout>
