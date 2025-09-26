@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import wayneLogo from '@/assets/wayne-logo.png';
+import logoWayne from '@/assets/logo-wayne.png';
 
 const Index = () => {
   const features = [
@@ -104,7 +104,7 @@ const Index = () => {
           <div className="text-center space-y-8">
             <div className="flex justify-center mb-8">
               <img 
-                src={wayneLogo} 
+                src={logoWayne} 
                 alt="Wayne Industries Logo" 
                 className="h-32 w-auto icon-glow animate-pulse"
               />
@@ -113,11 +113,11 @@ const Index = () => {
             <h1 className="text-6xl md:text-8xl font-bold tracking-tight">
               <span className="gradient-text">Wayne Industries</span>
               <br />
-              <span className="text-foreground">Resource Management</span>
+              <span className="text-foreground">Gestão de Recursos</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Sistema Futurista de Gestão Corporativa desenvolvido como projeto final do curso de 
+              Sistema de Gestão Corporativa desenvolvido como projeto final do curso de 
               <span className="text-primary font-semibold"> Programação Full Stack</span> da 
               <span className="text-primary font-semibold"> Infinity School</span>
             </p>
@@ -129,9 +129,6 @@ const Index = () => {
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Badge variant="outline" className="text-sm py-2 px-4">
-                🎓 Projeto Acadêmico • Demonstração
-              </Badge>
             </div>
           </div>
         </div>
@@ -145,7 +142,7 @@ const Index = () => {
               <span className="gradient-text">Sobre o Sistema</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-              O Wayne Industries Resource Management é uma aplicação web completa que permite controlar 
+              O Wayne Industries Gestão de Recursos é uma aplicação web completa que permite controlar 
               e monitorar equipamentos, veículos, dispositivos e acesso de funcionários aos recursos da empresa 
               através de uma interface moderna e intuitiva com segurança de nível corporativo.
             </p>
@@ -305,9 +302,6 @@ const Index = () => {
                 <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <p className="text-sm text-muted-foreground">
-              💡 <strong>Projeto Final</strong> - Curso de Programação Full Stack da Infinity School
-            </p>
           </div>
         </div>
       </section>
@@ -315,22 +309,9 @@ const Index = () => {
       {/* Footer */}
       <footer className="py-12 border-t border-border/50">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center gap-4 mb-4 md:mb-0">
-              <img src={wayneLogo} alt="Wayne Industries" className="h-8 w-auto opacity-70" />
-              <span className="text-muted-foreground">© 2024 Wayne Industries Resource Management</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Badge variant="outline" className="bg-primary/10">
-                <Star className="w-3 h-3 mr-1" />
-                Projeto Acadêmico
-              </Badge>
-              <Badge variant="outline" className="bg-success/10">
-                <CheckCircle className="w-3 h-3 mr-1" />
-                Infinity School
-              </Badge>
-            </div>
-          </div>
+          <p className="text-sm text-muted-foreground text-center">
+            Site desenvolvido por <a href="https://spdev.com.br" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors underline">spdev.com.br</a> - Sabrina Pinheiro - Projeto Final Curso de Programação Full Stack IA da Infinity School
+          </p>
         </div>
       </footer>
     </div>

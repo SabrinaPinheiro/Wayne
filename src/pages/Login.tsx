@@ -229,6 +229,12 @@ export const Login = () => {
               <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
                 <div className="flex justify-between text-sm">
                   <Link 
+                    to="/" 
+                    className="text-muted-foreground hover:text-primary"
+                  >
+                    ← Voltar ao site
+                  </Link>
+                  <Link 
                     to="/register" 
                     className="text-primary hover:text-primary/80 font-medium"
                   >
