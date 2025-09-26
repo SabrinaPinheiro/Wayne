@@ -45,16 +45,6 @@ export const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, fallbackText }:
       const fileExt = file.name.split('.').pop();
       const fileName = `${user.id}/${Math.random()}.${fileExt}`;
 
-      // Delete old avatar if exists
-      if (currentAvatarUrl) {
-        const oldPath = currentAvatarUrl.split('/').pop();
-        if (oldPath) {
-          await supabase.storage
-            .from('avatars')
-            .remove([`${user.id}/${oldPath}`]);
-        }
-      }
-
       const { error: uploadError } = await supabase.storage
         .from('avatars')
         .upload(fileName, file);
@@ -102,14 +92,6 @@ export const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, fallbackText }:
       setUploading(true);
 
       if (!user || !currentAvatarUrl) return;
-
-      // Delete from storage
-      const fileName = currentAvatarUrl.split('/').pop();
-      if (fileName) {
-        await supabase.storage
-          .from('avatars')
-          .remove([`${user.id}/${fileName}`]);
-      }
 
       // Update profile in database
       const { error } = await supabase
