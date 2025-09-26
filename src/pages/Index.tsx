@@ -106,14 +106,14 @@ const Index = () => {
               <img 
                 src={logoWayne} 
                 alt="Wayne Industries Logo" 
-                className="h-32 w-auto icon-glow animate-pulse"
+                className="h-40 w-auto icon-glow animate-pulse"
               />
             </div>
             
             <h1 className="text-6xl md:text-8xl font-bold tracking-tight">
               <span className="gradient-text">Wayne Industries</span>
               <br />
-              <span className="text-foreground">Gestão de Recursos</span>
+              <span className="text-foreground text-4xl md:text-6xl">Gestão de Recursos</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
