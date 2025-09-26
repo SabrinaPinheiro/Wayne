@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -226,6 +226,23 @@ export const Login = () => {
                   </div>
                 </div>
               </form>
+
+              <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
+                <div className="flex justify-between text-sm">
+                  <Link 
+                    to="/register" 
+                    className="text-primary hover:text-primary/80 font-medium"
+                  >
+                    Criar conta
+                  </Link>
+                  <Link 
+                    to="/forgot-password" 
+                    className="text-muted-foreground hover:text-primary"
+                  >
+                    Esqueci minha senha
+                  </Link>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>

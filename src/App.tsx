@@ -7,6 +7,11 @@ import { AuthProvider } from "@/context/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Layout } from "@/components/layout/Layout";
 import { Login } from "@/pages/Login";
+import { Register } from "@/pages/Register";
+import { ForgotPassword } from "@/pages/ForgotPassword";
+import { ResetPassword } from "@/pages/ResetPassword";
+import { Confirm } from "@/pages/Confirm";
+import { AuthError } from "@/pages/AuthError";
 import { Dashboard } from "@/pages/Dashboard";
 import { Resources } from "@/pages/Resources";
 import { AccessLogs } from "@/pages/AccessLogs";
@@ -29,6 +34,11 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/confirm" element={<Confirm />} />
+            <Route path="/auth/error" element={<AuthError />} />
             <Route path="/" element={
               <ProtectedRoute>
                 <Layout>

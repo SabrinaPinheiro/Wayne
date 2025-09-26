@@ -20,6 +20,9 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signUp: (email: string, password: string, fullName: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<{ error: any }>;
+  updatePassword: (password: string) => Promise<{ error: any }>;
+  verifyOtp: (email: string, token: string, type: string) => Promise<{ error: any }>;
   createDemoUsers: () => Promise<{ error?: any; data?: any }>;
 }
 
@@ -123,6 +126,31 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     await supabase.auth.signOut();
   };
 
+  const resetPassword = async (email: string) => {
+    const redirectUrl = `${window.location.origin}/reset-password`;
+    
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: redirectUrl,
+    });
+    return { error };
+  };
+
+  const updatePassword = async (password: string) => {
+    const { error } = await supabase.auth.updateUser({
+      password: password
+    });
+    return { error };
+  };
+
+  const verifyOtp = async (email: string, token: string, type: string) => {
+    const { error } = await supabase.auth.verifyOtp({
+      email,
+      token,
+      type: type as any
+    });
+    return { error };
+  };
+
   const createDemoUsers = async () => {
     try {
       const { data, error } = await supabase.functions.invoke('create-demo-users', {
@@ -151,6 +179,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     signIn,
     signUp,
     signOut,
+    resetPassword,
+    updatePassword,
+    verifyOtp,
     createDemoUsers,
   };
 
