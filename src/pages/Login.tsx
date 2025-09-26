@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import logoWayne from '@/assets/logo-wayne.png';
 
 export const Login = () => {
   const { user, signIn, loading, createDemoUsers } = useAuth();
@@ -131,7 +132,7 @@ export const Login = () => {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <img 
-            src="/src/assets/Logo Wayne.png" 
+            src={logoWayne} 
             alt="Wayne Industries" 
             className="h-16 w-auto mx-auto mb-4"
           />
