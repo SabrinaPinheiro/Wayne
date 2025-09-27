@@ -226,64 +226,6 @@ export const Dashboard = () => {
         </div>
       </div>
 
-      {/* Quick Access */}
-      <div className="space-y-6">
-        <h3 className="text-lg font-semibold">Acesso Rápido</h3>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <Card 
-            className="quick-action-card"
-            onClick={() => navigate('/resources')}
-          >
-            <CardContent className="p-8">
-              <div className="flex items-center space-x-5">
-                <Package className="h-10 w-10 text-primary icon-glow" />
-                <div>
-                  <h4 className="font-semibold text-lg">Recursos</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Gerenciar equipamentos e veículos
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card 
-            className="quick-action-card"
-            onClick={() => navigate('/access-logs')}
-          >
-            <CardContent className="p-8">
-              <div className="flex items-center space-x-5">
-                <FileText className="h-10 w-10 text-primary icon-glow" />
-                <div>
-                  <h4 className="font-semibold text-lg">Logs de Acesso</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Histórico de movimentações
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {(profile?.role === 'admin' || profile?.role === 'gerente') && (
-            <Card 
-              className="quick-action-card"
-              onClick={() => navigate('/users')}
-            >
-              <CardContent className="p-8">
-                <div className="flex items-center space-x-5">
-                  <UserPlus className="h-10 w-10 text-primary icon-glow" />
-                  <div>
-                    <h4 className="font-semibold text-lg">Usuários</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Gerenciar usuários do sistema
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-      </div>
     </div>
   );
 };
