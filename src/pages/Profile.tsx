@@ -95,105 +95,130 @@ export const Profile = () => {
   };
 
   return (
-    <div className="container mx-auto py-8 px-4 max-w-2xl">
+    <div className="container mx-auto py-8 px-6 max-w-4xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground">Meu Perfil</h1>
-        <p className="text-muted-foreground">Gerencie suas informações pessoais</p>
+        <h1 className="text-4xl font-bold gradient-text">Meu Perfil</h1>
+        <p className="text-muted-foreground text-lg">Gerencie suas informações pessoais</p>
       </div>
 
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <User className="h-5 w-5" />
-            Informações Pessoais
-          </CardTitle>
-          <CardDescription>
-            Suas informações básicas de perfil
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-4">
-            <Label>Foto do Perfil</Label>
-            <AvatarUpload
-              currentAvatarUrl={avatarUrl}
-              onAvatarUpdate={handleAvatarUpdate}
-              fallbackText={getInitials(profile?.full_name)}
-            />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="space-y-1">
-              <Label className="text-sm font-medium">Função</Label>
-              <div>
-                <Badge variant={getRoleBadgeVariant(profile?.role)}>
+      <div className="grid gap-6 lg:grid-cols-3">
+        {/* Avatar Section */}
+        <div className="lg:col-span-1">
+          <Card className="card-enhanced">
+            <CardHeader className="text-center">
+              <CardTitle className="text-xl">Avatar</CardTitle>
+              <CardDescription>Sua foto de perfil</CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col items-center space-y-4">
+              <AvatarUpload
+                currentAvatarUrl={avatarUrl}
+                onAvatarUpdate={handleAvatarUpdate}
+                fallbackText={getInitials(profile?.full_name)}
+              />
+              <div className="text-center">
+                <Badge 
+                  variant={getRoleBadgeVariant(profile?.role)}
+                  className="text-sm font-medium"
+                >
                   {getRoleDisplayName(profile?.role)}
                 </Badge>
               </div>
-            </div>
-            {!isEditing && (
-              <Button 
-                variant="outline" 
-                onClick={() => setIsEditing(true)}
-              >
-                Editar Perfil
-              </Button>
-            )}
-          </div>
+            </CardContent>
+          </Card>
+        </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email" className="flex items-center gap-2">
-              <Mail className="h-4 w-4" />
-              Email
-            </Label>
-            <Input
-              id="email"
-              type="email"
-              value={user?.email || ''}
-              disabled
-              className="bg-muted"
-            />
-            <p className="text-xs text-muted-foreground">
-              O email não pode ser alterado pelo sistema
-            </p>
-          </div>
+        {/* Information Section */}
+        <div className="lg:col-span-2">
+          <Card className="card-enhanced">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2 text-2xl">
+                    <User className="h-6 w-6 icon-glow" />
+                    Informações Pessoais
+                  </CardTitle>
+                  <CardDescription>
+                    Suas informações básicas de perfil
+                  </CardDescription>
+                </div>
+                {!isEditing && (
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setIsEditing(true)}
+                    className="hover:glow-effect"
+                    size="lg"
+                  >
+                    Editar Perfil
+                  </Button>
+                )}
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-8">
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="space-y-3">
+                  <Label htmlFor="email" className="flex items-center gap-2 text-base font-semibold">
+                    <Mail className="h-5 w-5 text-primary" />
+                    Email
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={user?.email || ''}
+                    disabled
+                    className="bg-muted/50 h-12 text-base"
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    O email não pode ser alterado pelo sistema
+                  </p>
+                </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="fullName">Nome Completo</Label>
-            <Input
-              id="fullName"
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              disabled={!isEditing}
-              placeholder="Digite seu nome completo"
-            />
-          </div>
+                <div className="space-y-3">
+                  <Label htmlFor="fullName" className="text-base font-semibold">Nome Completo</Label>
+                  <Input
+                    id="fullName"
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    disabled={!isEditing}
+                    placeholder="Digite seu nome completo"
+                    className={`h-12 text-base transition-all ${
+                      isEditing 
+                        ? 'border-primary/50 focus:border-primary focus:ring-primary/20' 
+                        : 'bg-muted/30'
+                    }`}
+                  />
+                </div>
+              </div>
 
-          {isEditing && (
-            <div className="flex gap-2 pt-4">
-              <Button 
-                onClick={handleSave} 
-                disabled={isLoading}
-                className="flex items-center gap-2"
-              >
-                <Save className="h-4 w-4" />
-                {isLoading ? 'Salvando...' : 'Salvar'}
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={handleCancel}
-                disabled={isLoading}
-              >
-                Cancelar
-              </Button>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+              {isEditing && (
+                <div className="flex gap-3 pt-6 border-t">
+                  <Button 
+                    onClick={handleSave} 
+                    disabled={isLoading}
+                    className="flex items-center gap-2 glow-effect"
+                    size="lg"
+                  >
+                    <Save className="h-5 w-5" />
+                    {isLoading ? 'Salvando...' : 'Salvar Alterações'}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    onClick={handleCancel}
+                    disabled={isLoading}
+                    size="lg"
+                  >
+                    Cancelar
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
 
-      <Alert>
-        <User className="h-4 w-4" />
-        <AlertDescription>
+      <Alert className="mt-8 border-primary/20 bg-primary/5">
+        <User className="h-5 w-5 text-primary" />
+        <AlertDescription className="text-base">
           <strong>Informação:</strong> Algumas informações como função e email são gerenciadas pelo administrador do sistema.
           Para alterações nestes campos, entre em contato com o administrador.
         </AlertDescription>

@@ -27,11 +27,11 @@ export const Header = () => {
   };
 
   return (
-    <header className="h-16 border-b border-border bg-card shadow-sm">
+    <header className="h-16 border-b border-border bg-gradient-to-r from-card to-card/80 backdrop-blur-sm shadow-header">
       <div className="flex h-full items-center justify-between px-6">
         <div className="flex items-center gap-4">
-          <SidebarTrigger className="text-foreground hover:bg-accent" />
-          <span className="text-lg font-semibold text-foreground">
+          <SidebarTrigger className="text-foreground hover:bg-accent/80 hover:scale-105 transition-all" />
+          <span className="text-xl font-bold gradient-text">
             Wayne Industries
           </span>
         </div>
@@ -40,28 +40,49 @@ export const Header = () => {
           <NotificationBell />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-2 text-foreground hover:bg-accent hover:text-accent-foreground">
-                <Avatar className="h-8 w-8">
+              <Button 
+                variant="ghost" 
+                className="flex items-center gap-3 text-foreground hover:bg-accent/80 hover:text-accent-foreground transition-all hover:scale-105 h-12 px-4"
+              >
+                <Avatar className="h-10 w-10 border-2 border-primary/20">
                   <AvatarImage src={profile?.avatar_url || ''} alt="Avatar" />
-                  <AvatarFallback className="text-xs">
+                  <AvatarFallback className="text-sm font-semibold bg-gradient-to-br from-primary/20 to-primary/10">
                     {getInitials(profile?.full_name)}
                   </AvatarFallback>
                 </Avatar>
-                <span className="hidden sm:inline">
-                  {profile?.full_name || 'Usuário'}
-                </span>
+                <div className="hidden sm:block text-left">
+                  <div className="font-semibold text-sm">
+                    {profile?.full_name || 'Usuário'}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {profile?.role === 'admin' ? 'Administrador' : 
+                     profile?.role === 'gerente' ? 'Gerente' : 'Funcionário'}
+                  </div>
+                </div>
               </Button>
             </DropdownMenuTrigger>
             
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuItem onClick={handleProfileClick} className="cursor-pointer">
-                <User className="mr-2 h-4 w-4" />
-                Perfil
+            <DropdownMenuContent align="end" className="w-64 p-2">
+              <DropdownMenuItem 
+                onClick={handleProfileClick} 
+                className="cursor-pointer p-3 rounded-lg hover:bg-accent/80 transition-colors"
+              >
+                <User className="mr-3 h-5 w-5 text-primary" />
+                <div>
+                  <div className="font-medium">Perfil</div>
+                  <div className="text-xs text-muted-foreground">Gerencie suas informações</div>
+                </div>
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={signOut} className="cursor-pointer text-destructive">
-                <LogOut className="mr-2 h-4 w-4" />
-                Sair
+              <DropdownMenuSeparator className="my-2" />
+              <DropdownMenuItem 
+                onClick={signOut} 
+                className="cursor-pointer p-3 rounded-lg text-destructive hover:bg-destructive/10 transition-colors"
+              >
+                <LogOut className="mr-3 h-5 w-5" />
+                <div>
+                  <div className="font-medium">Sair</div>
+                  <div className="text-xs">Encerrar sessão</div>
+                </div>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
