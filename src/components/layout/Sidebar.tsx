@@ -12,6 +12,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarHeader,
   useSidebar,
 } from '@/components/ui/sidebar';
 
@@ -77,8 +78,7 @@ export const AppSidebar = () => {
 
   return (
     <Sidebar className={state === 'collapsed' ? 'w-16' : 'w-64'} collapsible="icon">
-      <SidebarContent className="bg-sidebar border-r border-sidebar-border">
-      <div className="p-4">
+      <SidebarHeader className="p-4">
         <NavLink to="/dashboard" className="block">
           <img 
             src={state === 'collapsed' ? symbolWayne : logoWayne}
@@ -86,8 +86,9 @@ export const AppSidebar = () => {
             className={state === 'collapsed' ? "h-8 w-auto mx-auto" : "h-16 w-auto mx-auto"}
           />
         </NavLink>
-      </div>
-        
+      </SidebarHeader>
+
+      <SidebarContent className="bg-sidebar border-r border-sidebar-border">
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -108,7 +109,6 @@ export const AppSidebar = () => {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        
       </SidebarContent>
     </Sidebar>
   );
