@@ -104,7 +104,7 @@ export const Profile = () => {
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-3 max-w-4xl">
         {/* Avatar Section */}
         <div className="lg:col-span-1">
           <Card className="card-enhanced">
@@ -112,7 +112,7 @@ export const Profile = () => {
               <CardTitle className="text-xl">Avatar</CardTitle>
               <CardDescription>Sua foto de perfil</CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-col items-center space-y-4 px-6">
+            <CardContent className="flex flex-col items-center space-y-4 px-4 sm:px-6">
               <AvatarUpload
                 currentAvatarUrl={avatarUrl}
                 onAvatarUpdate={handleAvatarUpdate}

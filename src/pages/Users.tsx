@@ -150,9 +150,9 @@ export const Users = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Card className="card-hover">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex items-center space-x-4">
               <div className="p-2 bg-blue-500/20 rounded-full">
                 <UsersIcon className="h-6 w-6 text-blue-500" />
@@ -166,7 +166,7 @@ export const Users = () => {
         </Card>
 
         <Card className="card-hover">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex items-center space-x-4">
               <div className="p-2 bg-green-500/20 rounded-full">
                 <UserCheck className="h-6 w-6 text-green-500" />
@@ -182,7 +182,7 @@ export const Users = () => {
         </Card>
 
         <Card className="card-hover">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex items-center space-x-4">
               <div className="p-2 bg-purple-500/20 rounded-full">
                 <Shield className="h-6 w-6 text-purple-500" />

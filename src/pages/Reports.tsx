@@ -47,12 +47,15 @@ const Reports = () => {
   };
 
   return (
-    <div className="container mx-auto py-10 space-y-8 max-w-6xl">
-      <div>
-        <h1 className="text-4xl font-bold gradient-text tracking-tight">Relatórios</h1>
-        <p className="text-muted-foreground text-lg">
-          Gere relatórios detalhados sobre recursos, acessos e atividades
-        </p>
+    <div className="container mx-auto p-6 space-y-6">
+      <div className="flex items-center gap-2 mb-6">
+        <FileText className="h-6 w-6 text-primary" />
+        <div>
+          <h1 className="text-2xl font-bold">Relatórios</h1>
+          <p className="text-muted-foreground">
+            Gere relatórios detalhados sobre recursos, acessos e atividades
+          </p>
+        </div>
       </div>
 
       <Card className="card-enhanced">
