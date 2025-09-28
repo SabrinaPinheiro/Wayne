@@ -316,44 +316,44 @@ export const Resources = () => {
 
       {/* Filters */}
       <Card className="filter-card">
-        <CardContent className="p-6">
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Buscar recursos..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 h-12"
-                />
-              </div>
+        <CardContent className="p-4 sm:p-6">
+          <div className="flex flex-col gap-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Buscar recursos..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 h-12"
+              />
             </div>
             
-            <Select value={filterType} onValueChange={setFilterType}>
-              <SelectTrigger className="w-48 h-12">
-                <SelectValue placeholder="Tipo" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Todos os tipos</SelectItem>
-                <SelectItem value="equipamento">Equipamento</SelectItem>
-                <SelectItem value="veiculo">Veículo</SelectItem>
-                <SelectItem value="dispositivo">Dispositivo</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Select value={filterType} onValueChange={setFilterType}>
+                <SelectTrigger className="h-12">
+                  <SelectValue placeholder="Tipo" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todos os tipos</SelectItem>
+                  <SelectItem value="equipamento">Equipamento</SelectItem>
+                  <SelectItem value="veiculo">Veículo</SelectItem>
+                  <SelectItem value="dispositivo">Dispositivo</SelectItem>
+                </SelectContent>
+              </Select>
 
-            <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger className="w-48 h-12">
-                <SelectValue placeholder="Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Todos os status</SelectItem>
-                <SelectItem value="disponivel">Disponível</SelectItem>
-                <SelectItem value="em_uso">Em Uso</SelectItem>
-                <SelectItem value="manutencao">Manutenção</SelectItem>
-                <SelectItem value="indisponivel">Indisponível</SelectItem>
-              </SelectContent>
-            </Select>
+              <Select value={filterStatus} onValueChange={setFilterStatus}>
+                <SelectTrigger className="h-12">
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Todos os status</SelectItem>
+                  <SelectItem value="disponivel">Disponível</SelectItem>
+                  <SelectItem value="em_uso">Em Uso</SelectItem>
+                  <SelectItem value="manutencao">Manutenção</SelectItem>
+                  <SelectItem value="indisponivel">Indisponível</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </CardContent>
       </Card>

@@ -268,69 +268,75 @@ export const Users = () => {
               <p>Nenhum usuário encontrado com os filtros aplicados</p>
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Nome</TableHead>
-                  <TableHead>Papel</TableHead>
-                  <TableHead>Criado em</TableHead>
-                  <TableHead>Última atualização</TableHead>
-                  {profile?.role === 'admin' && <TableHead>Ações</TableHead>}
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredUsers.map((user) => (
-                  <TableRow key={user.id}>
-                    <TableCell className="font-medium">
-                      <div className="flex items-center gap-2">
-                        <div className={cn(
-                          'h-8 w-8 rounded-full flex items-center justify-center text-white text-sm font-bold',
-                          ROLE_LABELS[user.role].color
-                        )}>
-                          {user.full_name?.charAt(0).toUpperCase() || 'U'}
-                        </div>
-                        {user.full_name || 'Usuário sem nome'}
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant={ROLE_LABELS[user.role].variant}>
-                        {ROLE_LABELS[user.role].label}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Clock className="h-4 w-4" />
-                        {format(new Date(user.created_at), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="text-sm text-muted-foreground">
-                        {format(new Date(user.updated_at), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
-                      </div>
-                    </TableCell>
-                    {profile?.role === 'admin' && (
-                      <TableCell>
-                        <Select
-                          value={user.role}
-                          onValueChange={(newRole: 'funcionario' | 'gerente' | 'admin') => 
-                            updateUserRole(user.user_id, newRole)
-                          }
-                        >
-                          <SelectTrigger className="w-36">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="funcionario">Funcionário</SelectItem>
-                            <SelectItem value="gerente">Gerente</SelectItem>
-                            <SelectItem value="admin">Administrador</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                    )}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <div className="overflow-x-auto">
+              <div className="min-w-[700px]">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="min-w-[120px]">Nome</TableHead>
+                      <TableHead className="min-w-[100px]">Papel</TableHead>
+                      <TableHead className="min-w-[130px]">Criado em</TableHead>
+                      <TableHead className="min-w-[130px]">Última atualização</TableHead>
+                      {profile?.role === 'admin' && <TableHead className="min-w-[120px]">Ações</TableHead>}
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {filteredUsers.map((user) => (
+                      <TableRow key={user.id}>
+                        <TableCell className="font-medium max-w-[120px]">
+                          <div className="flex items-center gap-2">
+                            <div className={cn(
+                              'h-8 w-8 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0',
+                              ROLE_LABELS[user.role].color
+                            )}>
+                              {user.full_name?.charAt(0).toUpperCase() || 'U'}
+                            </div>
+                            <span className="truncate">{user.full_name || 'Usuário sem nome'}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant={ROLE_LABELS[user.role].variant} className="text-xs">
+                            {ROLE_LABELS[user.role].label}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Clock className="h-4 w-4 flex-shrink-0" />
+                            <span className="whitespace-nowrap">
+                              {format(new Date(user.created_at), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="text-sm text-muted-foreground whitespace-nowrap">
+                            {format(new Date(user.updated_at), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
+                          </div>
+                        </TableCell>
+                        {profile?.role === 'admin' && (
+                          <TableCell>
+                            <Select
+                              value={user.role}
+                              onValueChange={(newRole: 'funcionario' | 'gerente' | 'admin') => 
+                                updateUserRole(user.user_id, newRole)
+                              }
+                            >
+                              <SelectTrigger className="w-32">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="funcionario">Funcionário</SelectItem>
+                                <SelectItem value="gerente">Gerente</SelectItem>
+                                <SelectItem value="admin">Administrador</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
           )}
         </CardContent>
       </Card>
