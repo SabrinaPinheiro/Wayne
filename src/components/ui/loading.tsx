@@ -233,7 +233,7 @@ export const useLoading = (initialState = false) => {
   }, []);
 
   const withLoading = React.useCallback(
-    async <T>(promise: Promise<T>, text?: string): Promise<T> => {
+    async (promise: Promise<any>, text?: string): Promise<any> => {
       startLoading(text);
       try {
         const result = await promise;
