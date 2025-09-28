@@ -95,10 +95,13 @@ export const Profile = () => {
   };
 
   return (
-    <div className="container mx-auto py-8 px-6 max-w-4xl">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold gradient-text">Meu Perfil</h1>
-        <p className="text-muted-foreground text-lg">Gerencie suas informações pessoais</p>
+    <div className="container mx-auto p-6 space-y-6">
+      <div className="flex items-center gap-2 mb-6">
+        <User className="h-6 w-6 text-primary" />
+        <div>
+          <h1 className="text-2xl font-bold">Meu Perfil</h1>
+          <p className="text-muted-foreground">Gerencie suas informações pessoais</p>
+        </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
@@ -109,7 +112,7 @@ export const Profile = () => {
               <CardTitle className="text-xl">Avatar</CardTitle>
               <CardDescription>Sua foto de perfil</CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-col items-center space-y-4">
+            <CardContent className="flex flex-col items-center space-y-4 px-6">
               <AvatarUpload
                 currentAvatarUrl={avatarUrl}
                 onAvatarUpdate={handleAvatarUpdate}

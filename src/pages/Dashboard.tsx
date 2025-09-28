@@ -107,14 +107,17 @@ export const Dashboard = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">
-          {getGreeting()}, {profile?.full_name || 'Usuário'}!
-        </h1>
-        <p className="text-muted-foreground mt-1">
-          {getRoleTitle()} • Wayne Industries Resource Management
-        </p>
+    <div className="container mx-auto p-6 space-y-6">
+      <div className="flex items-center gap-2 mb-6">
+        <Package className="h-6 w-6 text-primary" />
+        <div>
+          <h1 className="text-2xl font-bold">
+            {getGreeting()}, {profile?.full_name || 'Usuário'}!
+          </h1>
+          <p className="text-muted-foreground">
+            {getRoleTitle()} • Wayne Industries Resource Management
+          </p>
+        </div>
       </div>
 
       {/* KPI Cards */}

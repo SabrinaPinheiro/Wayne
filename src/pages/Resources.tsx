@@ -203,13 +203,16 @@ export const Resources = () => {
   });
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-start">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Recursos</h1>
-          <p className="text-muted-foreground mt-1">
-            Gerenciamento de equipamentos, veículos e dispositivos
-          </p>
+    <div className="container mx-auto p-6 space-y-6">
+      <div className="flex justify-between items-start mb-6">
+        <div className="flex items-center gap-2">
+          <Package className="h-6 w-6 text-primary" />
+          <div>
+            <h1 className="text-2xl font-bold">Recursos</h1>
+            <p className="text-muted-foreground">
+              Gerenciamento de equipamentos, veículos e dispositivos
+            </p>
+          </div>
         </div>
 
         {canModifyResources && (

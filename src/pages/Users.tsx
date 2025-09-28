@@ -138,15 +138,15 @@ export const Users = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold flex items-center gap-2">
-          <UsersIcon className="h-8 w-8 text-primary icon-glow" />
-          Gerenciamento de Usuários
-        </h1>
-        <p className="text-muted-foreground mt-1">
-          Gerencie usuários, papéis e permissões do sistema
-        </p>
+    <div className="container mx-auto p-6 space-y-6">
+      <div className="flex items-center gap-2 mb-6">
+        <UsersIcon className="h-6 w-6 text-primary" />
+        <div>
+          <h1 className="text-2xl font-bold">Gerenciamento de Usuários</h1>
+          <p className="text-muted-foreground">
+            Gerencie usuários, papéis e permissões do sistema
+          </p>
+        </div>
       </div>
 
       {/* Stats Cards */}

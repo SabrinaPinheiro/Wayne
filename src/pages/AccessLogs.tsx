@@ -198,15 +198,15 @@ export const AccessLogs = () => {
   const totalPages = Math.ceil(totalCount / itemsPerPage);
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold flex items-center gap-2">
-          <FileText className="h-8 w-8 text-primary icon-glow" />
-          Logs de Acesso
-        </h1>
-        <p className="text-muted-foreground mt-1">
-          Histórico completo de movimentações de recursos
-        </p>
+    <div className="container mx-auto p-6 space-y-6">
+      <div className="flex items-center gap-2 mb-6">
+        <FileText className="h-6 w-6 text-primary" />
+        <div>
+          <h1 className="text-2xl font-bold">Logs de Acesso</h1>
+          <p className="text-muted-foreground">
+            Histórico completo de movimentações de recursos
+          </p>
+        </div>
       </div>
 
       {/* Filters */}
