@@ -133,7 +133,7 @@ export const Login = () => {
           <img 
             src={logoWayne} 
             alt="Wayne Industries" 
-            className="h-20 w-auto mx-auto mb-4"
+            className="h-32 w-auto mx-auto mb-4"
           />
           <p className="text-muted-foreground">Sistema de Gestão de Recursos</p>
         </div>
@@ -196,7 +196,7 @@ export const Login = () => {
                     <Button
                       type="button"
                       variant="outline"
-                      className="w-full border-green-500/30 text-green-600 hover:bg-green-50 hover:text-green-700 dark:border-green-500/30 dark:text-green-400 dark:hover:bg-green-950 dark:hover:text-green-300"
+                      className="w-full bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border-blue-500/30 text-blue-700 hover:from-blue-500/30 hover:to-cyan-500/30 hover:border-blue-500/40"
                       onClick={() => handleDemoLogin('funcionario')}
                       disabled={isLoading}
                     >
@@ -206,7 +206,7 @@ export const Login = () => {
                     <Button
                       type="button"
                       variant="outline"
-                      className="w-full border-yellow-500/30 text-yellow-600 hover:bg-yellow-50 hover:text-yellow-700 dark:border-yellow-500/30 dark:text-yellow-400 dark:hover:bg-yellow-950 dark:hover:text-yellow-300"
+                      className="w-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-purple-500/30 text-purple-700 hover:from-purple-500/30 hover:to-pink-500/30 hover:border-purple-500/40"
                       onClick={() => handleDemoLogin('gerente')}
                       disabled={isLoading}
                     >
@@ -216,7 +216,7 @@ export const Login = () => {
                     <Button
                       type="button"
                       variant="outline"
-                      className="w-full border-red-500/30 text-red-600 hover:bg-red-50 hover:text-red-700 dark:border-red-500/30 dark:text-red-400 dark:hover:bg-red-950 dark:hover:text-red-300"
+                      className="w-full bg-gradient-to-r from-red-500/20 to-orange-500/20 border-red-500/30 text-red-700 hover:from-red-500/30 hover:to-orange-500/30 hover:border-red-500/40"
                       onClick={() => handleDemoLogin('admin')}
                       disabled={isLoading}
                     >

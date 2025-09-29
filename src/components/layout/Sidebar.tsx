@@ -1,6 +1,7 @@
-import { LayoutDashboard, Package, History, Settings, User, FileText } from 'lucide-react';
+import { LayoutDashboard, Package, History, User, FileText } from 'lucide-react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
+import { useIsMobile } from '@/hooks/use-mobile';
 import logoWayne from '@/assets/logo-wayne.png';
 import symbolWayne from '@/assets/symbol-wayne.png';
 import {
@@ -37,16 +38,11 @@ const menuItems = [
     url: '/access-logs',
     icon: History,
   },
-  {
-    title: 'Configurações',
-    url: '/settings',
-    icon: Settings,
-  },
 ];
 
 const adminMenuItems = [
   {
-    title: 'Usuários Cadastrados',
+    title: 'Gerenciar Usuários',
     url: '/users',
     icon: User,
   },
@@ -58,9 +54,10 @@ const adminMenuItems = [
 ];
 
 export const AppSidebar = () => {
-  const { state } = useSidebar();
+  const { state, setOpenMobile } = useSidebar();
   const { profile } = useAuth();
   const location = useLocation();
+  const isMobile = useIsMobile();
   const currentPath = location.pathname;
 
   const isActive = (path: string) => currentPath === path;
@@ -68,6 +65,13 @@ export const AppSidebar = () => {
   // Show admin items only for admins and managers
   const canViewAdminItems = profile?.role === 'admin' || profile?.role === 'gerente';
   const allMenuItems = canViewAdminItems ? [...menuItems, ...adminMenuItems] : menuItems;
+
+  // Handle mobile sidebar close on navigation
+  const handleNavClick = () => {
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
 
   const getNavClassName = ({ isActive }: { isActive: boolean }) => {
     if (isActive) {
@@ -99,6 +103,7 @@ export const AppSidebar = () => {
                       to={item.url}
                       end
                       className={getNavClassName}
+                      onClick={handleNavClick}
                     >
                       <item.icon className="h-4 w-4" />
                       {state !== 'collapsed' && <span>{item.title}</span>}

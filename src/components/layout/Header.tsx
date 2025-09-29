@@ -1,8 +1,8 @@
-import { User, LogOut } from 'lucide-react';
+import { User, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,9 +31,12 @@ export const Header = () => {
       <div className="flex h-full items-center justify-between px-6">
         <div className="flex items-center gap-4">
           <SidebarTrigger className="text-foreground hover:bg-accent/80 hover:scale-105 transition-all" />
-          <span className="text-xl font-bold gradient-text">
+          <Link 
+            to="/dashboard" 
+            className="text-xl font-bold gradient-text hover:opacity-80 transition-opacity cursor-pointer"
+          >
             Wayne Industries
-          </span>
+          </Link>
         </div>
 
         <div className="flex items-center gap-4">
@@ -71,6 +74,16 @@ export const Header = () => {
                 <div>
                   <div className="font-medium">Perfil</div>
                   <div className="text-xs text-muted-foreground">Gerencie suas informações</div>
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => navigate('/settings')} 
+                className="cursor-pointer p-3 rounded-lg hover:bg-accent/80 transition-colors"
+              >
+                <Settings className="mr-3 h-5 w-5 text-primary" />
+                <div>
+                  <div className="font-medium">Configurações</div>
+                  <div className="text-xs text-muted-foreground">Ajustes do sistema</div>
                 </div>
               </DropdownMenuItem>
               <DropdownMenuSeparator className="my-2" />

@@ -91,7 +91,7 @@ export const ResetPassword = () => {
           <img 
             src={logoWayne} 
             alt="Wayne Industries" 
-            className="h-20 w-auto mx-auto mb-4"
+            className="h-32 w-auto mx-auto mb-4"
           />
           <p className="text-muted-foreground">Sistema de Gestão de Recursos</p>
         </div>

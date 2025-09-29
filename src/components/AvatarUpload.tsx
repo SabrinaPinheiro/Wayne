@@ -122,25 +122,26 @@ export const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, fallbackText }:
   };
 
   return (
-    <div className="flex items-center gap-4">
-      <Avatar className="h-20 w-20">
+    <div className="flex flex-col items-center gap-4">
+      <Avatar className="h-16 w-16 sm:h-20 sm:w-20 flex-shrink-0">
         <AvatarImage src={currentAvatarUrl || ''} alt="Avatar" />
-        <AvatarFallback className="text-lg">
+        <AvatarFallback className="text-sm sm:text-lg">
           {fallbackText}
         </AvatarFallback>
       </Avatar>
       
-      <div className="flex flex-col gap-2">
-        <div className="flex gap-2">
+      <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col sm:flex-row gap-2 w-full justify-center">
           <Button
             variant="outline"
             size="sm"
             disabled={uploading}
             asChild
+            className="w-full sm:w-auto"
           >
-            <label className="cursor-pointer flex items-center gap-2">
+            <label className="cursor-pointer flex items-center justify-center gap-2">
               <Upload className="h-4 w-4" />
-              {uploading ? 'Enviando...' : 'Alterar Foto'}
+              <span className="text-xs sm:text-sm">{uploading ? 'Enviando...' : 'Alterar Foto'}</span>
               <Input
                 type="file"
                 accept="image/*"
@@ -157,13 +158,15 @@ export const AvatarUpload = ({ currentAvatarUrl, onAvatarUpdate, fallbackText }:
               size="sm"
               onClick={removeAvatar}
               disabled={uploading}
+              className="w-full sm:w-auto"
             >
               <X className="h-4 w-4" />
+              <span className="sm:hidden ml-2 text-xs">Remover</span>
             </Button>
           )}
         </div>
         
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-muted-foreground text-center">
           JPG, PNG ou WEBP. Máximo 2MB.
         </p>
       </div>

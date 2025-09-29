@@ -160,11 +160,11 @@ export const Alerts = () => {
   const filteredAlerts = filter === 'unread' ? alerts.filter(a => a.status === 'unread') : alerts;
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="container mx-auto p-6 space-y-6">
+      <div className="flex items-center gap-2 mb-6">
+        <Bell className="h-6 w-6 text-primary" />
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-2">
-            <Bell className="h-8 w-8 text-primary icon-glow" />
+          <h1 className="text-2xl font-bold">
             Alertas
             {unreadCount > 0 && (
               <Badge variant="destructive" className="ml-2">
@@ -172,33 +172,35 @@ export const Alerts = () => {
               </Badge>
             )}
           </h1>
-          <p className="text-muted-foreground mt-1">
+          <p className="text-muted-foreground">
             Notificações e alertas do sistema
           </p>
         </div>
+      </div>
 
-        <div className="flex items-center gap-2">
-          <Button
-            variant={filter === 'all' ? 'default' : 'outline'}
-            onClick={() => setFilter('all')}
-            size="sm"
-          >
-            Todos ({alerts.length})
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2">
+        <Button
+          variant={filter === 'all' ? 'default' : 'outline'}
+          onClick={() => setFilter('all')}
+          size="sm"
+          className="w-full sm:w-auto"
+        >
+          Todos ({alerts.length})
+        </Button>
+        <Button
+          variant={filter === 'unread' ? 'default' : 'outline'}
+          onClick={() => setFilter('unread')}
+          size="sm"
+          className="w-full sm:w-auto"
+        >
+          Não lidos ({unreadCount})
+        </Button>
+        {unreadCount > 0 && (
+          <Button onClick={markAllAsRead} size="sm" variant="outline" className="w-full sm:w-auto">
+            <Check className="h-4 w-4 mr-2" />
+            Marcar todos como lidos
           </Button>
-          <Button
-            variant={filter === 'unread' ? 'default' : 'outline'}
-            onClick={() => setFilter('unread')}
-            size="sm"
-          >
-            Não lidos ({unreadCount})
-          </Button>
-          {unreadCount > 0 && (
-            <Button onClick={markAllAsRead} size="sm" variant="outline">
-              <Check className="h-4 w-4 mr-2" />
-              Marcar todos como lidos
-            </Button>
-          )}
-        </div>
+        )}
       </div>
 
       {/* Alerts List */}
@@ -250,10 +252,10 @@ export const Alerts = () => {
                   isUnread && 'border-l-4 border-l-primary bg-primary/5'
                 )}
               >
-                <CardContent className="p-8">
-                  <div className="flex items-start space-x-6">
+                <CardContent className="p-4 sm:p-8">
+                  <div className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
                     <div className={cn(
-                      'flex-shrink-0 p-3 rounded-full',
+                      'flex-shrink-0 p-3 rounded-full self-start',
                       isUnread ? 'bg-primary/20 glow-effect' : 'bg-muted'
                     )}>
                       <Icon className={cn(
@@ -262,8 +264,8 @@ export const Alerts = () => {
                       )} />
                     </div>
                     
-                    <div className="flex-1 min-w-0 space-y-4">
-                      <div className="flex items-center justify-between">
+                    <div className="flex-1 min-w-0 space-y-4 w-full">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                         <Badge variant={ALERT_VARIANTS[alert.type]} className="text-sm px-3 py-1">
                           {alert.type === 'info' && 'Informação'}
                           {alert.type === 'warning' && 'Aviso'}
@@ -284,8 +286,8 @@ export const Alerts = () => {
                         {alert.message}
                       </p>
                       
-                      <div className="flex items-center justify-between">
-                        <p className="text-sm text-muted-foreground">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                        <p className="text-sm text-muted-foreground break-words">
                           {formatDistanceToNow(new Date(alert.created_at), {
                             addSuffix: true,
                             locale: ptBR,
@@ -297,7 +299,7 @@ export const Alerts = () => {
                             variant="ghost"
                             size="default"
                             onClick={() => markAsRead(alert.id)}
-                            className="h-10 px-4"
+                            className="h-10 px-4 w-full sm:w-auto"
                           >
                             <Check className="h-4 w-4 mr-2" />
                             Marcar como lido

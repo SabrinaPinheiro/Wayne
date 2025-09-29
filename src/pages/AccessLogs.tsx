@@ -57,6 +57,19 @@ export const AccessLogs = () => {
     try {
       setLoading(true);
       
+      // Check if user is authenticated
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError || !user) {
+        console.error('Erro de autenticação:', authError);
+        toast({
+          title: 'Erro de Autenticação',
+          description: 'Usuário não autenticado. Faça login novamente.',
+          variant: 'destructive',
+        });
+        return;
+      }
+      
       let query = supabase
         .from('access_logs')
         .select(`
@@ -64,16 +77,12 @@ export const AccessLogs = () => {
           action,
           notes,
           timestamp,
-          profiles!inner(full_name),
-          resources!inner(name, type)
+          user_id,
+          resources!access_logs_resource_id_fkey(name, type)
         `, { count: 'exact' })
         .order('timestamp', { ascending: false });
 
       // Apply filters
-      if (filters.search) {
-        query = query.or(`profiles.full_name.ilike.%${filters.search}%,resources.name.ilike.%${filters.search}%`);
-      }
-
       if (filters.action) {
         query = query.eq('action', filters.action);
       }
@@ -93,11 +102,44 @@ export const AccessLogs = () => {
 
       const { data, error, count } = await query;
 
-      if (error) throw error;
+      if (error) {
+        console.error('Erro detalhado ao carregar logs:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
+        
+        let errorMessage = 'Não foi possível carregar os logs de acesso.';
+        if (error.code === 'PGRST301') {
+          errorMessage = 'Acesso negado. Verifique suas permissões.';
+        } else if (error.code === 'PGRST116') {
+          errorMessage = 'Erro de relacionamento entre tabelas.';
+        }
+        
+        throw new Error(errorMessage);
+      }
 
-      const formattedLogs: AccessLog[] = (data || []).map((log: any) => ({
+      // Buscar os perfis dos usuários
+      const userIds = [...new Set((data || []).map((log: any) => log.user_id))];
+      const { data: profilesData, error: profilesError } = await supabase
+        .from('profiles')
+        .select('user_id, full_name')
+        .in('user_id', userIds);
+
+      if (profilesError) {
+        console.error('Erro ao carregar perfis:', profilesError);
+      }
+
+      // Criar um mapa de user_id para full_name
+      const profilesMap = new Map();
+      (profilesData || []).forEach((profile: any) => {
+        profilesMap.set(profile.user_id, profile.full_name);
+      });
+
+      let formattedLogs: AccessLog[] = (data || []).map((log: any) => ({
         id: log.id,
-        user_name: log.profiles?.full_name || 'Usuário Desconhecido',
+        user_name: profilesMap.get(log.user_id) || 'Usuário Desconhecido',
         resource_name: log.resources?.name || 'Recurso Desconhecido',
         resource_type: log.resources?.type || 'Tipo Desconhecido',
         action: log.action,
@@ -105,13 +147,22 @@ export const AccessLogs = () => {
         timestamp: log.timestamp,
       }));
 
+      // Aplicar filtro de busca por nome de usuário se necessário
+      if (filters.search) {
+        const searchLower = filters.search.toLowerCase();
+        formattedLogs = formattedLogs.filter(log => 
+          log.user_name.toLowerCase().includes(searchLower) ||
+          log.resource_name.toLowerCase().includes(searchLower)
+        );
+      }
+
       setLogs(formattedLogs);
       setTotalCount(count || 0);
     } catch (error) {
-      console.error('Erro ao carregar logs:', error);
+      console.error('Erro geral ao carregar logs:', error);
       toast({
         title: 'Erro',
-        description: 'Não foi possível carregar os logs de acesso.',
+        description: error instanceof Error ? error.message : 'Erro inesperado ao carregar logs.',
         variant: 'destructive',
       });
     } finally {

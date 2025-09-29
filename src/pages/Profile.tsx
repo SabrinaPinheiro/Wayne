@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { AvatarUpload } from '@/components/AvatarUpload';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { User, Save, Mail } from 'lucide-react';
+import { User, Save, Mail, UserCircle } from 'lucide-react';
 
 export const Profile = () => {
   const { profile, user } = useAuth();
@@ -104,63 +104,62 @@ export const Profile = () => {
         </div>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-3 max-w-4xl">
-        {/* Avatar Section */}
-        <div className="lg:col-span-1">
-          <Card className="card-enhanced">
-            <CardHeader className="text-center">
-              <CardTitle className="text-xl">Avatar</CardTitle>
-              <CardDescription>Sua foto de perfil</CardDescription>
+      <div className="space-y-6">
+        {/* Avatar and Personal Information Section - Same row */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Avatar Section */}
+          <Card>
+            <CardHeader className="flex flex-row items-center space-y-0 pb-4">
+              <div className="flex items-center space-x-2">
+                <UserCircle className="h-5 w-5 text-primary" />
+                <CardTitle className="text-lg">Avatar</CardTitle>
+              </div>
             </CardHeader>
-            <CardContent className="flex flex-col items-center space-y-4 px-4 sm:px-6">
-              <AvatarUpload
-                currentAvatarUrl={avatarUrl}
-                onAvatarUpdate={handleAvatarUpdate}
-                fallbackText={getInitials(profile?.full_name)}
-              />
-              <div className="text-center">
-                <Badge 
-                  variant={getRoleBadgeVariant(profile?.role)}
-                  className="text-sm font-medium"
-                >
-                  {getRoleDisplayName(profile?.role)}
-                </Badge>
+            <CardContent className="space-y-4">
+              <div className="flex flex-col items-center space-y-4">
+                <AvatarUpload
+                  currentAvatarUrl={avatarUrl}
+                  onAvatarUpdate={handleAvatarUpdate}
+                  fallbackText={getInitials(profile?.full_name)}
+                />
+                <div className="text-center space-y-2">
+                  <h3 className="font-medium">{profile?.full_name || 'Nome não informado'}</h3>
+                  <p className="text-sm text-muted-foreground">{user?.email}</p>
+                  <Badge 
+                    variant={getRoleBadgeVariant(profile?.role)}
+                    className="font-medium"
+                  >
+                    {getRoleDisplayName(profile?.role)}
+                  </Badge>
+                </div>
               </div>
             </CardContent>
           </Card>
-        </div>
 
-        {/* Information Section */}
-        <div className="lg:col-span-2">
-          <Card className="card-enhanced">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="flex items-center gap-2 text-2xl">
-                    <User className="h-6 w-6 icon-glow" />
-                    Informações Pessoais
-                  </CardTitle>
-                  <CardDescription>
-                    Suas informações básicas de perfil
-                  </CardDescription>
-                </div>
-                {!isEditing && (
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setIsEditing(true)}
-                    className="hover:glow-effect"
-                    size="lg"
-                  >
-                    Editar Perfil
+          {/* Personal Information Section */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-lg">Informações Pessoais</CardTitle>
+              {!isEditing ? (
+                <Button variant="outline" size="sm" onClick={() => setIsEditing(true)}>
+                  Editar
+                </Button>
+              ) : (
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm" onClick={handleCancel}>
+                    Cancelar
                   </Button>
-                )}
-              </div>
+                  <Button size="sm" onClick={handleSave}>
+                    {isLoading ? 'Salvando...' : 'Salvar'}
+                  </Button>
+                </div>
+              )}
             </CardHeader>
-            <CardContent className="space-y-8">
-              <div className="grid gap-6 md:grid-cols-2">
-                <div className="space-y-3">
-                  <Label htmlFor="email" className="flex items-center gap-2 text-base font-semibold">
-                    <Mail className="h-5 w-5 text-primary" />
+            <CardContent className="space-y-4">
+              <div className="grid gap-4 sm:grid-cols-1">
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="flex items-center gap-2">
+                    <Mail className="h-4 w-4 text-primary" />
                     Email
                   </Label>
                   <Input
@@ -168,15 +167,15 @@ export const Profile = () => {
                     type="email"
                     value={user?.email || ''}
                     disabled
-                    className="bg-muted/50 h-12 text-base"
+                    className="bg-muted/50"
                   />
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs text-muted-foreground">
                     O email não pode ser alterado pelo sistema
                   </p>
                 </div>
 
-                <div className="space-y-3">
-                  <Label htmlFor="fullName" className="text-base font-semibold">Nome Completo</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="fullName">Nome Completo</Label>
                   <Input
                     id="fullName"
                     type="text"
@@ -184,48 +183,22 @@ export const Profile = () => {
                     onChange={(e) => setFullName(e.target.value)}
                     disabled={!isEditing}
                     placeholder="Digite seu nome completo"
-                    className={`h-12 text-base transition-all ${
-                      isEditing 
-                        ? 'border-primary/50 focus:border-primary focus:ring-primary/20' 
-                        : 'bg-muted/30'
-                    }`}
+                    className={isEditing ? '' : 'bg-muted/30'}
                   />
                 </div>
               </div>
-
-              {isEditing && (
-                <div className="flex gap-3 pt-6 border-t">
-                  <Button 
-                    onClick={handleSave} 
-                    disabled={isLoading}
-                    className="flex items-center gap-2 glow-effect"
-                    size="lg"
-                  >
-                    <Save className="h-5 w-5" />
-                    {isLoading ? 'Salvando...' : 'Salvar Alterações'}
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    onClick={handleCancel}
-                    disabled={isLoading}
-                    size="lg"
-                  >
-                    Cancelar
-                  </Button>
-                </div>
-              )}
             </CardContent>
           </Card>
         </div>
-      </div>
 
-      <Alert className="mt-8 border-primary/20 bg-primary/5">
-        <User className="h-5 w-5 text-primary" />
-        <AlertDescription className="text-base">
-          <strong>Informação:</strong> Algumas informações como função e email são gerenciadas pelo administrador do sistema.
-          Para alterações nestes campos, entre em contato com o administrador.
-        </AlertDescription>
-      </Alert>
+        <Alert className="border-primary/20 bg-primary/5">
+          <User className="h-4 w-4 text-primary" />
+          <AlertDescription>
+            <strong>Informação:</strong> Algumas informações como função e email são gerenciadas pelo administrador do sistema.
+            Para alterações nestes campos, entre em contato com o administrador.
+          </AlertDescription>
+        </Alert>
+      </div>
     </div>
   );
 };
