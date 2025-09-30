@@ -9,6 +9,9 @@ import { format, formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { toast } from '@/components/ui/use-toast';
 import { cn } from '@/lib/utils';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { EmptyState } from '@/components/ui/empty-state';
+import { CardLoading } from '@/components/ui/loading';
 
 interface Alert {
   id: string;
@@ -206,39 +209,15 @@ export const Alerts = () => {
       {/* Alerts List */}
       <div className="space-y-6">
         {loading ? (
-          <div className="space-y-6">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <Card key={i} className="card-enhanced">
-                <CardContent className="p-8">
-                  <div className="animate-pulse space-y-6">
-                    <div className="flex items-center space-x-6">
-                      <div className="h-12 w-12 bg-muted rounded-full" />
-                      <div className="space-y-3 flex-1">
-                        <div className="h-5 bg-muted rounded w-3/4" />
-                        <div className="h-4 bg-muted rounded w-1/2" />
-                        <div className="h-3 bg-muted rounded w-1/3" />
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <CardLoading count={5} />
         ) : filteredAlerts.length === 0 ? (
-          <Card className="empty-state">
-            <CardContent className="p-16 text-center">
-              <Bell className="h-16 w-16 mx-auto mb-6 opacity-50" />
-              <h3 className="text-xl font-semibold mb-3">
-                {filter === 'unread' ? 'Nenhum alerta não lido' : 'Nenhum alerta encontrado'}
-              </h3>
-              <p className="text-muted-foreground text-base">
-                {filter === 'unread' 
-                  ? 'Todos os alertas foram lidos! Continue o bom trabalho.' 
-                  : 'Você não possui alertas no momento. Fique atento às notificações.'
-                }
-              </p>
-            </CardContent>
-          </Card>
+          <EmptyState
+            icon={Bell}
+            title={filter === 'unread' ? 'Nenhum alerta não lido' : 'Nenhum alerta encontrado'}
+            description={filter === 'unread' 
+              ? 'Todos os alertas foram lidos! Continue o bom trabalho.' 
+              : 'Você não possui alertas no momento. Fique atento às notificações.'}
+          />
         ) : (
           filteredAlerts.map((alert) => {
             const Icon = ALERT_ICONS[alert.type];

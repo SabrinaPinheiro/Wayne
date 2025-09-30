@@ -10,6 +10,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useToast } from '@/components/ui/use-toast';
 import { Plus, Search, Package, Car, Smartphone, Edit, Trash2 } from 'lucide-react';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { EmptyState } from '@/components/ui/empty-state';
+import { CardLoading } from '@/components/ui/loading';
 
 interface Resource {
   id: string;
@@ -204,7 +207,9 @@ export const Resources = () => {
 
   return (
     <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6 space-y-6">
-        <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+      <Breadcrumbs items={[{ label: 'Recursos', icon: Package }]} />
+      
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
           <div className="flex items-center gap-2">
             <Package className="h-6 w-6 text-primary" />
             <div>
@@ -448,21 +453,20 @@ export const Resources = () => {
       )}
 
       {filteredResources.length === 0 && !loading && (
-        <Card className="empty-state">
-          <CardContent className="text-center py-16">
-            <Package className="h-16 w-16 text-muted-foreground mx-auto mb-6 opacity-50" />
-            <h3 className="text-lg font-semibold mb-2">
-              {searchTerm || filterType !== 'all' || filterStatus !== 'all'
-                ? 'Nenhum recurso encontrado'
-                : 'Nenhum recurso cadastrado'}
-            </h3>
-            <p className="text-muted-foreground">
-              {searchTerm || filterType !== 'all' || filterStatus !== 'all'
-                ? 'Tente ajustar seus filtros para encontrar recursos.'
-                : 'Comece adicionando o primeiro recurso ao sistema.'}
-            </p>
-          </CardContent>
-        </Card>
+        <EmptyState
+          icon={Package}
+          title={searchTerm || filterType !== 'all' || filterStatus !== 'all'
+            ? 'Nenhum recurso encontrado'
+            : 'Nenhum recurso cadastrado'}
+          description={searchTerm || filterType !== 'all' || filterStatus !== 'all'
+            ? 'Tente ajustar seus filtros para encontrar recursos.'
+            : 'Comece adicionando o primeiro recurso ao sistema.'}
+          action={canModifyResources && !searchTerm && filterType === 'all' && filterStatus === 'all' ? {
+            label: 'Adicionar Primeiro Recurso',
+            onClick: () => setIsDialogOpen(true),
+            icon: Plus
+          } : undefined}
+        />
       )}
     </div>
   );

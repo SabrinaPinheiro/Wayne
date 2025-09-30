@@ -11,6 +11,9 @@ import { FileText, Download, Search, Filter, ChevronLeft, ChevronRight, Clock, U
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { toast } from '@/components/ui/use-toast';
+import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { EmptyState } from '@/components/ui/empty-state';
+import { TableLoading } from '@/components/ui/loading';
 
 interface AccessLog {
   id: string;
@@ -296,16 +299,13 @@ export const AccessLogs = () => {
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
-            <div className="space-y-4 p-6">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="h-16 bg-muted rounded animate-pulse" />
-              ))}
-            </div>
+            <TableLoading rows={5} columns={6} className="p-6" />
           ) : logs.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              <FileText className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p>Nenhum log encontrado com os filtros aplicados</p>
-            </div>
+            <EmptyState
+              icon={FileText}
+              title="Nenhum log encontrado"
+              description="Não há registros de acesso com os filtros aplicados. Tente ajustar os filtros."
+            />
           ) : (
             <>
               <div className="overflow-x-auto -mx-6 px-6">
