@@ -217,8 +217,8 @@ export const AccessLogs = () => {
   const totalPages = Math.ceil(totalCount / itemsPerPage);
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div className="flex items-center gap-2 mb-6">
+    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6 space-y-6">
+      <div className="flex items-center gap-2">
         <FileText className="h-6 w-6 text-primary" />
         <div>
           <h1 className="text-2xl font-bold">Logs de Acesso</h1>
@@ -308,19 +308,18 @@ export const AccessLogs = () => {
             </div>
           ) : (
             <>
-              <div className="overflow-x-auto">
-                <div className="min-w-[600px]">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className="min-w-[120px]">Data/Hora</TableHead>
-                        <TableHead className="min-w-[100px]">Usuário</TableHead>
-                        <TableHead className="min-w-[120px]">Recurso</TableHead>
-                        <TableHead className="min-w-[80px]">Tipo</TableHead>
-                        <TableHead className="min-w-[80px]">Ação</TableHead>
-                        <TableHead className="min-w-[120px]">Observações</TableHead>
-                      </TableRow>
-                    </TableHeader>
+              <div className="overflow-x-auto -mx-6 px-6">
+                <Table className="min-w-[800px]">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-[140px]">Data/Hora</TableHead>
+                      <TableHead className="w-[150px]">Usuário</TableHead>
+                      <TableHead className="w-[150px]">Recurso</TableHead>
+                      <TableHead className="w-[100px]">Tipo</TableHead>
+                      <TableHead className="w-[100px]">Ação</TableHead>
+                      <TableHead className="min-w-[150px]">Observações</TableHead>
+                    </TableRow>
+                  </TableHeader>
                     <TableBody>
                       {logs.map((log) => (
                         <TableRow key={log.id}>
@@ -353,8 +352,7 @@ export const AccessLogs = () => {
                         </TableRow>
                       ))}
                     </TableBody>
-                  </Table>
-                </div>
+                </Table>
               </div>
 
               {/* Pagination */}

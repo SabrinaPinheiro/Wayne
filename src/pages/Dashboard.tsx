@@ -107,8 +107,8 @@ export const Dashboard = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div className="flex items-center gap-2 mb-6">
+    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6 space-y-6">
+      <div className="flex items-center gap-2">
         <Package className="h-6 w-6 text-primary" />
         <div>
           <h1 className="text-2xl font-bold">
@@ -121,7 +121,7 @@ export const Dashboard = () => {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card className="stats-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
             <CardTitle className="text-sm font-medium">Total de Recursos</CardTitle>
@@ -183,7 +183,7 @@ export const Dashboard = () => {
 
       {/* Additional Stats for Managers and Admins */}
       {(profile?.role === 'admin' || profile?.role === 'gerente') && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <Card className="stats-card">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
               <CardTitle className="text-sm font-medium">Usuários do Sistema</CardTitle>

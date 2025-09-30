@@ -95,8 +95,8 @@ export const Profile = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div className="flex items-center gap-2 mb-6">
+    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6 space-y-6">
+      <div className="flex items-center gap-2">
         <User className="h-6 w-6 text-primary" />
         <div>
           <h1 className="text-2xl font-bold">Meu Perfil</h1>

@@ -203,8 +203,8 @@ export const Resources = () => {
   });
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-        <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-6">
+    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6 space-y-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
           <div className="flex items-center gap-2">
             <Package className="h-6 w-6 text-primary" />
             <div>
@@ -360,7 +360,7 @@ export const Resources = () => {
 
       {/* Resources Grid */}
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3, 4, 5, 6].map((i) => (
             <Card key={i} className="card-enhanced">
               <CardHeader className="pb-4">
@@ -385,7 +385,7 @@ export const Resources = () => {
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredResources.map((resource) => {
             const Icon = typeIcons[resource.type];
             return (
