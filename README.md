@@ -132,7 +132,7 @@ wayne-industries/
 
 1. **Clone o repositório**
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone <https://github.com/SabrinaPinheiro/wayne-industries/>
 cd wayne-industries
 ```
 
