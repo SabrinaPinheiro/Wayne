@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import logoWayne from '@/assets/logo-wayne.png';
+import logoBatman from '@/assets/logo-batman.png';
 
 const Index = () => {
   const features = [
@@ -99,8 +100,18 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
+        {/* Batman Logo Watermark */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+          <img 
+            src={logoBatman} 
+            alt="" 
+            aria-hidden="true"
+            className="w-96 h-96 md:w-[32rem] md:h-[32rem] lg:w-[40rem] lg:h-[40rem] object-contain opacity-[0.08] select-none"
+            style={{ filter: 'brightness(1.1) contrast(1.05)' }}
+          />
+        </div>
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="container mx-auto px-4 py-20 relative">
+        <div className="container mx-auto px-4 py-20 relative z-10">
           <div className="text-center space-y-8">
             <div className="flex justify-center mb-8">
               <img 
@@ -124,7 +135,7 @@ const Index = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
               <Link to="/login">
-                <Button size="lg" className="text-lg px-8 py-6 glow-effect group">
+                <Button size="lg" className="text-lg px-8 py-6 btn-batman hover-glow group">
                   Acessar Sistema
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
@@ -285,8 +296,18 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent">
-        <div className="container mx-auto px-4 text-center">
+      <section className="relative py-20 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent overflow-hidden">
+        {/* Batman Logo Watermark */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+          <img 
+            src={logoBatman} 
+            alt="" 
+            aria-hidden="true"
+            className="w-80 h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] object-contain opacity-[0.06] select-none"
+            style={{ filter: 'brightness(1.1) contrast(1.05)' }}
+          />
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="gradient-text">Explore o Sistema</span>
           </h2>
@@ -297,7 +318,7 @@ const Index = () => {
           
           <div className="space-y-6">
             <Link to="/login">
-              <Button size="lg" className="text-xl px-12 py-8 glow-effect group">
+              <Button size="lg" className="text-xl px-12 py-8 btn-batman hover-glow group">
                 Entrar no Sistema
                 <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
               </Button>

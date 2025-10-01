@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { NotificationBell } from './NotificationBell';
+import symbolWayne from '@/assets/symbol-wayne.png';
 
 export const Header = () => {
   const { profile, signOut } = useAuth();
@@ -27,14 +28,19 @@ export const Header = () => {
   };
 
   return (
-    <header className="h-16 border-b border-border bg-gradient-to-r from-card to-card/80 backdrop-blur-sm shadow-header">
+    <header className="h-16 border-b border-gotham-gold/20 bg-gradient-to-r from-gotham-gray to-gotham-black backdrop-blur-sm shadow-header">
       <div className="flex h-full items-center justify-between px-6">
         <div className="flex items-center gap-4">
-          <SidebarTrigger className="text-foreground hover:bg-accent/80 hover:scale-105 transition-all" />
+          <SidebarTrigger className="text-gotham-white hover:bg-gotham-gold/20 hover:scale-105 transition-all" />
           <Link 
             to="/dashboard" 
-            className="text-xl font-bold gradient-text hover:opacity-80 transition-opacity cursor-pointer"
+            className="text-xl font-bold gradient-text hover:opacity-80 transition-opacity cursor-pointer flex items-center gap-2"
           >
+            <img 
+              src={symbolWayne} 
+              alt="Wayne Industries Symbol" 
+              className="w-8 h-8 object-contain"
+            />
             Wayne Industries
           </Link>
         </div>
@@ -45,11 +51,11 @@ export const Header = () => {
             <DropdownMenuTrigger asChild>
               <Button 
                 variant="ghost" 
-                className="flex items-center gap-3 text-foreground hover:bg-accent/80 hover:text-accent-foreground transition-all hover:scale-105 h-12 px-4"
+                className="flex items-center gap-3 text-gotham-white hover:bg-gotham-gold/20 hover:text-gotham-black transition-all hover:scale-105 h-12 px-4"
               >
-                <Avatar className="h-10 w-10 border-2 border-primary/20">
+                <Avatar className="h-10 w-10 border-2 border-gotham-gold/30">
                   <AvatarImage src={profile?.avatar_url || ''} alt="Avatar" />
-                  <AvatarFallback className="text-sm font-semibold bg-gradient-to-br from-primary/20 to-primary/10">
+                  <AvatarFallback className="text-sm font-semibold bg-gradient-to-br from-gotham-gold/20 to-gotham-gold/10 text-gotham-white">
                     {getInitials(profile?.full_name)}
                   </AvatarFallback>
                 </Avatar>
@@ -57,7 +63,7 @@ export const Header = () => {
                   <div className="font-semibold text-sm">
                     {profile?.full_name || 'Usuário'}
                   </div>
-                  <div className="text-xs text-muted-foreground">
+                  <div className="text-xs text-gotham-light">
                     {profile?.role === 'admin' ? 'Administrador' : 
                      profile?.role === 'gerente' ? 'Gerente' : 'Funcionário'}
                   </div>
@@ -65,31 +71,31 @@ export const Header = () => {
               </Button>
             </DropdownMenuTrigger>
             
-            <DropdownMenuContent align="end" className="w-64 p-2">
+            <DropdownMenuContent align="end" className="w-64 p-2 bg-gotham-gray border-gotham-gold/20">
               <DropdownMenuItem 
                 onClick={handleProfileClick} 
-                className="cursor-pointer p-3 rounded-lg hover:bg-accent/80 transition-colors"
+                className="cursor-pointer p-3 rounded-lg hover:bg-gotham-gold/20 transition-colors text-gotham-white"
               >
-                <User className="mr-3 h-5 w-5 text-primary" />
+                <User className="mr-3 h-5 w-5 text-gotham-gold" />
                 <div>
                   <div className="font-medium">Perfil</div>
-                  <div className="text-xs text-muted-foreground">Gerencie suas informações</div>
+                  <div className="text-xs text-gotham-light">Gerencie suas informações</div>
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => navigate('/settings')} 
-                className="cursor-pointer p-3 rounded-lg hover:bg-accent/80 transition-colors"
+                className="cursor-pointer p-3 rounded-lg hover:bg-gotham-gold/20 transition-colors text-gotham-white"
               >
-                <Settings className="mr-3 h-5 w-5 text-primary" />
+                <Settings className="mr-3 h-5 w-5 text-gotham-gold" />
                 <div>
                   <div className="font-medium">Configurações</div>
-                  <div className="text-xs text-muted-foreground">Ajustes do sistema</div>
+                  <div className="text-xs text-gotham-light">Ajustes do sistema</div>
                 </div>
               </DropdownMenuItem>
-              <DropdownMenuSeparator className="my-2" />
+              <DropdownMenuSeparator className="my-2 border-gotham-gold/20" />
               <DropdownMenuItem 
                 onClick={signOut} 
-                className="cursor-pointer p-3 rounded-lg text-destructive hover:bg-destructive/10 transition-colors"
+                className="cursor-pointer p-3 rounded-lg text-danger hover:bg-danger/10 transition-colors"
               >
                 <LogOut className="mr-3 h-5 w-5" />
                 <div>

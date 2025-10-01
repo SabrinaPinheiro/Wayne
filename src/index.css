@@ -6,66 +6,68 @@
 
 @layer base {
   :root {
-    /* Wayne Industries Dark Theme */
-    --background: 220 13% 8%;
-    --foreground: 0 0% 95%;
+    /* Wayne Industries Batman Theme - Preto Gotham Base */
+    --background: 0 0% 4%; /* #0a0a0a - Preto Gotham */
+    --foreground: 0 0% 100%; /* #ffffff - Branco Puro */
 
-    --card: 220 13% 12%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 10%; /* #1a1a1a - Cinza Wayne */
+    --card-foreground: 0 0% 100%;
 
-    --popover: 220 13% 12%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 270 80% 70%;
-    --primary-foreground: 220 13% 8%;
+    --primary: 45 100% 42%; /* #d4af37 - Dourado Wayne */
+    --primary-foreground: 0 0% 4%;
 
-    --secondary: 220 13% 18%;
-    --secondary-foreground: 0 0% 90%;
+    --secondary: 0 0% 10%; /* #1a1a1a - Cinza Wayne */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 13% 15%;
-    --muted-foreground: 0 0% 70%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 220 9% 46%; /* #6b7280 - Cinza Claro */
 
-    --accent: 270 30% 25%;
-    --accent-foreground: 0 0% 90%;
+    --accent: 45 100% 42%; /* #d4af37 - Dourado Wayne */
+    --accent-foreground: 0 0% 4%;
 
-    --destructive: 0 75% 60%;
-    --destructive-foreground: 0 0% 95%;
+    --destructive: 0 84% 60%; /* #ef4444 - Vermelho Perigo */
+    --destructive-foreground: 0 0% 100%;
 
-    --warning: 38 92% 50%;
-    --warning-foreground: 220 13% 8%;
+    --warning: 38 95% 48%; /* #f59e0b - Amarelo Alerta */
+    --warning-foreground: 0 0% 4%;
 
-    --success: 142 76% 36%;
-    --success-foreground: 0 0% 95%;
+    --success: 142 76% 36%; /* #10b981 - Verde Sucesso */
+    --success-foreground: 0 0% 100%;
 
-    --border: 220 13% 25%;
-    --input: 220 13% 18%;
-    --ring: 270 80% 70%;
+    --border: 0 0% 20%;
+    --input: 0 0% 10%;
+    --ring: 45 100% 42%; /* #d4af37 - Dourado Wayne */
 
     --radius: 0.75rem;
 
-    /* Wayne Industries Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(270 80% 70%), hsl(270 80% 60%));
-    --gradient-dark: linear-gradient(135deg, hsl(220 13% 8%), hsl(220 13% 12%));
-    --gradient-card: linear-gradient(145deg, hsl(220 13% 10%), hsl(220 13% 12%));
-    --gradient-subtle: linear-gradient(135deg, hsl(220 13% 12%), hsl(220 13% 14%));
-    --gradient-accent: linear-gradient(135deg, hsl(270 30% 25%), hsl(270 30% 30%));
+    /* Wayne Industries Batman Gradients */
+    --gradient-primary: linear-gradient(135deg, #d4af37, #b8941f);
+    --gradient-dark: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+    --gradient-card: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+    --gradient-subtle: linear-gradient(135deg, #1a1a1a, #252525);
+    --gradient-accent: linear-gradient(135deg, #d4af37, #f4c842);
+    --gradient-gotham: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
     
-    /* Wayne Industries Shadows */
-    --shadow-glow: 0 0 20px hsl(270 80% 70% / 0.3);
-    --shadow-card: 0 4px 12px hsl(220 13% 8% / 0.4);
-    --shadow-card-hover: 0 8px 25px hsl(220 13% 8% / 0.6);
-    --shadow-header: 0 2px 8px hsl(220 13% 8% / 0.6);
-    --shadow-subtle: 0 2px 4px hsl(220 13% 8% / 0.2);
+    /* Wayne Industries Batman Shadows */
+    --shadow-glow: 0 0 20px rgba(212, 175, 55, 0.3);
+    --shadow-gold: 0 0 30px rgba(212, 175, 55, 0.4);
+    --shadow-card: 0 4px 12px rgba(10, 10, 10, 0.6);
+    --shadow-card-hover: 0 8px 25px rgba(10, 10, 10, 0.8);
+    --shadow-header: 0 2px 8px rgba(10, 10, 10, 0.7);
+    --shadow-subtle: 0 2px 4px rgba(10, 10, 10, 0.4);
 
-    /* Sidebar */
-    --sidebar-background: 220 13% 10%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 270 80% 70%;
-    --sidebar-primary-foreground: 220 13% 8%;
-    --sidebar-accent: 270 30% 25%;
-    --sidebar-accent-foreground: 0 0% 90%;
-    --sidebar-border: 220 13% 25%;
-    --sidebar-ring: 270 80% 70%;
+    /* Sidebar Batman Theme */
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 45 100% 42%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 45 100% 42%;
+    --sidebar-accent-foreground: 0 0% 4%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 45 100% 42%;
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -81,9 +83,11 @@
   body {
     @apply bg-background text-foreground font-sans;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--gradient-gotham);
+    min-height: 100vh;
   }
 
-  /* Wayne Industries Custom Styles */
+  /* Wayne Industries Batman Custom Styles */
   .gradient-text {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
@@ -91,12 +95,50 @@
     background-clip: text;
   }
 
+  /* Batman Watermark Styles */
+  .batman-watermark {
+    opacity: 0.05;
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+    filter: brightness(1.2) contrast(1.1);
+  }
+
+  .batman-watermark-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .batman-watermark-corner {
+    top: 20px;
+    right: 20px;
+  }
+
+  /* Legacy batman-logo class for backward compatibility */
+  .batman-logo {
+    opacity: 0.1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 8rem;
+    color: #d4af37;
+    pointer-events: none;
+    z-index: 0;
+  }
+
   .icon-glow {
-    filter: drop-shadow(0 0 6px hsl(var(--primary) / 0.4));
+    filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
   }
 
   .glow-effect {
     box-shadow: var(--shadow-glow);
+  }
+
+  .gold-glow {
+    box-shadow: var(--shadow-gold);
   }
 
   .card-hover {
@@ -109,41 +151,84 @@
   }
 
   .card-enhanced {
-    background: var(--gradient-subtle);
-    border: 1px solid hsl(var(--border));
+    background: var(--gradient-card);
+    border: 1px solid rgba(212, 175, 55, 0.2);
     transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    transition: left 0.5s;
+  }
+
+  .card-enhanced:hover::before {
+    left: 100%;
   }
 
   .card-enhanced:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-card-hover);
-    border-color: hsl(var(--primary) / 0.3);
+    box-shadow: var(--shadow-gold);
+    border-color: rgba(212, 175, 55, 0.4);
   }
 
   .stats-card {
     background: var(--gradient-card);
-    border: 1px solid hsl(var(--border));
-    transition: var(--transition-smooth);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
   }
 
   .stats-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-glow);
-    border-color: hsl(var(--primary) / 0.4);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: var(--shadow-gold);
+    border-color: rgba(212, 175, 55, 0.5);
   }
 
   .quick-action-card {
     cursor: pointer;
     background: var(--gradient-subtle);
-    border: 1px solid hsl(var(--border));
-    transition: var(--transition-smooth);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .quick-action-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-card-hover);
-    border-color: hsl(var(--primary) / 0.3);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-gold);
+    border-color: rgba(212, 175, 55, 0.4);
     background: var(--gradient-accent);
+  }
+
+  /* Batman Loading Animation */
+  .batman-loading {
+    animation: pulse-gold 1.5s ease-in-out infinite;
+  }
+
+  /* Hover Glow Effect for Interactive Elements */
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Micro-animations for buttons */
+  .btn-batman {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-batman:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  }
+
+  .btn-batman:active {
+    transform: translateY(0);
   }
 
   .filter-card {

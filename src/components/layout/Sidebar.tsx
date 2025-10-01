@@ -4,6 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useIsMobile } from '@/hooks/use-mobile';
 import logoWayne from '@/assets/logo-wayne.png';
 import symbolWayne from '@/assets/symbol-wayne.png';
+import logoBatman from '@/assets/logo-batman.png';
 import {
   Sidebar,
   SidebarContent,
@@ -14,6 +15,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
+  SidebarFooter,
   useSidebar,
 } from '@/components/ui/sidebar';
 
@@ -115,6 +117,16 @@ export const AppSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      <SidebarFooter className="p-4">
+        <div className="flex justify-center">
+          <img 
+            src={logoBatman}
+            alt="Batman Logo" 
+            className={state === 'collapsed' ? "h-32 w-32 object-contain" : "h-48 w-48 object-contain"}
+          />
+        </div>
+      </SidebarFooter>
     </Sidebar>
   );
 };

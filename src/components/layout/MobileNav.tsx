@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
+import logoBatman from '@/assets/logo-batman.png';
 
 interface NavItem {
   title: string;
@@ -196,8 +197,6 @@ export const MobileNav: React.FC<MobileNavProps> = ({ className }) => {
                 <span>Perfil</span>
               </Link>
               
-
-              
               <Separator className="my-2" />
               
               <Button
@@ -208,6 +207,15 @@ export const MobileNav: React.FC<MobileNavProps> = ({ className }) => {
                 <LogOut className="h-5 w-5" />
                 <span>Sair</span>
               </Button>
+              
+              {/* Batman Logo */}
+              <div className="flex justify-center pt-4 mt-4 border-t">
+                <img 
+                  src={logoBatman}
+                  alt="Batman Logo" 
+                  className="h-16 w-16 object-contain opacity-90"
+                />
+              </div>
             </div>
           )}
         </div>

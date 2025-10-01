@@ -130,11 +130,13 @@ export const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <img 
-            src={logoWayne} 
-            alt="Wayne Industries" 
-            className="h-32 w-auto mx-auto mb-4"
-          />
+          <Link to="/" className="inline-block hover:opacity-80 transition-opacity">
+            <img 
+              src={logoWayne} 
+              alt="Wayne Industries" 
+              className="h-32 w-auto mx-auto mb-4 icon-glow animate-pulse"
+            />
+          </Link>
           <p className="text-muted-foreground">Sistema de Gestão de Recursos</p>
         </div>
 

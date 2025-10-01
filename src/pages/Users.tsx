@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
@@ -141,72 +140,72 @@ export const Users = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6 space-y-6">
-      <div className="flex items-center gap-2 mb-6">
-        <UsersIcon className="h-6 w-6 text-primary" />
-        <div>
-          <h1 className="text-2xl font-bold">Gerenciamento de Usuários</h1>
-          <p className="text-muted-foreground">
+    <div className="w-full max-w-full overflow-x-hidden box-border px-2 sm:px-4 md:px-6 py-6 space-y-6">
+      <div className="flex items-center gap-2 mb-6 w-full max-w-full overflow-hidden">
+        <UsersIcon className="h-6 w-6 text-primary flex-shrink-0" />
+        <div className="min-w-0 flex-1">
+          <h1 className="text-2xl font-bold truncate">Gerenciamento de Usuários</h1>
+          <p className="text-muted-foreground truncate">
             Gerencie usuários, papéis e permissões do sistema
           </p>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <Card className="stats-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium">Total de Usuários</CardTitle>
-            <UsersIcon className="h-5 w-5 text-muted-foreground icon-glow" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-full overflow-hidden box-border">
+        <Card className="stats-card w-full max-w-full overflow-hidden box-border">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 overflow-hidden">
+            <CardTitle className="text-sm font-medium truncate min-w-0 flex-1">Total de Usuários</CardTitle>
+            <UsersIcon className="h-5 w-5 text-muted-foreground icon-glow flex-shrink-0" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="overflow-hidden">
             <div className="text-3xl font-bold">{users.length}</div>
-            <p className="text-xs text-muted-foreground mt-2">
+            <p className="text-xs text-muted-foreground mt-2 truncate">
               Usuários cadastrados no sistema
             </p>
           </CardContent>
         </Card>
 
-        <Card className="stats-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium">Funcionários</CardTitle>
-            <UserCheck className="h-5 w-5 text-success icon-glow" />
+        <Card className="stats-card w-full max-w-full overflow-hidden box-border">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 overflow-hidden">
+            <CardTitle className="text-sm font-medium truncate min-w-0 flex-1">Funcionários</CardTitle>
+            <UserCheck className="h-5 w-5 text-success icon-glow flex-shrink-0" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="overflow-hidden">
             <div className="text-3xl font-bold text-success">
               {users.filter(u => u.role === 'funcionario').length}
             </div>
-            <p className="text-xs text-muted-foreground mt-2">
+            <p className="text-xs text-muted-foreground mt-2 truncate">
               Usuários com papel de funcionário
             </p>
           </CardContent>
         </Card>
 
-        <Card className="stats-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium">Gerentes</CardTitle>
-            <Shield className="h-5 w-5 text-primary icon-glow" />
+        <Card className="stats-card w-full max-w-full overflow-hidden box-border">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 overflow-hidden">
+            <CardTitle className="text-sm font-medium truncate min-w-0 flex-1">Gerentes</CardTitle>
+            <Shield className="h-5 w-5 text-primary icon-glow flex-shrink-0" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="overflow-hidden">
             <div className="text-3xl font-bold text-primary">
               {users.filter(u => u.role === 'gerente').length}
             </div>
-            <p className="text-xs text-muted-foreground mt-2">
+            <p className="text-xs text-muted-foreground mt-2 truncate">
               Usuários com papel de gerente
             </p>
           </CardContent>
         </Card>
 
-        <Card className="stats-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium">Administradores</CardTitle>
-            <Shield className="h-5 w-5 text-warning icon-glow" />
+        <Card className="stats-card w-full max-w-full overflow-hidden box-border">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 overflow-hidden">
+            <CardTitle className="text-sm font-medium truncate min-w-0 flex-1">Administradores</CardTitle>
+            <Shield className="h-5 w-5 text-warning icon-glow flex-shrink-0" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="overflow-hidden">
             <div className="text-3xl font-bold text-warning">
               {users.filter(u => u.role === 'admin').length}
             </div>
-            <p className="text-xs text-muted-foreground mt-2">
+            <p className="text-xs text-muted-foreground mt-2 truncate">
               Usuários com papel de administrador
             </p>
           </CardContent>
@@ -214,27 +213,27 @@ export const Users = () => {
       </div>
 
       {/* Filters */}
-      <Card className="stats-card">
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <Search className="h-5 w-5" />
-            Filtros
+      <Card className="stats-card w-full max-w-full overflow-hidden box-border">
+        <CardHeader className="pb-3 overflow-hidden">
+          <CardTitle className="flex items-center gap-2 text-lg min-w-0 overflow-hidden">
+            <Search className="h-5 w-5 flex-shrink-0" />
+            <span className="truncate">Filtros</span>
           </CardTitle>
         </CardHeader>
-        <CardContent className="pt-0">
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="relative min-w-0">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+        <CardContent className="pt-0 overflow-hidden">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 w-full max-w-full overflow-hidden box-border">
+            <div className="relative w-full max-w-full overflow-hidden box-border">
+              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground flex-shrink-0" />
               <Input
                 placeholder="Buscar por nome..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-10 w-full"
+                className="pl-10 w-full max-w-full box-border"
               />
             </div>
 
             <Select value={roleFilter || undefined} onValueChange={(value) => setRoleFilter(value || '')}>
-              <SelectTrigger className="min-w-0">
+              <SelectTrigger className="w-full max-w-full box-border">
                 <SelectValue placeholder="Todos os papéis" />
               </SelectTrigger>
               <SelectContent>
@@ -248,49 +247,49 @@ export const Users = () => {
       </Card>
 
       {/* Users Table */}
-      <Card className="stats-card">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-lg">
+      <Card className="stats-card w-full max-w-full overflow-hidden box-border">
+        <CardHeader className="pb-3 overflow-hidden">
+          <CardTitle className="text-lg truncate">
             Lista de Usuários ({filteredUsers.length} de {users.length})
           </CardTitle>
         </CardHeader>
-        <CardContent className="pt-0">
+        <CardContent className="pt-0 overflow-hidden">
           {loading ? (
-            <div className="space-y-4">
+            <div className="space-y-4 w-full max-w-full overflow-hidden box-border">
               {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="h-16 bg-muted rounded animate-pulse" />
+                <div key={i} className="h-16 bg-muted rounded animate-pulse w-full max-w-full box-border" />
               ))}
             </div>
           ) : filteredUsers.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              <UsersIcon className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p className="text-sm sm:text-base">Nenhum usuário encontrado com os filtros aplicados</p>
+            <div className="text-center py-8 text-muted-foreground w-full max-w-full overflow-hidden box-border">
+              <UsersIcon className="h-12 w-12 mx-auto mb-4 opacity-50 flex-shrink-0" />
+              <p className="text-sm sm:text-base truncate">Nenhum usuário encontrado com os filtros aplicados</p>
             </div>
           ) : (
-            <div className="w-full">
+            <div className="w-full max-w-full overflow-hidden box-border">
               {/* Mobile Card Layout */}
-              <div className="block sm:hidden space-y-3">
+              <div className="block sm:hidden space-y-3 w-full max-w-full overflow-hidden box-border">
                 {filteredUsers.map((user) => (
-                  <Card key={user.id} className="p-4">
-                    <div className="flex items-start gap-3">
+                  <Card key={user.id} className="p-4 w-full max-w-full overflow-hidden box-border">
+                    <div className="flex items-start gap-3 w-full max-w-full overflow-hidden">
                       <div className={cn(
                         'h-8 w-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0',
                         ROLE_LABELS[user.role].color
                       )}>
                         {user.full_name?.charAt(0).toUpperCase() || 'U'}
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-2">
+                      <div className="flex-1 min-w-0 overflow-hidden">
+                        <div className="flex items-center justify-between mb-2 w-full max-w-full overflow-hidden gap-2">
                           <h3 className="font-medium text-sm truncate flex-1 min-w-0">
                             {user.full_name || 'Usuário sem nome'}
                           </h3>
-                          <Badge variant={ROLE_LABELS[user.role].variant} className="text-xs flex-shrink-0 ml-2">
+                          <Badge variant={ROLE_LABELS[user.role].variant} className="text-xs flex-shrink-0 whitespace-nowrap">
                             {ROLE_LABELS[user.role].label}
                           </Badge>
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+                        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2 min-w-0 overflow-hidden">
                           <Clock className="h-3 w-3 flex-shrink-0" />
-                          <span>{format(new Date(user.created_at), 'dd/MM/yy', { locale: ptBR })}</span>
+                          <span className="truncate min-w-0">{format(new Date(user.created_at), 'dd/MM/yy', { locale: ptBR })}</span>
                         </div>
                         {profile?.role === 'admin' && (
                           <Select
@@ -299,7 +298,7 @@ export const Users = () => {
                               updateUserRole(user.user_id, newRole)
                             }
                           >
-                            <SelectTrigger className="w-full h-8 text-xs">
+                            <SelectTrigger className="w-full max-w-full h-8 text-xs box-border">
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -316,72 +315,74 @@ export const Users = () => {
               </div>
               
               {/* Desktop Table */}
-              <div className="hidden md:block overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Usuário</TableHead>
-                      <TableHead>Cargo</TableHead>
-                      <TableHead className="hidden md:table-cell">Data de Criação</TableHead>
-                      <TableHead className="hidden lg:table-cell">Última Atualização</TableHead>
-                      {canUpdateRole && <TableHead>Ações</TableHead>}
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredUsers.map((user) => (
-                      <TableRow key={user.id}>
-                        <TableCell className="font-medium">
-                          <div className="flex items-center gap-3">
-                            <div className={cn(
-                              'h-8 w-8 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0',
-                              ROLE_LABELS[user.role].color
-                            )}>
-                              {user.full_name?.charAt(0).toUpperCase() || 'U'}
-                            </div>
-                            <span className="truncate">{user.full_name || 'Usuário sem nome'}</span>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant={ROLE_LABELS[user.role].variant} className="text-xs">
-                            {ROLE_LABELS[user.role].label}
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="hidden md:table-cell">
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Clock className="h-4 w-4 flex-shrink-0" />
-                            <span className="whitespace-nowrap">
-                              {format(new Date(user.created_at), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
-                            </span>
-                          </div>
-                        </TableCell>
-                        <TableCell className="hidden lg:table-cell">
-                          <div className="text-sm text-muted-foreground whitespace-nowrap">
-                            {format(new Date(user.updated_at), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
-                          </div>
-                        </TableCell>
-                        {profile?.role === 'admin' && (
-                          <TableCell>
-                            <Select
-                              value={user.role}
-                              onValueChange={(newRole: 'funcionario' | 'gerente' | 'admin') => 
-                                updateUserRole(user.user_id, newRole)
-                              }
-                            >
-                              <SelectTrigger className="w-32">
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="funcionario">Funcionário</SelectItem>
-                                <SelectItem value="gerente">Gerente</SelectItem>
-                                <SelectItem value="admin">Administrador</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </TableCell>
-                        )}
+              <div className="hidden sm:block w-full max-w-full overflow-hidden box-border">
+                <div className="overflow-x-auto w-full max-w-full">
+                  <Table className="w-full">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="min-w-0">Usuário</TableHead>
+                        <TableHead className="min-w-0">Cargo</TableHead>
+                        <TableHead className="hidden md:table-cell min-w-0">Data de Criação</TableHead>
+                        <TableHead className="hidden lg:table-cell min-w-0">Última Atualização</TableHead>
+                        {canUpdateRole && <TableHead className="min-w-0">Ações</TableHead>}
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredUsers.map((user) => (
+                        <TableRow key={user.id}>
+                          <TableCell className="font-medium min-w-0">
+                            <div className="flex items-center gap-3 w-full max-w-full overflow-hidden">
+                              <div className={cn(
+                                'h-8 w-8 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0',
+                                ROLE_LABELS[user.role].color
+                              )}>
+                                {user.full_name?.charAt(0).toUpperCase() || 'U'}
+                              </div>
+                              <span className="truncate min-w-0 flex-1">{user.full_name || 'Usuário sem nome'}</span>
+                            </div>
+                          </TableCell>
+                          <TableCell className="min-w-0">
+                            <Badge variant={ROLE_LABELS[user.role].variant} className="text-xs whitespace-nowrap">
+                              {ROLE_LABELS[user.role].label}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="hidden md:table-cell min-w-0">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground min-w-0 overflow-hidden">
+                              <Clock className="h-4 w-4 flex-shrink-0" />
+                              <span className="truncate min-w-0">
+                                {format(new Date(user.created_at), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
+                              </span>
+                            </div>
+                          </TableCell>
+                          <TableCell className="hidden lg:table-cell min-w-0">
+                            <div className="text-sm text-muted-foreground truncate min-w-0">
+                              {format(new Date(user.updated_at), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
+                            </div>
+                          </TableCell>
+                          {canUpdateRole && (
+                            <TableCell className="min-w-0">
+                              <Select
+                                value={user.role}
+                                onValueChange={(newRole: 'funcionario' | 'gerente' | 'admin') => 
+                                  updateUserRole(user.user_id, newRole)
+                                }
+                              >
+                                <SelectTrigger className="w-full max-w-[150px] box-border">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="funcionario">Funcionário</SelectItem>
+                                  <SelectItem value="gerente">Gerente</SelectItem>
+                                  <SelectItem value="admin">Administrador</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </TableCell>
+                          )}
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               </div>
             </div>
           )}

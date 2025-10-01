@@ -83,7 +83,7 @@ export const Register = () => {
           <img 
             src={logoWayne} 
             alt="Wayne Industries" 
-            className="h-32 w-auto mx-auto mb-4"
+            className="h-32 w-auto mx-auto mb-4 icon-glow animate-pulse"
           />
           <p className="text-muted-foreground">Sistema de Gestão de Recursos</p>
         </div>

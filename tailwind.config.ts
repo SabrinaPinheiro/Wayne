@@ -14,6 +14,21 @@ export default {
     },
     extend: {
       colors: {
+        // Batman Theme Colors
+        gotham: {
+          black: "#0a0a0a",
+          gray: "#1a1a1a",
+          gold: "#d4af37",
+          blue: "#1e3a8a",
+          light: "#6b7280",
+          white: "#ffffff",
+        },
+        // Status Colors
+        success: "#10b981",
+        warning: "#f59e0b", 
+        danger: "#ef4444",
+        
+        // Original shadcn/ui colors for compatibility
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -30,14 +45,6 @@ export default {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
-        },
-        warning: {
-          DEFAULT: "hsl(var(--warning))",
-          foreground: "hsl(var(--warning-foreground))",
-        },
-        success: {
-          DEFAULT: "hsl(var(--success))",
-          foreground: "hsl(var(--success-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -88,10 +95,28 @@ export default {
             height: "0",
           },
         },
+        "glow": {
+          "0%, 100%": {
+            boxShadow: "0 0 5px #d4af37, 0 0 10px #d4af37, 0 0 15px #d4af37",
+          },
+          "50%": {
+            boxShadow: "0 0 10px #d4af37, 0 0 20px #d4af37, 0 0 30px #d4af37",
+          },
+        },
+        "pulse-gold": {
+          "0%, 100%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: "0.7",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "glow": "glow 2s ease-in-out infinite alternate",
+        "pulse-gold": "pulse-gold 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
   },

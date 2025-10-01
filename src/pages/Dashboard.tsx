@@ -9,6 +9,7 @@ import { AccessChart } from '@/components/dashboard/AccessChart';
 import { ResourceStatusChart } from '@/components/dashboard/ResourceStatusChart';
 import { VehicleMovementChart } from '@/components/dashboard/VehicleMovementChart';
 import { ActivityTimeline } from '@/components/dashboard/ActivityTimeline';
+import logoBatman from '@/assets/logo-batman.png';
 
 interface DashboardStats {
   totalResources: number;
@@ -107,75 +108,110 @@ export const Dashboard = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6 space-y-6">
-      <div className="flex items-center gap-2">
-        <Package className="h-6 w-6 text-primary" />
-        <div>
-          <h1 className="text-2xl font-bold">
-            {getGreeting()}, {profile?.full_name || 'Usuário'}!
-          </h1>
-          <p className="text-muted-foreground">
+    <div className="space-y-0">
+      {/* Batman Hero Section */}
+      <div className="relative bg-gradient-to-br from-gotham-black via-gotham-gray to-gotham-black min-h-[200px] flex items-center justify-center overflow-hidden mb-8">
+        {/* Batman Logo Background - Watermark */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+          <img 
+            src={logoBatman} 
+            alt="" 
+            aria-hidden="true"
+            className="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 object-contain opacity-[0.06] select-none"
+            style={{ filter: 'brightness(1.3) contrast(1.2)' }}
+          />
+        </div>
+        
+        {/* Hexagonal Pattern Overlay */}
+        <div className="absolute inset-0 opacity-5">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="hexagons" x="0" y="0" width="50" height="43.4" patternUnits="userSpaceOnUse">
+                <polygon points="25,0 50,14.4 50,28.9 25,43.4 0,28.9 0,14.4" fill="none" stroke="#d4af37" strokeWidth="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#hexagons)" />
+          </svg>
+        </div>
+        
+        {/* Main Content */}
+        <div className="relative z-10 text-center px-6">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Package className="w-8 h-8 text-gotham-gold icon-glow" />
+            <h1 className="text-3xl md:text-4xl font-bold gradient-text">
+              {getGreeting()}, {profile?.full_name || 'Usuário'}!
+            </h1>
+          </div>
+          
+          <p className="text-gotham-light/90 text-lg font-medium">
             {getRoleTitle()} • Wayne Industries Resource Management
           </p>
         </div>
+        
+        {/* Bottom Gradient Fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-gotham-black to-transparent" />
       </div>
+
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6 space-y-6">
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="stats-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium">Total de Recursos</CardTitle>
-            <Package className="h-5 w-5 text-muted-foreground icon-glow" />
+        <Card className="stats-card hover-glow">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-gotham-light">
+              Total Resources
+            </CardTitle>
+            <Package className="h-4 w-4 text-gotham-gold icon-glow" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{loading ? '...' : stats.totalResources}</div>
-            <p className="text-xs text-muted-foreground mt-2">
-              Equipamentos, veículos e dispositivos
+            <div className="text-2xl font-bold text-gotham-white">{stats.totalResources}</div>
+            <p className="text-xs text-gotham-light">
+              +20.1% from last month
             </p>
           </CardContent>
         </Card>
 
-        <Card className="stats-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium">Recursos Disponíveis</CardTitle>
-            <Package className="h-5 w-5 text-success icon-glow" />
+        <Card className="stats-card hover-glow">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-gotham-light">
+              Available
+            </CardTitle>
+            <Package className="h-4 w-4 text-gotham-gold icon-glow" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-success">
-              {loading ? '...' : stats.availableResources}
-            </div>
-            <p className="text-xs text-muted-foreground mt-2">
-              Prontos para uso
+            <div className="text-2xl font-bold text-gotham-white">{stats.availableResources}</div>
+            <p className="text-xs text-gotham-light">
+              +180.1% from last month
             </p>
           </CardContent>
         </Card>
 
-        <Card className="stats-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium">Em Uso</CardTitle>
-            <Activity className="h-5 w-5 text-primary icon-glow" />
+        <Card className="stats-card hover-glow">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-gotham-light">
+              In Use
+            </CardTitle>
+            <Activity className="h-4 w-4 text-gotham-gold icon-glow" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-primary">
-              {loading ? '...' : stats.resourcesInUse}
-            </div>
-            <p className="text-xs text-muted-foreground mt-2">
-              Recursos atualmente alocados
+            <div className="text-2xl font-bold text-gotham-white">{stats.resourcesInUse}</div>
+            <p className="text-xs text-gotham-light">
+              +19% from last month
             </p>
           </CardContent>
         </Card>
 
-        <Card className="stats-card">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium">Manutenção</CardTitle>
-            <AlertTriangle className="h-5 w-5 text-warning icon-glow" />
+        <Card className="stats-card hover-glow">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-gotham-light">
+              Maintenance
+            </CardTitle>
+            <AlertTriangle className="h-4 w-4 text-gotham-gold icon-glow" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-warning">
-              {loading ? '...' : stats.resourcesInMaintenance}
-            </div>
-            <p className="text-xs text-muted-foreground mt-2">
-              Requerem atenção
+            <div className="text-2xl font-bold text-gotham-white">{stats.resourcesInMaintenance}</div>
+            <p className="text-xs text-gotham-light">
+              +201 since last hour
             </p>
           </CardContent>
         </Card>
@@ -184,28 +220,28 @@ export const Dashboard = () => {
       {/* Additional Stats for Managers and Admins */}
       {(profile?.role === 'admin' || profile?.role === 'gerente') && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <Card className="stats-card">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-              <CardTitle className="text-sm font-medium">Usuários do Sistema</CardTitle>
-              <Users className="h-5 w-5 text-muted-foreground icon-glow" />
+          <Card className="stats-card hover-glow">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gotham-light">System Users</CardTitle>
+              <Users className="h-4 w-4 text-gotham-gold icon-glow" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{loading ? '...' : stats.totalUsers}</div>
-              <p className="text-xs text-muted-foreground mt-2">
-                Total de usuários cadastrados
+              <div className="text-2xl font-bold text-gotham-white">{loading ? '...' : stats.totalUsers}</div>
+              <p className="text-xs text-gotham-light">
+                Total registered users
               </p>
             </CardContent>
           </Card>
 
-          <Card className="stats-card">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-              <CardTitle className="text-sm font-medium">Atividades Recentes</CardTitle>
-              <Activity className="h-5 w-5 text-muted-foreground icon-glow" />
+          <Card className="stats-card hover-glow">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gotham-light">Recent Activities</CardTitle>
+              <Activity className="h-4 w-4 text-gotham-gold icon-glow" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{loading ? '...' : stats.recentActivities}</div>
-              <p className="text-xs text-muted-foreground mt-2">
-                Últimas 24 horas
+              <div className="text-2xl font-bold text-gotham-white">{loading ? '...' : stats.recentActivities}</div>
+              <p className="text-xs text-gotham-light">
+                Last 24 hours
               </p>
             </CardContent>
           </Card>
@@ -229,6 +265,7 @@ export const Dashboard = () => {
         </div>
       </div>
 
+      </div>
     </div>
   );
 };

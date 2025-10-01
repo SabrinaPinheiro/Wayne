@@ -308,7 +308,50 @@ export const AccessLogs = () => {
             />
           ) : (
             <>
-              <div className="overflow-x-auto -mx-6 px-6">
+              {/* Mobile Card Layout */}
+              <div className="block sm:hidden space-y-3 p-4">
+                {logs.map((log) => (
+                  <Card key={log.id} className="p-4">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Clock className="h-4 w-4 text-muted-foreground" />
+                          <span className="text-sm font-mono">
+                            {format(new Date(log.timestamp), 'dd/MM/yy HH:mm', { locale: ptBR })}
+                          </span>
+                        </div>
+                        <Badge variant={ACTION_LABELS[log.action as keyof typeof ACTION_LABELS]?.variant || 'default'} className="text-xs">
+                          {ACTION_LABELS[log.action as keyof typeof ACTION_LABELS]?.label || log.action}
+                        </Badge>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <User className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                          <span className="text-sm font-medium truncate">{log.user_name}</span>
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
+                          <Package className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <span className="text-sm truncate block">{log.resource_name}</span>
+                            <Badge variant="outline" className="text-xs mt-1">{log.resource_type}</Badge>
+                          </div>
+                        </div>
+                        
+                        {log.notes && (
+                          <div className="text-sm text-muted-foreground">
+                            <strong>Observações:</strong> {log.notes}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Desktop Table */}
+              <div className="hidden sm:block overflow-x-auto">
                 <Table className="min-w-[800px]">
                   <TableHeader>
                     <TableRow>
