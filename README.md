@@ -5,7 +5,7 @@
   
   **Sistema de Gerenciamento de Segurança e Recursos**
   
-  <img src="src/assets/batman-logo.svg" alt="Batman Logo" width="150"/>
+  <img src="src/assets/logo-batman.png" alt="Batman Logo" width="150"/>
   
   *Projeto Final - Desenvolvimento Full Stack*
   
