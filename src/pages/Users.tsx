@@ -126,7 +126,7 @@ export const Users = () => {
   if (profile?.role !== 'admin' && profile?.role !== 'gerente') {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-sm mx-4">
           <CardContent className="p-8 text-center">
             <Shield className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
             <h2 className="text-lg font-semibold mb-2">Acesso Restrito</h2>
@@ -143,7 +143,7 @@ export const Users = () => {
     <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6 space-y-6">
       <div className="flex items-center gap-3 mb-6">
         <UsersIcon className="h-8 w-8 text-primary" />
-        <div>
+        <div className="min-w-0 flex-1">
           <h1 className="text-3xl font-bold">Gerenciamento de Usuários</h1>
           <p className="text-muted-foreground">
             Gerencie usuários, papéis e permissões do sistema
@@ -152,11 +152,11 @@ export const Users = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="stats-card">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 w-full" style={{maxWidth: '100%', overflow: 'hidden'}}>
+        <Card className="w-full min-w-0">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium">Total de Usuários</CardTitle>
-            <UsersIcon className="h-5 w-5 text-muted-foreground icon-glow" />
+            <CardTitle className="text-sm font-medium truncate">Total de Usuários</CardTitle>
+            <UsersIcon className="h-5 w-5 text-muted-foreground icon-glow flex-shrink-0" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{users.length}</div>
@@ -166,10 +166,10 @@ export const Users = () => {
           </CardContent>
         </Card>
 
-        <Card className="stats-card">
+        <Card className="w-full min-w-0">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium">Funcionários</CardTitle>
-            <UserCheck className="h-5 w-5 text-success icon-glow" />
+            <CardTitle className="text-sm font-medium truncate">Funcionários</CardTitle>
+            <UserCheck className="h-5 w-5 text-success icon-glow flex-shrink-0" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-success">
@@ -181,10 +181,10 @@ export const Users = () => {
           </CardContent>
         </Card>
 
-        <Card className="stats-card">
+        <Card className="w-full min-w-0">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium">Gerentes</CardTitle>
-            <Shield className="h-5 w-5 text-primary icon-glow" />
+            <CardTitle className="text-sm font-medium truncate">Gerentes</CardTitle>
+            <Shield className="h-5 w-5 text-primary icon-glow flex-shrink-0" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-primary">
@@ -196,10 +196,10 @@ export const Users = () => {
           </CardContent>
         </Card>
 
-        <Card className="stats-card">
+        <Card className="w-full min-w-0">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-medium">Administradores</CardTitle>
-            <Shield className="h-5 w-5 text-warning icon-glow" />
+            <CardTitle className="text-sm font-medium truncate">Administradores</CardTitle>
+            <Shield className="h-5 w-5 text-warning icon-glow flex-shrink-0" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-warning">
@@ -213,27 +213,27 @@ export const Users = () => {
       </div>
 
       {/* Filters */}
-      <Card className="stats-card">
+      <Card className="w-full min-w-0">
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-lg">
-            <Search className="h-5 w-5" />
+            <Search className="h-5 w-5 flex-shrink-0" />
             <span>Filtros</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="pt-0">
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
-            <div className="relative">
+          <div className="grid gap-2 sm:gap-4 grid-cols-1 sm:grid-cols-2 w-full" style={{maxWidth: '100%', overflow: 'hidden'}}>
+            <div className="relative w-full min-w-0">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Buscar por nome..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-10"
+                className="pl-10 w-full"
               />
             </div>
 
             <Select value={roleFilter || undefined} onValueChange={(value) => setRoleFilter(value || '')}>
-              <SelectTrigger>
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Todos os papéis" />
               </SelectTrigger>
               <SelectContent>
@@ -247,7 +247,7 @@ export const Users = () => {
       </Card>
 
       {/* Users Table */}
-      <Card className="stats-card">
+      <Card className="w-full min-w-0">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg">
             Lista de Usuários ({filteredUsers.length} de {users.length})
@@ -268,19 +268,19 @@ export const Users = () => {
           ) : (
             <>
               {/* Mobile Card Layout */}
-              <div className="block sm:hidden space-y-3">
+              <div className="block md:hidden space-y-3 w-full">
                 {filteredUsers.map((user) => (
-                  <Card key={user.id} className="p-4">
-                    <div className="flex items-start gap-3">
+                  <Card key={user.id} className="p-4 w-full min-w-0">
+                    <div className="flex items-start gap-3 w-full min-w-0">
                       <div className={cn(
                         'h-8 w-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0',
                         ROLE_LABELS[user.role].color
                       )}>
                         {user.full_name?.charAt(0).toUpperCase() || 'U'}
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-2 gap-2">
-                          <h3 className="font-medium text-sm truncate flex-1">
+                      <div className="flex-1 min-w-0 w-full">
+                        <div className="flex items-center justify-between mb-2 gap-2 w-full">
+                          <h3 className="font-medium text-sm truncate flex-1 min-w-0">
                             {user.full_name || 'Usuário sem nome'}
                           </h3>
                           <Badge variant={ROLE_LABELS[user.role].variant} className="text-xs flex-shrink-0">
@@ -315,29 +315,29 @@ export const Users = () => {
               </div>
               
               {/* Desktop Table */}
-              <div className="hidden sm:block overflow-x-auto -mx-6 px-6">
-                <Table className="min-w-[800px]">
+              <div className="hidden md:block w-full overflow-x-auto">
+                <Table className="w-full">
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="w-[200px]">Usuário</TableHead>
-                      <TableHead className="w-[140px]">Cargo</TableHead>
-                      <TableHead className="hidden md:table-cell w-[180px]">Data de Criação</TableHead>
-                      <TableHead className="hidden lg:table-cell w-[180px]">Última Atualização</TableHead>
-                      {canUpdateRole && <TableHead className="w-[160px]">Ações</TableHead>}
+                      <TableHead className="min-w-[200px]">Usuário</TableHead>
+                      <TableHead className="min-w-[120px]">Cargo</TableHead>
+                      <TableHead className="hidden md:table-cell min-w-[140px]">Data de Criação</TableHead>
+                      <TableHead className="hidden lg:table-cell min-w-[140px]">Última Atualização</TableHead>
+                      {canUpdateRole && <TableHead className="min-w-[150px]">Ações</TableHead>}
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {filteredUsers.map((user) => (
                       <TableRow key={user.id}>
                         <TableCell className="font-medium">
-                          <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-3 min-w-0">
                             <div className={cn(
                               'h-8 w-8 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0',
                               ROLE_LABELS[user.role].color
                             )}>
                               {user.full_name?.charAt(0).toUpperCase() || 'U'}
                             </div>
-                            <span className="truncate">{user.full_name || 'Usuário sem nome'}</span>
+                            <span className="truncate min-w-0">{user.full_name || 'Usuário sem nome'}</span>
                           </div>
                         </TableCell>
                         <TableCell>
@@ -366,7 +366,7 @@ export const Users = () => {
                                 updateUserRole(user.user_id, newRole)
                               }
                             >
-                              <SelectTrigger className="w-[140px]">
+                              <SelectTrigger className="w-full min-w-[120px]">
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent>
