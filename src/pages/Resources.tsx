@@ -13,6 +13,7 @@ import { Plus, Search, Package, Car, Smartphone, Edit, Trash2 } from 'lucide-rea
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { EmptyState } from '@/components/ui/empty-state';
 import { CardLoading } from '@/components/ui/loading';
+import { DeleteConfirmationModal } from '@/components/ui/delete-confirmation-modal';
 
 interface Resource {
   id: string;
@@ -61,6 +62,9 @@ export const Resources = () => {
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingResource, setEditingResource] = useState<Resource | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [resourceToDelete, setResourceToDelete] = useState<{ id: string; name: string } | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -155,16 +159,20 @@ export const Resources = () => {
     setIsDialogOpen(true);
   };
 
-  const handleDelete = async (id: string) => {
-    if (!window.confirm('Tem certeza que deseja excluir este recurso?')) {
-      return;
-    }
+  const handleDelete = async (id: string, resourceName: string) => {
+    setResourceToDelete({ id, name: resourceName });
+    setIsDeleteModalOpen(true);
+  };
 
+  const confirmDelete = async () => {
+    if (!resourceToDelete) return;
+
+    setIsDeleting(true);
     try {
       const { error } = await supabase
         .from('resources')
         .delete()
-        .eq('id', id);
+        .eq('id', resourceToDelete.id);
 
       if (error) throw error;
 
@@ -174,6 +182,8 @@ export const Resources = () => {
       });
 
       loadResources();
+      setIsDeleteModalOpen(false);
+      setResourceToDelete(null);
     } catch (error) {
       console.error('Error deleting resource:', error);
       toast({
@@ -181,6 +191,8 @@ export const Resources = () => {
         title: 'Erro',
         description: 'Não foi possível excluir o recurso.',
       });
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -215,7 +227,7 @@ export const Resources = () => {
             <div>
               <h1 className="text-2xl font-bold">Recursos</h1>
               <p className="text-muted-foreground">
-                Gerenciamento de equipamentos, veículos e dispositivos
+                Visualização de equipamentos, veículos e dispositivos
               </p>
             </div>
           </div>
@@ -228,7 +240,7 @@ export const Resources = () => {
                 Novo Recurso
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="sm:max-w-md lg:max-w-lg">
               <DialogHeader>
                 <DialogTitle>
                   {editingResource ? 'Editar Recurso' : 'Novo Recurso'}
@@ -437,7 +449,7 @@ export const Resources = () => {
                         <Button 
                           size="default" 
                           variant="outline" 
-                          onClick={() => handleDelete(resource.id)}
+                          onClick={() => handleDelete(resource.id, resource.name)}
                         >
                           <Trash2 className="h-4 w-4 mr-2" />
                           Excluir
@@ -468,6 +480,20 @@ export const Resources = () => {
           } : undefined}
         />
       )}
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setResourceToDelete(null);
+        }}
+        onConfirm={confirmDelete}
+        title="Excluir Recurso"
+        description="Esta ação não pode ser desfeita. O recurso será permanentemente removido do sistema."
+        itemName={resourceToDelete?.name}
+        isLoading={isDeleting}
+      />
     </div>
   );
 };

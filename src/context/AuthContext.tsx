@@ -47,18 +47,23 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('🚀 [AuthContext] Setting up auth state listener...');
+    
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log('🔄 [AuthContext] Auth state changed:', { event, userId: session?.user?.id });
         setSession(session);
         setUser(session?.user ?? null);
         
         // Fetch profile when user logs in
         if (session?.user) {
+          console.log('👤 [AuthContext] User found, fetching profile...');
           setTimeout(() => {
             fetchProfile(session.user.id);
-          }, 0);
+          }, 100); // Pequeno delay para garantir que a sessão está estabelecida
         } else {
+          console.log('❌ [AuthContext] No user, clearing profile...');
           setProfile(null);
         }
         setLoading(false);
@@ -66,11 +71,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     );
 
     // Check for existing session
+    console.log('🔍 [AuthContext] Checking for existing session...');
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('📋 [AuthContext] Existing session check:', { userId: session?.user?.id });
       setSession(session);
       setUser(session?.user ?? null);
       
       if (session?.user) {
+        console.log('👤 [AuthContext] Existing user found, fetching profile...');
         fetchProfile(session.user.id);
       }
       setLoading(false);
@@ -81,6 +89,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const fetchProfile = async (userId: string) => {
     try {
+      console.log('🔍 Fetching profile for user ID:', userId);
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
@@ -88,13 +97,28 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         .single();
       
       if (error && error.code !== 'PGRST116') {
-        console.error('Error fetching profile:', error);
+        console.error('❌ Error fetching profile:', error);
         return;
+      }
+      
+      if (data) {
+        console.log('✅ Profile fetched successfully:', {
+          id: data.id,
+          user_id: data.user_id,
+          full_name: data.full_name,
+          role: data.role,
+          created_at: data.created_at
+        });
+        console.log('🔑 User role detected:', data.role);
+        console.log('👤 Is admin?', data.role === 'admin');
+        console.log('👨‍💼 Is gerente?', data.role === 'gerente');
+      } else {
+        console.warn('⚠️ No profile data found for user:', userId);
       }
       
       setProfile(data as Profile);
     } catch (error) {
-      console.error('Error fetching profile:', error);
+      console.error('💥 Error fetching profile:', error);
     }
   };
 

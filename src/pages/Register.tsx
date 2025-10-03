@@ -77,25 +77,43 @@ export const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
+    <div className="min-h-screen flex bg-background">
+      {/* Left Column - Batman Logo */}
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-gotham-gold via-yellow-600 to-amber-700 items-center justify-center p-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-gotham-gold/90 via-yellow-500/80 to-amber-600/90"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,215,0,0.3),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,193,7,0.2),transparent_50%)]"></div>
+        <div className="text-center relative z-10 mx-[25%]">
           <img 
-            src={logoWayne} 
-            alt="Wayne Industries" 
-            className="h-32 w-auto mx-auto mb-4 icon-glow animate-pulse"
+            src="/src/assets/logo-batman.png" 
+            alt="Batman Logo" 
+            className="h-48 w-auto mx-auto mb-6 opacity-90 hover:opacity-100 transition-opacity duration-300 drop-shadow-2xl"
           />
-          <p className="text-muted-foreground">Sistema de Gestão de Recursos</p>
+          <h2 className="text-3xl font-bold text-gotham-black mb-3 drop-shadow-lg">Wayne Industries</h2>
+          <p className="text-gotham-black/80 font-medium text-lg">Sistema de Gestão de Recursos</p>
         </div>
+      </div>
 
-        <Card className="bg-card border-border">
-          <CardHeader>
-            <CardTitle>Criar Conta</CardTitle>
-            <CardDescription>
-              Preencha os dados para criar sua conta no sistema
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+      {/* Right Column - Register Form */}
+      <div className="flex-1 flex items-center justify-center p-6 lg:p-8">
+        <div className="w-full px-4 lg:mx-[25%] lg:px-0">
+          <div className="text-center mb-8">
+            <img 
+              src={logoWayne} 
+              alt="Wayne Industries" 
+              className="h-24 w-auto mx-auto mb-4 icon-glow animate-pulse lg:h-20"
+            />
+            <p className="text-muted-foreground">Sistema de Gestão de Recursos</p>
+          </div>
+
+          <Card className="bg-card border-border">
+            <CardHeader>
+              <CardTitle>Criar Conta</CardTitle>
+              <CardDescription>
+                Preencha os dados para criar sua conta no sistema
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="px-6">
             <form onSubmit={handleRegister} className="space-y-4">
               <div>
                 <Label htmlFor="fullName">Nome Completo</Label>
@@ -175,6 +193,7 @@ export const Register = () => {
           </CardContent>
         </Card>
       </div>
+    </div>
     </div>
   );
 };

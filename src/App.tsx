@@ -24,6 +24,7 @@ import { Profile } from "@/pages/Profile";
 import Reports from "@/pages/Reports";
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
+import { AuthDebug } from "@/debug/auth-debug";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <AuthProvider>
+          <AuthDebug />
           <BrowserRouter>
             <Routes>
             <Route path="/login" element={<Login />} />

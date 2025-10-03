@@ -12,10 +12,18 @@ const Reports = () => {
   const [reportType, setReportType] = useState<string>("general");
   const [isGenerating, setIsGenerating] = useState(false);
 
+  // Debug information
+  console.log('📊 [Reports Page] Current user profile:', profile);
+  console.log('🔑 [Reports Page] Profile role:', profile?.role);
+  console.log('👤 [Reports Page] Is admin?', profile?.role === 'admin');
+  console.log('👨‍💼 [Reports Page] Is gerente?', profile?.role === 'gerente');
+  console.log('⏳ [Reports Page] Profile loading?', !profile);
+
   // Verificar se é admin ou gerente
   const canAccessReports = profile?.role === 'admin' || profile?.role === 'gerente';
 
   if (!canAccessReports) {
+    console.warn('🚫 [Reports Page] Access denied for role:', profile?.role);
     return (
       <div className="container mx-auto py-10">
         <Card>
@@ -27,11 +35,16 @@ const Reports = () => {
           </CardHeader>
           <CardContent>
             <p>Você não tem permissão para acessar os relatórios. Entre em contato com um administrador.</p>
+            <div className="mt-4 text-xs text-muted-foreground">
+              Papel atual: {profile?.role || 'Não definido'}
+            </div>
           </CardContent>
         </Card>
       </div>
     );
   }
+
+  console.log('✅ [Reports Page] Access granted for role:', profile?.role);
 
   const handleGenerateReport = async (format: 'pdf' | 'excel') => {
     setIsGenerating(true);

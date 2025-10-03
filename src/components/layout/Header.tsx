@@ -53,8 +53,8 @@ export const Header = () => {
                 variant="ghost" 
                 className="flex items-center gap-3 text-gotham-white hover:bg-gotham-gold/20 hover:text-gotham-black transition-all hover:scale-105 h-12 px-4"
               >
-                <Avatar className="h-10 w-10 border-2 border-gotham-gold/30">
-                  <AvatarImage src={profile?.avatar_url || ''} alt="Avatar" />
+                <Avatar className="h-10 w-10 border-2 border-gotham-gold/30 flex-shrink-0">
+                  <AvatarImage src={profile?.avatar_url || ''} alt="Avatar" className="object-cover" />
                   <AvatarFallback className="text-sm font-semibold bg-gradient-to-br from-gotham-gold/20 to-gotham-gold/10 text-gotham-white">
                     {getInitials(profile?.full_name)}
                   </AvatarFallback>

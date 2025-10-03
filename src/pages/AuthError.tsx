@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertTriangle, ArrowLeft, RefreshCw } from 'lucide-react';
 import logoWayne from '@/assets/logo-wayne.png';
+import logoBatman from '@/assets/logo-batman.png';
 
 export const AuthError = () => {
   const [searchParams] = useSearchParams();
@@ -68,16 +69,35 @@ export const AuthError = () => {
   const { title, message, suggestions } = getErrorMessage();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <img 
-            src={logoWayne} 
-            alt="Wayne Industries" 
-            className="h-20 w-auto mx-auto mb-4 icon-glow animate-pulse"
-          />
-          <p className="text-muted-foreground">Sistema de Gestão de Recursos</p>
+    <div className="min-h-screen bg-background">
+      <div className="flex min-h-screen">
+        {/* Coluna esquerda - Logo Batman */}
+        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-gotham-gold via-yellow-600 to-amber-700 items-center justify-center p-8 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-gotham-gold/90 via-yellow-500/80 to-amber-600/90"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,215,0,0.3),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,193,7,0.2),transparent_50%)]"></div>
+          <div className="text-center relative z-10 mx-[25%]">
+            <img 
+              src={logoBatman} 
+              alt="Batman Logo" 
+              className="h-48 w-auto mx-auto mb-6 opacity-90 hover:opacity-100 transition-opacity duration-300 drop-shadow-2xl"
+            />
+            <h2 className="text-3xl font-bold text-gotham-black mb-3 drop-shadow-lg">Wayne Industries</h2>
+            <p className="text-gotham-black/80 font-medium text-lg">Sistema de Gestão de Recursos</p>
+          </div>
         </div>
+
+        {/* Coluna direita - Conteúdo */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-6">
+          <div className="w-full px-4 lg:mx-[25%] lg:px-0">
+            <div className="text-center mb-8">
+              <img 
+                src={logoWayne} 
+                alt="Wayne Industries" 
+                className="h-24 w-auto mx-auto mb-4 icon-glow animate-pulse lg:h-20"
+              />
+              <p className="text-muted-foreground">Sistema de Gestão de Recursos</p>
+            </div>
 
         <Card className="bg-card border-border">
           <CardHeader>
@@ -91,7 +111,7 @@ export const AuthError = () => {
               {message}
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-6">
             <div className="space-y-4">
               {suggestions.length > 0 && (
                 <div className="bg-muted/50 p-4 rounded-lg">
@@ -155,7 +175,9 @@ export const AuthError = () => {
               )}
             </div>
           </CardContent>
-        </Card>
+            </Card>
+          </div>
+        </div>
       </div>
     </div>
   );

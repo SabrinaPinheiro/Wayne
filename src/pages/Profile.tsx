@@ -191,13 +191,15 @@ export const Profile = () => {
           </Card>
         </div>
 
-        <Alert className="border-primary/20 bg-primary/5">
-          <User className="h-4 w-4 text-primary" />
-          <AlertDescription>
-            <strong>Informação:</strong> Algumas informações como função e email são gerenciadas pelo administrador do sistema.
-            Para alterações nestes campos, entre em contato com o administrador.
-          </AlertDescription>
-        </Alert>
+        {profile?.role !== 'admin' && (
+          <Alert className="border-primary/20 bg-primary/5">
+            <User className="h-4 w-4 text-primary" />
+            <AlertDescription>
+              <strong>Informação:</strong> Algumas informações como função e email são gerenciadas pelo administrador do sistema.
+              Para alterações nestes campos, entre em contato com o administrador.
+            </AlertDescription>
+          </Alert>
+        )}
       </div>
     </div>
   );

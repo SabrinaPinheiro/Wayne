@@ -28,7 +28,7 @@ export const VehicleMovementChart = () => {
       const { data: vehicles, error: vehiclesError } = await supabase
         .from('resources')
         .select('id')
-        .eq('type', 'Veículo');
+        .eq('type', 'veiculo');
 
       if (vehiclesError) {
         console.error('Error loading vehicles:', vehiclesError);

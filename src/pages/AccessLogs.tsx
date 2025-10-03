@@ -52,6 +52,13 @@ export const AccessLogs = () => {
   });
   const itemsPerPage = 10;
 
+  // Debug information
+  console.log('📋 [AccessLogs Page] Current user profile:', profile);
+  console.log('🔑 [AccessLogs Page] Profile role:', profile?.role);
+  console.log('👤 [AccessLogs Page] Is admin?', profile?.role === 'admin');
+  console.log('👨‍💼 [AccessLogs Page] Is gerente?', profile?.role === 'gerente');
+  console.log('⏳ [AccessLogs Page] Profile loading?', !profile);
+
   useEffect(() => {
     loadLogs();
   }, [currentPage, filters]);
@@ -350,35 +357,36 @@ export const AccessLogs = () => {
                 ))}
               </div>
 
-              {/* Desktop Table */}
+              {/* Desktop Table Layout */}
               <div className="hidden sm:block overflow-x-auto">
-                <Table className="min-w-[800px]">
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-[140px]">Data/Hora</TableHead>
-                      <TableHead className="w-[150px]">Usuário</TableHead>
-                      <TableHead className="w-[150px]">Recurso</TableHead>
-                      <TableHead className="w-[100px]">Tipo</TableHead>
-                      <TableHead className="w-[100px]">Ação</TableHead>
-                      <TableHead className="min-w-[150px]">Observações</TableHead>
-                    </TableRow>
-                  </TableHeader>
+                <div className="w-full">
+                  <Table className="w-full table-fixed">
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-[12%]">Data/Hora</TableHead>
+                        <TableHead className="w-[18%]">Usuário</TableHead>
+                        <TableHead className="w-[20%]">Recurso</TableHead>
+                        <TableHead className="w-[12%]">Tipo</TableHead>
+                        <TableHead className="w-[12%]">Ação</TableHead>
+                        <TableHead className="w-[26%]">Observações</TableHead>
+                      </TableRow>
+                    </TableHeader>
                     <TableBody>
                       {logs.map((log) => (
                         <TableRow key={log.id}>
-                          <TableCell className="font-mono text-sm whitespace-nowrap">
-                            {format(new Date(log.timestamp), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
+                          <TableCell className="font-mono text-xs">
+                            {format(new Date(log.timestamp), 'dd/MM HH:mm', { locale: ptBR })}
                           </TableCell>
-                          <TableCell className="max-w-[100px] truncate">
-                            <div className="flex items-center gap-2">
-                              <User className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                              <span className="truncate">{log.user_name}</span>
+                          <TableCell className="truncate">
+                            <div className="flex items-center gap-1">
+                              <User className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                              <span className="truncate text-sm">{log.user_name}</span>
                             </div>
                           </TableCell>
-                          <TableCell className="max-w-[120px] truncate">
-                            <div className="flex items-center gap-2">
-                              <Package className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                              <span className="truncate">{log.resource_name}</span>
+                          <TableCell className="truncate">
+                            <div className="flex items-center gap-1">
+                              <Package className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                              <span className="truncate text-sm">{log.resource_name}</span>
                             </div>
                           </TableCell>
                           <TableCell>
@@ -389,13 +397,14 @@ export const AccessLogs = () => {
                               {ACTION_LABELS[log.action as keyof typeof ACTION_LABELS]?.label || log.action}
                             </Badge>
                           </TableCell>
-                          <TableCell className="max-w-[120px] truncate" title={log.notes}>
+                          <TableCell className="truncate text-sm" title={log.notes}>
                             {log.notes || '-'}
                           </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
-                </Table>
+                  </Table>
+                </div>
               </div>
 
               {/* Pagination */}

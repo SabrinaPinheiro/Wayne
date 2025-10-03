@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,10 +7,14 @@ import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/components/ui/use-toast';
+import { useAuth } from '@/context/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 import { Settings2, Bell, Download, Shield, Palette } from 'lucide-react';
 
 export const Settings = () => {
   const { toast } = useToast();
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [notifications, setNotifications] = useState({
     email: true,
     push: true,
@@ -21,11 +25,91 @@ export const Settings = () => {
   const [exportFrequency, setExportFrequency] = useState('weekly');
   const [theme, setTheme] = useState('dark');
 
-  const handleSave = () => {
-    toast({
-      title: "Configurações salvas",
-      description: "Suas preferências foram atualizadas com sucesso.",
-    });
+  useEffect(() => {
+    if (user) {
+      loadUserSettings();
+    }
+  }, [user]);
+
+  const loadUserSettings = async () => {
+    try {
+      setLoading(true);
+      
+      const { data, error } = await supabase
+        .from('user_settings')
+        .select('*')
+        .eq('user_id', user?.id)
+        .single();
+
+      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+        console.error('Error loading user settings:', error);
+        return;
+      }
+
+      if (data) {
+        setNotifications({
+          email: data.email_notifications ?? true,
+          push: data.push_notifications ?? false,
+          alerts: data.notifications_enabled ?? true,
+          reports: data.report_preferences?.weekly_reports ?? false
+        });
+      }
+    } catch (error) {
+      console.error('Error loading user settings:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSave = async () => {
+    if (!user) return;
+
+    try {
+      setLoading(true);
+
+      const settingsData = {
+        user_id: user.id,
+        email_notifications: notifications.email,
+        push_notifications: notifications.push,
+        notifications_enabled: notifications.alerts,
+        report_preferences: {
+          weekly_reports: notifications.reports,
+          export_frequency: exportFrequency,
+          auto_export: autoExport
+        },
+        updated_at: new Date().toISOString()
+      };
+
+      const { error } = await supabase
+        .from('user_settings')
+        .upsert(settingsData, {
+          onConflict: 'user_id'
+        });
+
+      if (error) {
+        console.error('Error saving settings:', error);
+        toast({
+          title: "Erro ao salvar",
+          description: "Não foi possível salvar as configurações. Tente novamente.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Configurações salvas",
+        description: "Suas preferências foram atualizadas com sucesso.",
+      });
+    } catch (error) {
+      console.error('Error saving settings:', error);
+      toast({
+        title: "Erro ao salvar",
+        description: "Ocorreu um erro inesperado. Tente novamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleExportData = () => {
@@ -68,6 +152,7 @@ export const Settings = () => {
                 onCheckedChange={(checked) => 
                   setNotifications(prev => ({ ...prev, email: checked }))
                 }
+                disabled={loading}
               />
             </div>
             
@@ -79,6 +164,7 @@ export const Settings = () => {
                 onCheckedChange={(checked) => 
                   setNotifications(prev => ({ ...prev, push: checked }))
                 }
+                disabled={loading}
               />
             </div>
             
@@ -90,6 +176,7 @@ export const Settings = () => {
                 onCheckedChange={(checked) => 
                   setNotifications(prev => ({ ...prev, alerts: checked }))
                 }
+                disabled={loading}
               />
             </div>
             
@@ -101,6 +188,7 @@ export const Settings = () => {
                 onCheckedChange={(checked) => 
                   setNotifications(prev => ({ ...prev, reports: checked }))
                 }
+                disabled={loading}
               />
             </div>
           </CardContent>
@@ -124,13 +212,14 @@ export const Settings = () => {
                 id="auto-export"
                 checked={autoExport}
                 onCheckedChange={setAutoExport}
+                disabled={loading}
               />
             </div>
             
             {autoExport && (
               <div className="space-y-2">
                 <Label htmlFor="export-frequency">Frequência</Label>
-                <Select value={exportFrequency} onValueChange={setExportFrequency}>
+                <Select value={exportFrequency} onValueChange={setExportFrequency} disabled={loading}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -145,7 +234,7 @@ export const Settings = () => {
             
             <Separator />
             
-            <Button onClick={handleExportData} variant="outline" className="w-full">
+            <Button onClick={handleExportData} variant="outline" className="w-full" disabled={loading}>
               Exportar dados agora
             </Button>
           </CardContent>
@@ -153,8 +242,8 @@ export const Settings = () => {
       </div>
 
       <div className="flex justify-end pt-6">
-        <Button onClick={handleSave} className="min-w-32">
-          Salvar Configurações
+        <Button onClick={handleSave} className="min-w-32" disabled={loading}>
+          {loading ? "Salvando..." : "Salvar Configurações"}
         </Button>
       </div>
     </div>

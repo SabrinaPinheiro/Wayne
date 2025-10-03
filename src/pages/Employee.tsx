@@ -101,7 +101,7 @@ export const Employee = () => {
         .insert({
           user_id: profile?.user_id,
           resource_id: resourceId,
-          action: 'solicitacao',
+          action: 'acesso',
           notes: `Solicitação de acesso ao recurso: ${resourceName}`
         });
 
@@ -261,7 +261,7 @@ export const Employee = () => {
                         <Badge variant="outline" className="text-sm">
                           {log.action === 'checkout' ? 'Retirada' : 
                            log.action === 'checkin' ? 'Devolução' : 
-                           log.action === 'solicitacao' ? 'Solicitação' : 'Manutenção'}
+                           log.action === 'acesso' ? 'Acesso' : 'Manutenção'}
                         </Badge>
                       </div>
                       {log.notes && (
