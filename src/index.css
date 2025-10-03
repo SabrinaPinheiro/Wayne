@@ -388,3 +388,42 @@ html, body {
   overflow-wrap: break-word !important;
   max-width: 100% !important;
 }
+
+/* TOAST RADICAL FIX: Force toasts to respect content width */
+[data-radix-toast-root],
+[data-radix-toast-viewport],
+.toast-root,
+.toast-viewport {
+  max-width: calc(100vw - 32px) !important;
+  width: auto !important;
+  min-width: 280px !important;
+  box-sizing: border-box !important;
+}
+
+/* Mobile toast fixes */
+@media (max-width: 480px) {
+  [data-radix-toast-root],
+  [data-radix-toast-viewport] {
+    max-width: calc(100vw - 16px) !important;
+    margin: 8px !important;
+    padding: 12px !important;
+    min-width: 260px !important;
+  }
+}
+
+/* Force toast containers to be flexible */
+[data-radix-toast-root] > *,
+[data-radix-toast-viewport] > *,
+[data-radix-toast-root] h1,
+[data-radix-toast-root] h2,
+[data-radix-toast-root] h3,
+[data-radix-toast-root] p,
+[data-radix-toast-viewport] h1,
+[data-radix-toast-viewport] h2,
+[data-radix-toast-viewport] h3,
+[data-radix-toast-viewport] p {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
