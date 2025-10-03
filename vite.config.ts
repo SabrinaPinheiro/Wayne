@@ -20,10 +20,14 @@ export default defineConfig(() => ({
         manualChunks: undefined,
       },
     },
+    // Garantir que os arquivos de configuração sejam copiados
+    copyPublicDir: true,
   },
   // Configuração para SPA - redireciona todas as rotas para index.html
   preview: {
     port: 8080,
     host: "::",
   },
+  // Configuração adicional para garantir SPA routing
+  appType: 'spa',
 }));
