@@ -5,8 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, CheckCircle, XCircle, ArrowLeft } from 'lucide-react';
-import logoWayne from '@/assets/logo-wayne.png';
-import logoBatman from '@/assets/logo-batman.png';
+const logoWayne = '/logo-wayne.png';
+const logoBatman = '/logo-batman.png';
 
 export const Confirm = () => {
   const { verifyOtp } = useAuth();
@@ -165,8 +165,8 @@ export const Confirm = () => {
         </div>
 
         {/* Coluna direita - Conteúdo */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-6">
-          <div className="w-full px-4 lg:mx-[25%] lg:px-0">
+        <div className="w-full lg:w-1/2 flex items-center justify-center px-6 md:px-24 lg:px-32 xl:px-40 py-6">
+          <div className="w-full max-w-md mx-auto">
             <div className="text-center mb-8">
               <img 
                 src={logoWayne} 

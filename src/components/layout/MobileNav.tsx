@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
-import logoBatman from '@/assets/logo-batman.png';
+const logoBatman = '/logo-batman.png';
 
 interface NavItem {
   title: string;

@@ -343,3 +343,48 @@ html, body {
     color: hsl(var(--accent-foreground));
   }
 }
+
+/* MODAL RADICAL FIX: Force modals to respect content width */
+[data-radix-dialog-content], 
+[data-radix-alert-dialog-content],
+.dialog-content,
+.alert-dialog-content {
+  max-width: calc(100vw - 32px) !important;
+  width: auto !important;
+  min-width: 280px !important;
+  box-sizing: border-box !important;
+}
+
+/* Mobile modal fixes */
+@media (max-width: 480px) {
+  [data-radix-dialog-content], 
+  [data-radix-alert-dialog-content],
+  .dialog-content,
+  .alert-dialog-content {
+    max-width: calc(100vw - 16px) !important;
+    margin: 8px !important;
+    padding: 16px !important;
+    min-width: 260px !important;
+  }
+}
+
+/* Force modal containers to be flexible */
+[data-radix-dialog-content] > *,
+[data-radix-alert-dialog-content] > * {
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* Prevent modal text overflow */
+[data-radix-dialog-content] h1,
+[data-radix-dialog-content] h2,
+[data-radix-dialog-content] h3,
+[data-radix-dialog-content] p,
+[data-radix-alert-dialog-content] h1,
+[data-radix-alert-dialog-content] h2,
+[data-radix-alert-dialog-content] h3,
+[data-radix-alert-dialog-content] p {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  max-width: 100% !important;
+}

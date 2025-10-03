@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import logoWayne from '@/assets/logo-wayne.png';
-import logoBatman from '@/assets/logo-batman.png';
+const logoWayne = '/logo-wayne.png';
+const logoBatman = '/logo-batman.png';
 
 const Index = () => {
   const features = [
@@ -111,7 +111,7 @@ const Index = () => {
           />
         </div>
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="container mx-auto px-4 py-20 relative z-10">
+        <div className="container mx-auto px-6 md:px-8 lg:px-20 xl:px-32 2xl:px-40 py-20 relative z-10">
           <div className="text-center space-y-8">
             <div className="flex justify-center mb-8">
               <img 
@@ -147,7 +147,7 @@ const Index = () => {
 
       {/* About Section */}
       <section className="py-20 bg-card/30">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6 md:px-8 lg:px-20 xl:px-32 2xl:px-40">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               <span className="gradient-text">Sobre o Sistema</span>
@@ -181,7 +181,7 @@ const Index = () => {
 
       {/* User Hierarchy Section */}
       <section className="py-20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6 md:px-8 lg:px-20 xl:px-32 2xl:px-40">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               <span className="gradient-text">Hierarquia de Usuários</span>
@@ -231,7 +231,7 @@ const Index = () => {
 
       {/* Technologies Section */}
       <section className="py-20 bg-card/30">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6 md:px-8 lg:px-20 xl:px-32 2xl:px-40">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               <span className="gradient-text">Tecnologias & Arquitetura</span>
@@ -307,7 +307,7 @@ const Index = () => {
             style={{ filter: 'brightness(1.1) contrast(1.05)' }}
           />
         </div>
-        <div className="container mx-auto px-4 text-center relative z-10">
+        <div className="container mx-auto px-6 md:px-8 lg:px-20 xl:px-32 2xl:px-40 text-center relative z-10">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="gradient-text">Explore o Sistema</span>
           </h2>
@@ -329,7 +329,7 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="py-12 border-t border-border/50">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6 md:px-8 lg:px-20 xl:px-32 2xl:px-40">
           <p className="text-sm text-muted-foreground text-center">
             Site desenvolvido por <a href="https://spdev.com.br" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors underline">spdev.com.br</a> - Sabrina Pinheiro - Projeto Final Curso de Programação Full Stack IA da Infinity School
           </p>

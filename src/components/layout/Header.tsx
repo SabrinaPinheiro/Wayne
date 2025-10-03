@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { NotificationBell } from './NotificationBell';
-import symbolWayne from '@/assets/symbol-wayne.png';
+const symbolWayne = '/symbol-wayne.png';
 
 export const Header = () => {
   const { profile, signOut } = useAuth();

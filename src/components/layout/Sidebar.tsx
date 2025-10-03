@@ -2,9 +2,9 @@ import { LayoutDashboard, Package, History, User, FileText } from 'lucide-react'
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { useIsMobile } from '@/hooks/use-mobile';
-import logoWayne from '@/assets/logo-wayne.png';
-import symbolWayne from '@/assets/symbol-wayne.png';
-import logoBatman from '@/assets/logo-batman.png';
+const logoWayne = '/logo-wayne.png';
+const symbolWayne = '/symbol-wayne.png';
+const logoBatman = '/logo-batman.png';
 import {
   Sidebar,
   SidebarContent,

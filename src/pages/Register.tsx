@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, ArrowLeft } from 'lucide-react';
-import logoWayne from '@/assets/logo-wayne.png';
+const logoWayne = '/logo-wayne.png';
 
 export const Register = () => {
   const { user, signUp, loading } = useAuth();
@@ -85,7 +85,7 @@ export const Register = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,193,7,0.2),transparent_50%)]"></div>
         <div className="text-center relative z-10 mx-[25%]">
           <img 
-            src="/src/assets/logo-batman.png" 
+            src="/logo-batman.png" 
             alt="Batman Logo" 
             className="h-48 w-auto mx-auto mb-6 opacity-90 hover:opacity-100 transition-opacity duration-300 drop-shadow-2xl"
           />
@@ -95,8 +95,8 @@ export const Register = () => {
       </div>
 
       {/* Right Column - Register Form */}
-      <div className="flex-1 flex items-center justify-center p-6 lg:p-8">
-        <div className="w-full px-4 lg:mx-[25%] lg:px-0">
+      <div className="flex-1 flex items-center justify-center px-6 md:px-24 lg:px-32 xl:px-40 py-6 lg:py-8">
+        <div className="w-full max-w-md mx-auto">
           <div className="text-center mb-8">
             <img 
               src={logoWayne} 

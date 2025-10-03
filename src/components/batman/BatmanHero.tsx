@@ -1,5 +1,5 @@
 import { Shield } from 'lucide-react';
-import logoBatman from '@/assets/logo-batman.png';
+const logoBatman = '/logo-batman.png';
 
 export const BatmanHero = () => {
   return (

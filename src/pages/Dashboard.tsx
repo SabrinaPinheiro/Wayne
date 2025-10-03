@@ -9,7 +9,7 @@ import { AccessChart } from '@/components/dashboard/AccessChart';
 import { ResourceStatusChart } from '@/components/dashboard/ResourceStatusChart';
 import { VehicleMovementChart } from '@/components/dashboard/VehicleMovementChart';
 import { ActivityTimeline } from '@/components/dashboard/ActivityTimeline';
-import logoBatman from '@/assets/logo-batman.png';
+const logoBatman = '/logo-batman.png';
 
 interface DashboardStats {
   totalResources: number;
@@ -152,7 +152,7 @@ export const Dashboard = () => {
         <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-gotham-black to-transparent" />
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-6 space-y-6">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 xl:px-16 py-6 space-y-6">
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

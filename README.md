@@ -1,11 +1,11 @@
 # Wayne Industries - Sistema de Gestão de Recursos
 
 <div align="center">
-  <img src="src/assets/logo-wayne.png" alt="Wayne Industries Logo" width="200"/>
+  <img src="public/logo-wayne.png" alt="Wayne Industries Logo" width="200"/>
   
   **Sistema de Gerenciamento de Segurança e Recursos**
   
-  <img src="src/assets/logo-batman.png" alt="Batman Logo" width="150"/>
+  <img src="public/logo-batman.png" alt="Batman Logo" width="150"/>
   
   *Projeto Final - Desenvolvimento Full Stack*
   
